@@ -1,0 +1,83 @@
+[
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000201"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000001"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000101"},
+      "data_venda": {"$date": "2024-11-01T00:00:00Z"},
+      "quantidade": 2,
+      "valor_total": 70.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000202"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000002"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000102"},
+      "data_venda": {"$date": "2024-11-02T00:00:00Z"},
+      "quantidade": 1,
+      "valor_total": 42.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000203"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000003"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000103"},
+      "data_venda": {"$date": "2024-11-03T00:00:00Z"},
+      "quantidade": 3,
+      "valor_total": 84.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000204"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000004"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000104"},
+      "data_venda": {"$date": "2024-11-04T00:00:00Z"},
+      "quantidade": 1,
+      "valor_total": 15.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000205"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000005"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000105"},
+      "data_venda": {"$date": "2024-11-05T00:00:00Z"},
+      "quantidade": 2,
+      "valor_total": 40.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000206"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000006"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000106"},
+      "data_venda": {"$date": "2024-11-06T00:00:00Z"},
+      "quantidade": 3,
+      "valor_total": 54.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000207"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000007"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000107"},
+      "data_venda": {"$date": "2024-11-07T00:00:00Z"},
+      "quantidade": 1,
+      "valor_total": 80.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000208"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000008"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000108"},
+      "data_venda": {"$date": "2024-11-08T00:00:00Z"},
+      "quantidade": 1,
+      "valor_total": 120.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000209"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000009"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000109"},
+      "data_venda": {"$date": "2024-11-09T00:00:00Z"},
+      "quantidade": 2,
+      "valor_total": 180.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000210"},
+      "cliente_id": {"$oid": "64b1f5e1c9f0a79f1e000010"},
+      "produto_id": {"$oid": "64b1f5e1c9f0a79f1e000110"},
+      "data_venda": {"$date": "2024-11-10T00:00:00Z"},
+      "quantidade": 1,
+      "valor_total": 150.00
+    }
+  ]
+  
