@@ -8,7 +8,6 @@
 | Guilherme Akira                   | xxxxxxx  |
 | Grabriela Ando                    | xxxxxxx  |
 | Michel                            | xxxxxxx  |
-| Otavio                            | xxxxxxx  |
 | Rodrigo Soares da Silva           | 1411295  |
 
 
