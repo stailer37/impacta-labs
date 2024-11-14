@@ -63,6 +63,7 @@ db.compras.insertMany([
     }
   ])
 
+
 #Comando para responder a pergunta de negócio
 #Qual é a média de quantidade de produtos comprados por cliente?
 db.compras.aggregate([
@@ -97,7 +98,7 @@ db.compras.aggregate([
   { $group: { _id: "$produto.categoria", total: { $sum: "$quantidade" } } }
 ])
 
-#Preço mínimo de produtos por categoria
+#Preço mínimo de produtos
 db.compras.aggregate([
   { $group: { _id: "$produto.nome", total: { $min: "$preco" } } }
 ])

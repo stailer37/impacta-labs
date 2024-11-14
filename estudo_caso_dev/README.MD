@@ -89,3 +89,18 @@ db.compras.aggregate([
   { $group: { _id: "Quantidade total de produtos comprados", total: { $sum: "$quantidade" } } }
 ])
 ```
+
+
+- **Quantidade total de produtos comprados por categoria**:
+```javascript
+db.compras.aggregate([
+  { $group: { _id: "$produto.categoria", total: { $sum: "$quantidade" } } }
+])
+```
+
+- **Preço mínimo de produtos**:
+```javascript
+db.compras.aggregate([
+  { $group: { _id: "$produto.nome", total: { $min: "$preco" } } }
+])
+```
