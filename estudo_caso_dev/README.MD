@@ -3,11 +3,11 @@
 ## Integrantes
 | Nome                              | RA       |
 |-----------------------------------|----------|
-| Bruno Viggiani                    | xxxxxxx  |
-| Ellen                             | xxxxxxx  |
-| Guilherme Akira                   | xxxxxxx  |
-| Grabriela Ando                    | xxxxxxx  |
-| Michel                            | xxxxxxx  |
+| Bruno Viggiani                    | 2404401  |
+| Ellen Viana                       | 2404184  |
+| Guilherme Akira                   | 2403928  |
+| Gabriela Yuri Uyeda Ando          | 2404207  |
+| Michel Giovanoni                  | 2404080  |
 | Rodrigo Soares da Silva           | 1411295  |
 
 
