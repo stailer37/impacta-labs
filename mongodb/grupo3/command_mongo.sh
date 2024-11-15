@@ -1,4 +1,4 @@
-===========================================Insert PRODUTOS===================================================
+// ===========================================Insert PRODUTOS===================================================
 
 db.produtos.insertMany([
   {
@@ -123,7 +123,7 @@ db.produtos.insertMany([
   }
 ]);
 
-===========================================Insert CLIENTES===================================================
+//===========================================Insert CLIENTES===================================================
 
 db.clientes.insertMany([
   {
@@ -163,7 +163,7 @@ db.clientes.insertMany([
   }
 ]);
 
-===========================================Insert VENDAS===================================================
+//===========================================Insert VENDAS===================================================
 
 db.vendas.insertMany([
   {
@@ -248,7 +248,7 @@ db.vendas.insertMany([
   }
 ]);
 
-==================================Pergunta Qual é o valor médio das vendas por estado do cliente?==========================================
+// ==================================Pergunta Qual é o valor médio das vendas por estado do cliente?==========================================
 
 db.vendas.aggregate([
   {
@@ -266,15 +266,8 @@ db.vendas.aggregate([
     $group: {
       _id: "$cliente_info.estado",	
       valor_medio_venda: { $avg: "$valor_total" }
-    }
-  }
+   }
+}
 ])
 
-============================= Resultado ==============================
-[
-  { _id: 'PR', valor_medio_venda: 40 },
-  { _id: 'SP', valor_medio_venda: 70 },
-  { _id: 'RJ', valor_medio_venda: 42 },
-  { _id: 'MG', valor_medio_venda: 84 },
-  { _id: 'BA', valor_medio_venda: 15 }
-]
+
