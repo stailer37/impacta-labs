@@ -1,0 +1,123 @@
+[
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000101"},
+      "nome": "Livro de Ficção Científica",
+      "tipo": "Livros",
+      "preco": 35.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000102"},
+      "nome": "Livro de Romance",
+      "tipo": "Livros",
+      "preco": 42.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000103"},
+      "nome": "Livro de Autoajuda",
+      "tipo": "Livros",
+      "preco": 28.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000104"},
+      "nome": "CD de Música Clássica",
+      "tipo": "CDs",
+      "preco": 15.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000105"},
+      "nome": "CD de Rock",
+      "tipo": "CDs",
+      "preco": 20.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000106"},
+      "nome": "CD de Jazz",
+      "tipo": "CDs",
+      "preco": 18.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000107"},
+      "nome": "Mini Processador de Alimentos",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 80.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000108"},
+      "nome": "Liquidificador Compacto",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 120.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000109"},
+      "nome": "Mixer de Mão",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 90.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000110"},
+      "nome": "Cafeteira de Cápsulas",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 150.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000111"},
+      "nome": "Espremedor de Frutas",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 70.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000112"},
+      "nome": "Livro de Mistério",
+      "tipo": "Livros",
+      "preco": 40.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000113"},
+      "nome": "Livro de História",
+      "tipo": "Livros",
+      "preco": 50.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000114"},
+      "nome": "CD de Pop",
+      "tipo": "CDs",
+      "preco": 25.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000115"},
+      "nome": "CD de MPB",
+      "tipo": "CDs",
+      "preco": 22.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000116"},
+      "nome": "Chaleira Elétrica",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 85.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000117"},
+      "nome": "Panela de Arroz Elétrica",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 130.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000118"},
+      "nome": "Torradeira",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 60.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000119"},
+      "nome": "Batedeira Portátil",
+      "tipo": "Pequenos Eletrodomésticos de Cozinha",
+      "preco": 110.00
+    },
+    {
+      "_id": {"$oid": "64b1f5e1c9f0a79f1e000120"},
+      "nome": "Livro de Biografia",
+      "tipo": "Livros",
+      "preco": 55.00
+    }
+  ]
+  
