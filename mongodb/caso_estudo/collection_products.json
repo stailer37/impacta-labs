@@ -1,128 +1,78 @@
-
 [
     {
-      "_id": "673e0ebd25247e6fdcfe6911",
-      "cliente": {
-        "primeiro_nome": "Cliente${i + 4}",
-        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
-      },
+      "_id": "673e152025247e6fdcfe69a7",
+      "cliente": { "primeiro_nome": "Cliente4", "id_cliente": "C003" },
+      "produto": { "categoria": "cds", "nome": "Album Sgt. Pepper's", "valor": 105.46 },
+      "estado": "SC",
+      "data_compra": "2024-10-29T07:27:37.520Z",
+      "quantidade": 1,
+      "click_stream": [
+        { "pagina": "home", "timestamp": "2024-10-29T07:12:37.520Z" },
+        { "pagina": "produto", "timestamp": "2024-10-29T07:22:37.520Z" }
+      ]
+    },
+    {
+      "_id": "673e152025247e6fdcfe69a8",
+      "cliente": { "primeiro_nome": "Cliente5", "id_cliente": "C004" },
       "produto": {
-        "categoria": "eletro_cozinha",
-        "nome": "Fogão",
-        "valor": 144.73
+        "categoria": "cds",
+        "nome": "Album Appetite for Destruction",
+        "valor": 334.03
       },
-      "estado": "AL",
-      "data_compra": "2024-10-26T19:41:58.975Z",
+      "estado": "MA",
+      "data_compra": "2024-10-22T17:49:31.256Z",
       "quantidade": 3,
       "click_stream": [
-        {
-          "pagina": "home",
-          "timestamp": "2024-10-26T19:26:58.975Z"
-        },
-        {
-          "pagina": "produto",
-          "timestamp": "2024-10-26T19:36:58.975Z"
-        }
+        { "pagina": "home", "timestamp": "2024-10-22T17:34:31.256Z" },
+        { "pagina": "produto", "timestamp": "2024-10-22T17:44:31.256Z" }
       ]
     },
     {
-      "_id": "673e0ebd25247e6fdcfe6912",
-      "cliente": {
-        "primeiro_nome": "Cliente${i + 4}",
-        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
-      },
-      "produto": {
-        "categoria": "cds",
-        "nome": "Album Born in the U.S.A.",
-        "valor": 321.49
-      },
-      "estado": "RJ",
-      "data_compra": "2024-10-29T01:10:53.703Z",
-      "quantidade": 1,
-      "click_stream": [
-        {
-          "pagina": "home",
-          "timestamp": "2024-10-29T00:55:53.703Z"
-        },
-        {
-          "pagina": "produto",
-          "timestamp": "2024-10-29T01:05:53.703Z"
-        }
-      ]
-    },
-    {
-      "_id": "673e0ebd25247e6fdcfe6913",
-      "cliente": {
-        "primeiro_nome": "Cliente${i + 4}",
-        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
-      },
-      "produto": {
-        "categoria": "livros",
-        "nome": "A Metamorfose",
-        "valor": 484.58
-      },
-      "estado": "MG",
-      "data_compra": "2024-10-28T01:21:57.704Z",
-      "quantidade": 1,
-      "click_stream": [
-        {
-          "pagina": "home",
-          "timestamp": "2024-10-28T01:06:57.704Z"
-        },
-        {
-          "pagina": "produto",
-          "timestamp": "2024-10-28T01:16:57.704Z"
-        }
-      ]
-    },
-    {
-      "_id": "673e0ebd25247e6fdcfe6914",
-      "cliente": {
-        "primeiro_nome": "Cliente${i + 4}",
-        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
-      },
-      "produto": {
-        "categoria": "livros",
-        "nome": "O Senhor dos Anéis",
-        "valor": 450.35
-      },
-      "estado": "RR",
-      "data_compra": "2024-11-18T09:05:33.502Z",
-      "quantidade": 1,
-      "click_stream": [
-        {
-          "pagina": "home",
-          "timestamp": "2024-11-18T08:50:33.502Z"
-        },
-        {
-          "pagina": "produto",
-          "timestamp": "2024-11-18T09:00:33.502Z"
-        }
-      ]
-    },
-    {
-      "_id": "673e0ebd25247e6fdcfe6915",
-      "cliente": {
-        "primeiro_nome": "Cliente${i + 4}",
-        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
-      },
-      "produto": {
-        "categoria": "cds",
-        "nome": "Album Led Zeppelin IV",
-        "valor": 163.35
-      },
+      "_id": "673e152025247e6fdcfe69a9",
+      "cliente": { "primeiro_nome": "Cliente6", "id_cliente": "C005" },
+      "produto": { "categoria": "livros", "nome": "Moby Dick", "valor": 490.15 },
       "estado": "PR",
-      "data_compra": "2024-11-08T21:55:11.534Z",
+      "data_compra": "2024-11-20T02:34:19.895Z",
+      "quantidade": 3,
+      "click_stream": [
+        { "pagina": "home", "timestamp": "2024-11-20T02:19:19.895Z" },
+        { "pagina": "produto", "timestamp": "2024-11-20T02:29:19.895Z" }
+      ]
+    },
+    {
+      "_id": "673e152025247e6fdcfe69aa",
+      "cliente": { "primeiro_nome": "Cliente7", "id_cliente": "C006" },
+      "produto": { "categoria": "livros", "nome": "1984", "valor": 272.47 },
+      "estado": "RO",
+      "data_compra": "2024-11-14T21:24:51.828Z",
       "quantidade": 2,
       "click_stream": [
-        {
-          "pagina": "home",
-          "timestamp": "2024-11-08T21:40:11.534Z"
-        },
-        {
-          "pagina": "produto",
-          "timestamp": "2024-11-08T21:50:11.534Z"
-        }
+        { "pagina": "home", "timestamp": "2024-11-14T21:09:51.828Z" },
+        { "pagina": "produto", "timestamp": "2024-11-14T21:19:51.828Z" }
+      ]
+    },
+    {
+      "_id": "673e152025247e6fdcfe69ab",
+      "cliente": { "primeiro_nome": "Cliente8", "id_cliente": "C007" },
+      "produto": { "categoria": "cds", "nome": "Album Thriller", "valor": 489.47 },
+      "estado": "GO",
+      "data_compra": "2024-11-09T19:51:56.980Z",
+      "quantidade": 3,
+      "click_stream": [
+        { "pagina": "home", "timestamp": "2024-11-09T19:36:56.980Z" },
+        { "pagina": "produto", "timestamp": "2024-11-09T19:46:56.980Z" }
+      ]
+    },
+    {
+      "_id": "673e152025247e6fdcfe69ac",
+      "cliente": { "primeiro_nome": "Cliente9", "id_cliente": "C008" },
+      "produto": { "categoria": "eletro_cozinha", "nome": "Mixer", "valor": 418.62 },
+      "estado": "RS",
+      "data_compra": "2024-11-10T16:19:51.019Z",
+      "quantidade": 3,
+      "click_stream": [
+        { "pagina": "home", "timestamp": "2024-11-10T16:04:51.019Z" },
+        { "pagina": "produto", "timestamp": "2024-11-10T16:14:51.019Z" }
       ]
     }
   ]
