@@ -1,0 +1,129 @@
+
+[
+    {
+      "_id": "673e0ebd25247e6fdcfe6911",
+      "cliente": {
+        "primeiro_nome": "Cliente${i + 4}",
+        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
+      },
+      "produto": {
+        "categoria": "eletro_cozinha",
+        "nome": "Fogão",
+        "valor": 144.73
+      },
+      "estado": "AL",
+      "data_compra": "2024-10-26T19:41:58.975Z",
+      "quantidade": 3,
+      "click_stream": [
+        {
+          "pagina": "home",
+          "timestamp": "2024-10-26T19:26:58.975Z"
+        },
+        {
+          "pagina": "produto",
+          "timestamp": "2024-10-26T19:36:58.975Z"
+        }
+      ]
+    },
+    {
+      "_id": "673e0ebd25247e6fdcfe6912",
+      "cliente": {
+        "primeiro_nome": "Cliente${i + 4}",
+        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
+      },
+      "produto": {
+        "categoria": "cds",
+        "nome": "Album Born in the U.S.A.",
+        "valor": 321.49
+      },
+      "estado": "RJ",
+      "data_compra": "2024-10-29T01:10:53.703Z",
+      "quantidade": 1,
+      "click_stream": [
+        {
+          "pagina": "home",
+          "timestamp": "2024-10-29T00:55:53.703Z"
+        },
+        {
+          "pagina": "produto",
+          "timestamp": "2024-10-29T01:05:53.703Z"
+        }
+      ]
+    },
+    {
+      "_id": "673e0ebd25247e6fdcfe6913",
+      "cliente": {
+        "primeiro_nome": "Cliente${i + 4}",
+        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
+      },
+      "produto": {
+        "categoria": "livros",
+        "nome": "A Metamorfose",
+        "valor": 484.58
+      },
+      "estado": "MG",
+      "data_compra": "2024-10-28T01:21:57.704Z",
+      "quantidade": 1,
+      "click_stream": [
+        {
+          "pagina": "home",
+          "timestamp": "2024-10-28T01:06:57.704Z"
+        },
+        {
+          "pagina": "produto",
+          "timestamp": "2024-10-28T01:16:57.704Z"
+        }
+      ]
+    },
+    {
+      "_id": "673e0ebd25247e6fdcfe6914",
+      "cliente": {
+        "primeiro_nome": "Cliente${i + 4}",
+        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
+      },
+      "produto": {
+        "categoria": "livros",
+        "nome": "O Senhor dos Anéis",
+        "valor": 450.35
+      },
+      "estado": "RR",
+      "data_compra": "2024-11-18T09:05:33.502Z",
+      "quantidade": 1,
+      "click_stream": [
+        {
+          "pagina": "home",
+          "timestamp": "2024-11-18T08:50:33.502Z"
+        },
+        {
+          "pagina": "produto",
+          "timestamp": "2024-11-18T09:00:33.502Z"
+        }
+      ]
+    },
+    {
+      "_id": "673e0ebd25247e6fdcfe6915",
+      "cliente": {
+        "primeiro_nome": "Cliente${i + 4}",
+        "id_cliente": "C${String(3 + i).padStart(3, \"0\")}"
+      },
+      "produto": {
+        "categoria": "cds",
+        "nome": "Album Led Zeppelin IV",
+        "valor": 163.35
+      },
+      "estado": "PR",
+      "data_compra": "2024-11-08T21:55:11.534Z",
+      "quantidade": 2,
+      "click_stream": [
+        {
+          "pagina": "home",
+          "timestamp": "2024-11-08T21:40:11.534Z"
+        },
+        {
+          "pagina": "produto",
+          "timestamp": "2024-11-08T21:50:11.534Z"
+        }
+      ]
+    }
+  ]
+  
