@@ -1,0 +1,312 @@
+db.description_products.insertMany([
+
+        // Início dados Japonës
+    
+        {
+            "id_produto" : 92,
+            "categoria" : "CD",
+            "nome_produto" : "P.O.D",
+            "preco" : 94.90,
+            "descricao" : "Album de Música da banda POD, renomada banda dos anos 90",
+            "fabricado" : 1998,
+            "fabricante" : "Sony Music"
+
+        
+    },
+    
+    {
+            "id_produto" : 13,
+            "categoria" : "CD",
+            "nome_produto" : "Kate Perry",
+            "preco" : 74.90,
+            "descricao" : "Album de Música da cantora de pop Katty Perry",
+            "fabricado" : 2010,
+            "fabricante" : "Universal Music"
+        
+    },
+    
+    {
+    
+            "id_produto" : 14,
+            "categoria" : "CD",
+            "nome_produto" : "BDS",
+            "preco" : 24.90,
+            "descricao" : "Album de Música da banda Koreana",
+            "fabricado" : 2024,
+            "fabricante" : "Sony Music",
+            "escritor" : ""
+        
+    },
+    
+    {
+    
+            "id_produto" : 20,
+            "categoria" : "Livro",
+            "nome_produto" : "Senhor dos Anéis",
+            "preco" : 80.00,
+            "descricao" : "Renomado Livro de cultura medieval",
+            "fabricado" : 1998,
+            "fabricante" : "",
+            "escritor" : "J. R. R. Tolkien"
+
+    
+        
+    },
+    
+    {
+            "id_produto" : 21,
+            "categoria" : "Livro",
+            "nome_produto" : "Roube como um Artista",
+            "preco" : 30.00,
+            "descricao" : "Austin Kleon é autor do livro de poemas Newspaper Blackout, e seu trabalho tem sido destaque no The Wall Street Journal e no site 20x200. Ele fala sobre criatividade e arte online para organizações como SXSW, TEDx, e The Economist. Mora em Austin, Texas, onde mantém o endereço austinkleon.",
+            "fabricado" : 1998,
+            "fabricante" : "",
+            "escritor" : "Austin Kleon"
+    
+        
+    },
+    
+    {
+    
+            "id_produto" : 30,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Air Fryer",
+            "preco" : 600.00,
+            "descricao" : "A forma correta é air fryer, pois é assim que se escreve na língua inglesa e a tradução correta para o português é fritadeira de ar.",
+            "fabricado" : 2024,
+            "fabricante" : "Phillips",
+            "escritor" : ""
+    
+        
+    },
+    
+    {
+            "id_produto" : 31,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Ralador Elétrico",
+            "preco" : 239.00,
+            "descricao" : "Dar uma pitadinha de sabor a um prato faz com que qualquer receita ganhe mais vivacidade.",
+            "fabricado" : 2024,
+            "fabricante" : "Britania",
+            "escritor" : ""
+    
+        
+    },
+    {
+            "id_produto" : 32,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Tábua de Madeira",
+            "preco" : 20.90,
+            "descricao" : "A expressão madeira rústica refere-se a peças de madeira que mantêm sua forma natural, sem passar por processos de polimento ou acabamento excessivo.",
+            "fabricado" : 2021,
+            "fabricante" : "Madeira Madeira",
+            "escritor" : ""
+        
+    },
+    
+    // Início dados Bia 
+    
+    {
+    
+            "id_produto" : "42",
+            "categoria" : "CD",
+            "nome_produto" : "Restart",
+            "preco" : "64,90",
+            "descricao" : "Restart foi uma banda brasileira de power pop formada em 2008, em São Paulo. É composto por quatro membros: Pe Lanza, Pe Lu, Koba e Thomas.",
+            "fabricado" : 2021,
+            "fabricante" : "Som Livre",
+            "escritor" : ""
+   
+        
+    },
+    
+    {
+            "id_produto" : "43",
+            "categoria" : "CD",
+            "nome_produto" : "Five Finger Death Punch",
+            "preco" : "74,90",
+            "descricao" : "Five Finger Death Punch é uma banda de metal norte-americana de Las Vegas, Nevada, fundada em 2005. A banda foi batizada com esse nome, como um aceno para o clássico Kung Fu Cinema.",
+            "fabricado" : 2018,
+            "fabricante" : "Sony Music",
+            "escritor" : ""
+   
+        
+    },
+    
+    {
+            "id_produto" : "14",
+            "categoria" : "CD",
+            "nome_produto" : "Fresno",
+            "preco" : "14,00",
+            "descricao" : "Fresno é uma banda de rock brasileira formada em 1999 em Porto Alegre, Rio Grande do Sul.",
+            "fabricado" : 2014,
+            "fabricante" : "Sony Music",
+            "escritor" : ""
+   
+        
+    },
+    
+    {
+            "id_produto" : "65",
+            "categoria" : "Livro",
+            "nome_produto" : "Senhor dos Anéis As Duas Torres",
+            "preco" : "80,00",
+            "descricao" : "Após a captura de Merry e Pippy pelos orcs, a Sociedade do Anel é dissolvida. ",
+            "fabricado" : 2014,
+            "fabricante" : "",
+            "escritor" : "J. R. R. Tolkien"
+   
+        
+    },
+    
+    {
+            "id_produto" : "66",
+            "categoria" : "Livro",
+            "nome_produto" : "Scrum - Como fazer o Dobro do Trabalho na Metado do Tempo",
+            "preco" : "129,00",
+            "descricao" : "A ARTE DE FAZER O DOBRO DO TRABALHO NA METADE DO TEMPO!",
+            "fabricado" : 1995,
+            "fabricante" : "",
+            "escritor" : "Jeff Sutherland"
+        
+    },
+    
+    {
+            "id_produto" : 71,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Churrasqueira Elétrica",
+            "preco" : 1600.00,
+            "descricao" : "A churrasqueira elétrica oferece a possibilidade de assar alimentos sem gás, sem óleo e sem carvão, apenas usando água e eletricidade.",
+            "fabricado" : 2024,
+            "fabricante" : "Brastemp",
+            "escritor" : ""
+    
+        
+    },
+    
+    {
+            "id_produto" : 72,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Geladeira",
+            "preco" : 4392.00,
+            "descricao" : "A empresa norte-americana Servel registrou a patente de invenção de uma geladeira doméstica em 7 de dezembro de 1926 e a apresentou ao mercado poucos dias depois.",
+            "fabricado" : 2024,
+            "fabricante" : "Panasonic",
+            "escritor" : ""
+    
+        
+    },
+    {
+            "id_produto" : 73,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Cafeteira",
+            "preco" : 1000.90,
+            "descricao" : "As principais marcas de Cafeteira Elétrica Capuccino são: Arno, Nespresso, Oster, Philco.",
+            "fabricado" : 2024,
+            "fabricante" : "Dolce Gusto",
+            "escritor" : ""
+        
+    },
+    
+    // Dados Nando
+    
+    {
+    
+            "id_produto" : 102,
+            "categoria" : "CD",
+            "nome_produto" : "Engenheiros do Havaí",
+            "preco" : 34.90,
+            "descricao" : "Engenheiros do Hawaii foi uma banda brasileira de rock formada no início de 1985 na cidade de Porto Alegre. ",
+            "fabricado" : 2024,
+            "fabricante" : "Som Livre",
+            "escritor" : ""
+        
+    },
+    
+    {
+            "id_produto" : 43,
+            "categoria" : "CD",
+            "nome_produto" : "Five Finger Death Punch",
+            "preco" : 74.90,
+            "descricao" : "Five Finger Death Punch é uma banda de metal norte-americana de Las Vegas, Nevada, fundada em 2005.",
+            "fabricado" : 2024,
+            "fabricante" : "Sony Music",
+            "escritor" : ""
+        
+    },
+    
+    {
+            "id_produto" : 110,
+            "categoria" : "CD",
+            "nome_produto" : "Helba Ramalho",
+            "preco" : 110.90,
+            "descricao" : "Elba Maria Nunes Ramalho OMC (Conceição, 17 de agosto de 1951) é uma cantora, compositora, multi-instrumentista e atriz brasileira.",
+            "fabricado" : 1980,
+            "fabricante" : "Som Livre",
+            "escritor" : ""
+        
+    },
+    
+    {
+            "id_produto" : 123,
+            "categoria" : "Livro",
+            "nome_produto" : "Senhor dos Anéis - O Retorno do Rei",
+            "preco" : 230.90,
+            "descricao" : "Após a captura de Merry e Pippy pelos orcs, a Sociedade do Anel é dissolvida. ",
+            "fabricado" : 2014,
+            "fabricante" : "",
+            "escritor" : "J. R. R. Tolkien"
+        
+    },
+    
+    {
+            "id_produto" : 124,
+            "categoria" : "Livro",
+            "nome_produto" : "Data Science Para Negócios",
+            "preco" : 229.98,
+            "descricao" : "Este livro vai além da análise de dados para principiantes. É o guia essencial para aqueles (ou todos?) cujas empresas são construídas sobre a onipresença das oportunidades de dados e a nova ordem de tomada de decisão baseada em dados.",
+            "fabricado" : 2016,
+            "fabricante" : "",
+            "escritor" : "Tom Fawcett"
+        
+    },
+    
+    {
+            "id_produto" : 171,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Fogão",
+            "preco" : 600.00,
+            "descricao" : "À medida que cresce, a sua cor intensifica-se, de modo que uma chama branca brilhante pode arder a 1.400 a 1.500 graus Celsius.",
+            "fabricado" : 2024,
+            "fabricante" : "",
+            "escritor" : "Eletrolux"
+        
+    },
+    
+    {
+            "id_produto" : 172,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Batedeira",
+            "preco" : 199.99,
+            "descricao" : "É o tipo indicado para misturas mais pesadas e complexas, como massas de pão, pizza, bolo, merengue, chantilly, etc.",
+            "fabricado" : 2024,
+            "fabricante" : "",
+            "escritor" : "Eletrolux"
+        
+    },
+    {
+            "id_produto" : 173,
+            "categoria" : "Eletrodoméstico",
+            "nome_produto" : "Máquina de Chopp",
+            "preco" : 1000.98,
+            "descricao" : "Uma máquina de chopp, também conhecida como chopeira, é um equipamento que serve chopp ou cerveja de forma rápida e prática. Ela é composta por um sistema de refrigeração e uma torneira.",
+            "fabricado" : 2024,
+            "fabricante" : "",
+            "escritor" : "Eletrolux"
+        
+    },
+    
+    
+    
+    ])
+    

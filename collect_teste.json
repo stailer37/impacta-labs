@@ -1,0 +1,42 @@
+db.purchase.insertOne(
+    {
+    "dt_compra" : "2024-01-01",
+    "id_venda" : "1",
+    "id_cliente" : "1",
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : "09231090"
+    },
+    "produto" : {
+        "id_produto" : "12",
+        "categoria" : "cd",
+        "nome_produto" : "Taylor Swift",
+        "preco" : "64,90"
+
+    }
+})
+
+
+db.compra.deleteOne(
+    {
+    "dt_compra" : "2024-01-01",
+    "id_venda" : "1",
+    "id_cliente" : "1",
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : "09231090"
+    },
+    "produto" : {
+        "id_produto" : "12",
+        "categoria" : "cd",
+        "nome_produto" : "Taylor Swift",
+        "preco" : "64,90"
+
+    }
+})
