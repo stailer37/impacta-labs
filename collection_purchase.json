@@ -1,0 +1,1367 @@
+db.purchase.insertMany([
+{
+    // Início dados Japonës
+
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 1,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 92,
+        "categoria" : "CD",
+        "nome_produto" : "P.O.D",
+        "preco" : 94.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 3
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 1,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 13,
+        "categoria" : "CD",
+        "nome_produto" : "Kate Perry",
+        "preco" : 74.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 3
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 1,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 14,
+        "categoria" : "CD",
+        "nome_produto" : "BDS",
+        "preco" : 24.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 3
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-04,
+    "id_venda" : 2,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 20,
+        "categoria" : "Livro",
+        "nome_produto" : "Senhor dos Anéis",
+        "preco" : 80.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "pix",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-04,
+    "id_venda" : 2,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 21,
+        "categoria" : "Livro",
+        "nome_produto" : "Roube como um Artista",
+        "preco" : 30.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "pix",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-03,
+    "id_venda" : 3,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 30,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Air Fryer",
+        "preco" : 600.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-03,
+    "id_venda" : 3,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 31,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Ralador Elétrico",
+        "preco" : 239.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 3,
+    "id_cliente" : 1,
+    "nome_cliente" : "Guilherme Masao",
+    "endereco": {
+        "rua" : "Rua Longe Demais",
+        "cidade" : "Itapecirica",
+        "estado" : "Sao Paulo",
+        "cep" : 09231090
+    },
+    "produto" : {
+        "id_produto" : 32,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Tábua de Madeira",
+        "preco" : 20.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+// Início dados Bia 
+
+{
+
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "42",
+        "categoria" : "CD",
+        "nome_produto" : "Restart",
+        "preco" : 64.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "43",
+        "categoria" : "CD",
+        "nome_produto" : "Five Finger Death Punch",
+        "preco" : 74.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-07",
+    "id_venda" : 5,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "14",
+        "categoria" : "CD",
+        "nome_produto" : "Fresno",
+        "preco" : 14.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "pix",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-04",
+    "id_venda" : 6,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "65",
+        "categoria" : "Livro",
+        "nome_produto" : "Senhor dos Anéis As Duas Torres",
+        "preco" : 80.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "66",
+        "categoria" : "Livro",
+        "nome_produto" : "Scrum - Como fazer o Dobro do Trabalho na Metado do Tempo",
+        "preco" : 129.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 4,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : 12398000
+    },
+    "produto" : {
+        "id_produto" : 71,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Churrasqueira Elétrica",
+        "preco" : 1600.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : 2024-01-23,
+    "id_venda" : 8,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : 12398000
+    },
+    "produto" : {
+        "id_produto" : 72,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Geladeira",
+        "preco" : 4392.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 12
+    }
+    
+    
+},
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4,
+    "id_cliente" : 2,
+    "nome_cliente" : "Bianca o Carneiro",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : 12398000
+    },
+    "produto" : {
+        "id_produto" : 73,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Cafeteira",
+        "preco" : 1000.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+// Dados Nando
+
+{
+
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 5,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 102,
+        "categoria" : "CD",
+        "nome_produto" : "Engenheiros do Havaí",
+        "preco" : 34.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 5,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 43,
+        "categoria" : "CD",
+        "nome_produto" : "Five Finger Death Punch",
+        "preco" : 74.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : "2024-01-07",
+    "id_venda" : 9,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 110,
+        "categoria" : "CD",
+        "nome_produto" : "Elba Ramalho",
+        "preco" : 110.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+    
+},
+
+{
+    "dt_compra" : 2024-01-04,
+    "id_venda" : 11,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 123,
+        "categoria" : "Livro",
+        "nome_produto" : "Senhor dos Anéis - O Retorno do Rei",
+        "preco" : 230.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 5,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 124,
+        "categoria" : "Livro",
+        "nome_produto" : "Data Science Para Negócios",
+        "preco" : 229.98
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 5,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 171,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Fogão",
+        "preco" : 600.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : "2024-01-23",
+    "id_venda" : 18,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 172,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Batedeira",
+        "preco" : 199.99
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "pix",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+    
+},
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 5,
+    "id_cliente" : 3,
+    "nome_cliente" : "Nando Molina",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Acre",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 173,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Máquina de Chopp",
+        "preco" : 1000.98
+    }
+    
+},
+
+// Josué
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 100,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 92,
+    "categoria" : "CD",
+    "nome_produto" : "P.O.D",
+    "preco" : 94.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "cartao",
+    "opcao_pagamento" : "parcelado",
+    "parc_quantidade" : 3
+}
+
+},
+
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 100,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 13,
+    "categoria" : "CD",
+    "nome_produto" : "Kate Perry",
+    "preco" : 74.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "cartao",
+    "opcao_pagamento" : "parcelado",
+    "parc_quantidade" : 3
+}
+
+},
+
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 100,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 14,
+    "categoria" : "CD",
+    "nome_produto" : "BDS",
+    "preco" : 24.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "cartao",
+    "opcao_pagamento" : "parcelado",
+    "parc_quantidade" : 3
+}
+
+},
+
+{
+"dt_compra" : 2024-01-04,
+"id_venda" : 200,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 20,
+    "categoria" : "Livro",
+    "nome_produto" : "Senhor dos Anéis",
+    "preco" : 80.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "pix",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-04,
+"id_venda" : 200,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 21,
+    "categoria" : "Livro",
+    "nome_produto" : "Roube como um Artista",
+    "preco" : 30.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "pix",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-03,
+"id_venda" : 300,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 30,
+    "categoria" : "Eletrodoméstico",
+    "nome_produto" : "Air Fryer",
+    "preco" : 600.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "boleto",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-03,
+"id_venda" : 300,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 31,
+    "categoria" : "Eletrodoméstico",
+    "nome_produto" : "Ralador Elétrico",
+    "preco" : 239.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "boleto",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 300,
+"id_cliente" : 120,
+"nome_cliente" : "Josué Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Sao Paulo",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 32,
+    "categoria" : "Eletrodoméstico",
+    "nome_produto" : "Tábua de Madeira",
+    "preco" : 20.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "boleto",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 1000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 92,
+    "categoria" : "CD",
+    "nome_produto" : "P.O.D",
+    "preco" : 94.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "cartao",
+    "opcao_pagamento" : "parcelado",
+    "parc_quantidade" : 3
+}
+
+},
+
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 1000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 13,
+    "categoria" : "CD",
+    "nome_produto" : "Kate Perry",
+    "preco" : 74.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "cartao",
+    "opcao_pagamento" : "parcelado",
+    "parc_quantidade" : 3
+}
+
+},
+
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 1000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 14,
+    "categoria" : "CD",
+    "nome_produto" : "BDS",
+    "preco" : 24.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "cartao",
+    "opcao_pagamento" : "parcelado",
+    "parc_quantidade" : 3
+}
+
+},
+
+{
+"dt_compra" : 2024-01-04,
+"id_venda" : 2000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 20,
+    "categoria" : "Livro",
+    "nome_produto" : "Senhor dos Anéis",
+    "preco" : 80.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "pix",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-04,
+"id_venda" : 2000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 21,
+    "categoria" : "Livro",
+    "nome_produto" : "Roube como um Artista",
+    "preco" : 30.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "pix",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-03,
+"id_venda" : 3000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 30,
+    "categoria" : "Eletrodoméstico",
+    "nome_produto" : "Air Fryer",
+    "preco" : 600.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "boleto",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+"dt_compra" : 2024-01-03,
+"id_venda" : 3000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 31,
+    "categoria" : "Eletrodoméstico",
+    "nome_produto" : "Ralador Elétrico",
+    "preco" : 239.00
+},
+"pagamento" : {    
+    "metodo_pagamento" : "boleto",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+{
+"dt_compra" : 2024-01-01,
+"id_venda" : 3000,
+"id_cliente" : 1200,
+"nome_cliente" : "Fernanda Ferreira Marques",
+"endereco": {
+    "rua" : "Rua Longe Demais",
+    "cidade" : "Penha",
+    "estado" : "Curitiba",
+    "cep" : 09231090
+},
+"produto" : {
+    "id_produto" : 32,
+    "categoria" : "Eletrodoméstico",
+    "nome_produto" : "Tábua de Madeira",
+    "preco" : 20.90
+},
+"pagamento" : {    
+    "metodo_pagamento" : "boleto",
+    "opcao_pagamento" : "a vista",
+    "parc_quantidade" : ""
+}
+
+},
+
+{
+
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "42",
+        "categoria" : "CD",
+        "nome_produto" : "Restart",
+        "preco" : 64.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "43",
+        "categoria" : "CD",
+        "nome_produto" : "Five Finger Death Punch",
+        "preco" : 74.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "boleto",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-07",
+    "id_venda" : 5000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "14",
+        "categoria" : "CD",
+        "nome_produto" : "Fresno",
+        "preco" : 14.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "pix",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-04",
+    "id_venda" : 6000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "65",
+        "categoria" : "Livro",
+        "nome_produto" : "Senhor dos Anéis As Duas Torres",
+        "preco" : 80.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : "12398000"
+    },
+    "produto" : {
+        "id_produto" : "66",
+        "categoria" : "Livro",
+        "nome_produto" : "Scrum - Como fazer o Dobro do Trabalho na Metado do Tempo",
+        "preco" : 129.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+},
+
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 4000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : 12398000
+    },
+    "produto" : {
+        "id_produto" : 71,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Churrasqueira Elétrica",
+        "preco" : 1600.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 4000,
+    "id_cliente" : 2000,
+    "nome_cliente" : "Sueli Resende",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Rio de Janeiro",
+        "cep" : 12398000
+    },
+    "produto" : {
+        "id_produto" : 73,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Cafeteira",
+        "preco" : 1000.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+// Dados Edwilson
+
+{
+
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 5000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 102,
+        "categoria" : "CD",
+        "nome_produto" : "Engenheiros do Havaí",
+        "preco" : 34.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : 2024-01-01,
+    "id_venda" : 5000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 43,
+        "categoria" : "CD",
+        "nome_produto" : "Five Finger Death Punch",
+        "preco" : 74.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : "2024-01-07",
+    "id_venda" : 9000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 110,
+        "categoria" : "CD",
+        "nome_produto" : "Elba Ramalho",
+        "preco" : 110.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+    
+},
+
+{
+    "dt_compra" : 2024-01-04,
+    "id_venda" : 11000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 123,
+        "categoria" : "Livro",
+        "nome_produto" : "Senhor dos Anéis - O Retorno do Rei",
+        "preco" : 230.90
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "a vista",
+        "parc_quantidade" : ""
+    }
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 5000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 124,
+        "categoria" : "Livro",
+        "nome_produto" : "Data Science Para Negócios",
+        "preco" : 229.98
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 5000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 171,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Fogão",
+        "preco" : 600.00
+    },
+    "pagamento" : {    
+        "metodo_pagamento" : "cartao",
+        "opcao_pagamento" : "parcelado",
+        "parc_quantidade" : 2
+    }
+    
+    
+},
+
+{
+    "dt_compra" : "2024-01-01",
+    "id_venda" : 5000,
+    "id_cliente" : 3100,
+    "nome_cliente" : "Edwilson Jacinto",
+    "endereco": {
+        "rua" : "Rua Algum Lugar de Oz",
+        "cidade" : "Osasco",
+        "estado" : "Bahia",
+        "cep" : 12398001
+    },
+    "produto" : {
+        "id_produto" : 173,
+        "categoria" : "Eletrodoméstico",
+        "nome_produto" : "Máquina de Chopp",
+        "preco" : 1000.98
+    }
+    
+},
+
+])
