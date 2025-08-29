@@ -5,6 +5,7 @@ Integrantes:
 - Ellen Cristina Tavares Gabriel    RA: 1520194
 - Daniel Silva Ramos                RA: 2502443
 - Rodrigo Zapiello                  RA: 2501928
+- Mélany Santos Antoniazzi          RA: 2102353
 
 
 # Escolha da pergunta 
