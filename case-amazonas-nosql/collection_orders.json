@@ -1,0 +1,138 @@
+[
+  {
+    "order_id": "ORD-20250910-0001",
+    "customer_id": "c_00123",
+    "customer_state": "SP",
+    "order_date": "2025-09-11T19:00:00Z",
+    "payment": {
+      "method": "credit_card",
+      "total": 259.69,
+      "currency": "BRL"
+    },
+    "items": [
+      {
+        "product_id": "p_BOOK_987",
+        "sku": "BOOK-987",
+        "title": "Clean Code",
+        "category": "books",
+        "unit_price": 59.9,
+        "qty": 2
+      },
+      {
+        "product_id": "p_CD_555",
+        "sku": "CD-555",
+        "title": "Greatest Hits",
+        "category": "cds",
+        "unit_price": 39.9,
+        "qty": 1
+      },
+      {
+        "product_id": "p_KITCH_100",
+        "sku": "KITCH-100",
+        "title": "Mixer 300W",
+        "category": "kitchen_appliances",
+        "unit_price": 99.99,
+        "qty": 1
+      }
+    ],
+    "status": "paid"
+  },
+  {
+    "order_id": "ORD-20250905-0002",
+    "customer_id": "c_00456",
+    "customer_state": "RJ",
+    "order_date": "2025-08-27T19:00:00Z",
+    "payment": {
+      "method": "pix",
+      "total": 179.8,
+      "currency": "BRL"
+    },
+    "items": [
+      {
+        "product_id": "p_BOOK_123",
+        "sku": "BOOK-123",
+        "title": "Engenharia de Dados na Prática",
+        "category": "books",
+        "unit_price": 79.9,
+        "qty": 1
+      },
+      {
+        "product_id": "p_CD_777",
+        "sku": "CD-777",
+        "title": "Bossa Nova Essentials",
+        "category": "cds",
+        "unit_price": 29.9,
+        "qty": 2
+      }
+    ],
+    "status": "paid"
+  },
+  {
+    "order_id": "ORD-20250901-0003",
+    "customer_id": "c_00789",
+    "customer_state": "MG",
+    "order_date": "2025-08-27T19:00:00Z",
+    "payment": {
+      "method": "credit_card",
+      "total": 249.89,
+      "currency": "BRL"
+    },
+    "items": [
+      {
+        "product_id": "p_KITCH_200",
+        "sku": "KITCH-200",
+        "title": "Cafeteira 800W",
+        "category": "kitchen_appliances",
+        "unit_price": 149.9,
+        "qty": 1
+      },
+      {
+        "product_id": "p_BOOK_987",
+        "sku": "BOOK-987",
+        "title": "Clean Code",
+        "category": "books",
+        "unit_price": 59.9,
+        "qty": 1
+      },
+      {
+        "product_id": "p_CD_555",
+        "sku": "CD-555",
+        "title": "Greatest Hits",
+        "category": "cds",
+        "unit_price": 39.9,
+        "qty": 1
+      }
+    ],
+    "status": "paid"
+  },
+  {
+    "order_id": "ORD-20250801-0004",
+    "customer_id": "c_01000",
+    "customer_state": "SP",
+    "order_date": "2025-08-07T19:00:00Z",
+    "payment": {
+      "method": "boleto",
+      "total": 119.8,
+      "currency": "BRL"
+    },
+    "items": [
+      {
+        "product_id": "p_CD_777",
+        "sku": "CD-777",
+        "title": "Bossa Nova Essentials",
+        "category": "cds",
+        "unit_price": 29.9,
+        "qty": 2
+      },
+      {
+        "product_id": "p_BOOK_123",
+        "sku": "BOOK-123",
+        "title": "Engenharia de Dados na Prática",
+        "category": "books",
+        "unit_price": 79.9,
+        "qty": 1
+      }
+    ],
+    "status": "paid"
+  }
+]
