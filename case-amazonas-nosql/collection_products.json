@@ -1,0 +1,110 @@
+[
+  {
+    "sku": "BOOK-987",
+    "title": "Clean Code",
+    "category": "books",
+    "price": {
+      "amount": 59.9,
+      "currency": "BRL"
+    },
+    "status": "active",
+    "attributes": {
+      "author": "Robert C. Martin",
+      "isbn": "9780132350884",
+      "publisher": "Prentice Hall",
+      "pages": 464,
+      "language": "pt-BR"
+    }
+  },
+  {
+    "sku": "BOOK-123",
+    "title": "Engenharia de Dados na Prática",
+    "category": "books",
+    "price": {
+      "amount": 79.9,
+      "currency": "BRL"
+    },
+    "status": "active",
+    "attributes": {
+      "author": "Vários",
+      "isbn": "9780000000002",
+      "publisher": "TechBooks",
+      "pages": 380,
+      "language": "pt-BR"
+    }
+  },
+  {
+    "sku": "CD-555",
+    "title": "Greatest Hits",
+    "category": "cds",
+    "price": {
+      "amount": 39.9,
+      "currency": "BRL"
+    },
+    "status": "active",
+    "attributes": {
+      "artist": "The Classics",
+      "label": "Universal",
+      "genre": "Rock",
+      "tracks": [
+        {
+          "title": "Intro",
+          "duration_sec": 90
+        }
+      ]
+    }
+  },
+  {
+    "sku": "CD-777",
+    "title": "Bossa Nova Essentials",
+    "category": "cds",
+    "price": {
+      "amount": 29.9,
+      "currency": "BRL"
+    },
+    "status": "active",
+    "attributes": {
+      "artist": "Various",
+      "label": "Bossa",
+      "genre": "Bossa Nova",
+      "tracks": [
+        {
+          "title": "Garota",
+          "duration_sec": 210
+        }
+      ]
+    }
+  },
+  {
+    "sku": "KITCH-100",
+    "title": "Mixer 300W",
+    "category": "kitchen_appliances",
+    "price": {
+      "amount": 99.99,
+      "currency": "BRL"
+    },
+    "status": "active",
+    "attributes": {
+      "brand": "KitchenPro",
+      "model": "MX300",
+      "power_watts": 300,
+      "voltage": "110V"
+    }
+  },
+  {
+    "sku": "KITCH-200",
+    "title": "Cafeteira 800W",
+    "category": "kitchen_appliances",
+    "price": {
+      "amount": 149.9,
+      "currency": "BRL"
+    },
+    "status": "active",
+    "attributes": {
+      "brand": "CoffeeX",
+      "model": "CF800",
+      "power_watts": 800,
+      "voltage": "220V"
+    }
+  }
+]

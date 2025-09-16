@@ -1,0 +1,40 @@
+[
+  {
+    "event_ts": "2025-09-11T19:00:00Z",
+    "session_id": "sess_3f8a",
+    "customer_id": "c_00123",
+    "event_type": "product_view",
+    "page": "/produto/BOOK-987",
+    "product": {
+      "product_id": "p_BOOK_987",
+      "sku": "BOOK-987",
+      "category": "books"
+    },
+    "device": {
+      "ua": "Chrome 140",
+      "platform": "web"
+    },
+    "geo": {
+      "state": "SP"
+    }
+  },
+  {
+    "event_ts": "2025-09-11T19:00:00Z",
+    "session_id": "sess_3f8a",
+    "customer_id": "c_00123",
+    "event_type": "add_to_cart",
+    "page": "/produto/KITCH-100",
+    "product": {
+      "product_id": "p_KITCH_100",
+      "sku": "KITCH-100",
+      "category": "kitchen_appliances"
+    },
+    "device": {
+      "ua": "Chrome 140",
+      "platform": "web"
+    },
+    "geo": {
+      "state": "SP"
+    }
+  }
+]
