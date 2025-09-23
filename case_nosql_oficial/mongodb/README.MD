@@ -60,7 +60,7 @@ Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 
 ### 1\. 🐳 Configuração e Build do Docker
 
-Navegue para a pasta `no-sql-databases/case_nosql_oficial/mongodb` e execute:
+Navegue para a pasta `impacta-labs/case_nosql_oficial/mongodb` e execute:
 
 ```bash
 # Constrói a imagem Docker do MongoDB
@@ -103,6 +103,7 @@ Acesse o *shell* do MongoDB dentro do container e execute a *query* analítica:
 docker exec -it mongodb_case mongosh
 
 # Dentro do mongosh, execute o código de agregação do arquivo command_mongo.sh
+
 
 
 
