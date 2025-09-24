@@ -1,0 +1,10 @@
+{
+  "event": "purchase",
+  "timestamp": "2025-08-19T15:30:00Z",
+  "customer_id": "C123",
+  "products": [
+    { "product_id": "P456", "quantity": 1 },
+    { "product_id": "P789", "quantity": 2 }
+  ],
+  "total_amount": 250.70
+}
