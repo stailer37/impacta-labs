@@ -1,0 +1,15 @@
+{
+  "_id": "P456",
+  "name": "Livro - MongoDB Essencial",
+  "category": "Livro",
+  "price": 89.90,
+  "created_at": "2025-07-15T12:00:00Z"
+}
+
+{
+  "_id": "P789",
+  "name": "Aspirador Turbo",
+  "category": "Eletrodomestico",
+  "price": 150.00,
+  "created_at": "2025-06-10T12:00:00Z"
+}

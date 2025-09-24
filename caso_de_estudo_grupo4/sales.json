@@ -1,0 +1,10 @@
+{
+  "_id": "S789",
+  "customer_id": "C123",
+  "products": [
+    { "product_id": "P456", "quantity": 2 },
+    { "product_id": "P789", "quantity": 1 }
+  ],
+  "total_amount": 329.80,
+  "created_at": "2025-08-19T15:30:00Z"
+}
