@@ -10,6 +10,7 @@
 | **Bruno Boggio** |
 | **Nelson Francisco Valerio dos Reis** |
 | **Denis Varela** |
+| **João Romano** |
 
 -----
 
@@ -103,6 +104,7 @@ Acesse o *shell* do MongoDB dentro do container e execute a *query* analítica:
 docker exec -it mongodb_case mongosh
 
 # Dentro do mongosh, execute o código de agregação do arquivo command_mongo.sh
+
 
 
 
