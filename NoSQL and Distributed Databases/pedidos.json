@@ -1,0 +1,156 @@
+[{
+  "_id": {
+    "$oid": "68d7f7b06031df04850dd7e0"
+  },
+  "cliente_id": {
+    "$oid": "68d7f7896031df04850dd7d6"
+  },
+  "data_compra": {
+    "$date": "2025-09-26T10:15:00.000Z"
+  },
+  "estado_cliente": "SP",
+  "valor_total": 195.4,
+  "itens": [
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7db"
+      },
+      "nome_produto": "Livro - Duna",
+      "categoria_produto": "livro",
+      "quantidade": 1,
+      "preco_unitario": 65.5
+    },
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7df"
+      },
+      "nome_produto": "Cafeteira Elétrica Mondial Pratic",
+      "categoria_produto": "eletrodomestico",
+      "quantidade": 1,
+      "preco_unitario": 129.9
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "68d7f7b06031df04850dd7e1"
+  },
+  "cliente_id": {
+    "$oid": "68d7f7896031df04850dd7d7"
+  },
+  "data_compra": {
+    "$date": "2025-09-17T14:00:00.000Z"
+  },
+  "estado_cliente": "RJ",
+  "valor_total": 110,
+  "itens": [
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7dd"
+      },
+      "nome_produto": "CD - Pink Floyd: The Dark Side of the Moon",
+      "categoria_produto": "CD",
+      "quantidade": 2,
+      "preco_unitario": 55
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "68d7f7b06031df04850dd7e2"
+  },
+  "cliente_id": {
+    "$oid": "68d7f7896031df04850dd7d8"
+  },
+  "data_compra": {
+    "$date": "2025-08-15T20:30:00.000Z"
+  },
+  "estado_cliente": "MG",
+  "valor_total": 45,
+  "itens": [
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7dc"
+      },
+      "nome_produto": "Livro - O Guia do Mochileiro das Galáxias",
+      "categoria_produto": "livro",
+      "quantidade": 1,
+      "preco_unitario": 45
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "68d7f7b06031df04850dd7e3"
+  },
+  "cliente_id": {
+    "$oid": "68d7f7896031df04850dd7d9"
+  },
+  "data_compra": {
+    "$date": "2025-09-22T11:00:00.000Z"
+  },
+  "estado_cliente": "BA",
+  "valor_total": 97.9,
+  "itens": [
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7de"
+      },
+      "nome_produto": "CD - Nirvana: Nevermind",
+      "categoria_produto": "CD",
+      "quantidade": 1,
+      "preco_unitario": 52.9
+    },
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7dc"
+      },
+      "nome_produto": "Livro - O Guia do Mochileiro das Galáxias",
+      "categoria_produto": "livro",
+      "quantidade": 1,
+      "preco_unitario": 45
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "68d7f7b06031df04850dd7e4"
+  },
+  "cliente_id": {
+    "$oid": "68d7f7896031df04850dd7d6"
+  },
+  "data_compra": {
+    "$date": "2025-09-02T18:00:00.000Z"
+  },
+  "estado_cliente": "SP",
+  "valor_total": 163.4,
+  "itens": [
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7de"
+      },
+      "nome_produto": "CD - Nirvana: Nevermind",
+      "categoria_produto": "CD",
+      "quantidade": 1,
+      "preco_unitario": 52.9
+    },
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7dc"
+      },
+      "nome_produto": "Livro - O Guia do Mochileiro das Galáxias",
+      "categoria_produto": "livro",
+      "quantidade": 1,
+      "preco_unitario": 45
+    },
+    {
+      "produto_id": {
+        "$oid": "68d7f7896031df04850dd7dd"
+      },
+      "nome_produto": "CD - Pink Floyd: The Dark Side of the Moon",
+      "categoria_produto": "CD",
+      "quantidade": 1,
+      "preco_unitario": 55
+    }
+  ]
+}]
