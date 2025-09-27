@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "68d7f7896031df04850dd7db"
+  },
+  "nome": "Livro - Duna",
+  "descricao": "Clássico da ficção científica por Frank Herbert.",
+  "preco": 65.5,
+  "categoria": "livro",
+  "sku": "LIV-DUN-001"
+},
+{
+  "_id": {
+    "$oid": "68d7f7896031df04850dd7dc"
+  },
+  "nome": "Livro - O Guia do Mochileiro das Galáxias",
+  "descricao": "Uma aventura cômica pelo espaço por Douglas Adams.",
+  "preco": 45,
+  "categoria": "livro",
+  "sku": "LIV-GUI-001"
+},
+{
+  "_id": {
+    "$oid": "68d7f7896031df04850dd7dd"
+  },
+  "nome": "CD - Pink Floyd: The Dark Side of the Moon",
+  "descricao": "Álbum de rock progressivo lançado em 1973.",
+  "preco": 55,
+  "categoria": "CD",
+  "sku": "CD-PF-001"
+},
+{
+  "_id": {
+    "$oid": "68d7f7896031df04850dd7de"
+  },
+  "nome": "CD - Nirvana: Nevermind",
+  "descricao": "Ícone do rock grunge dos anos 90.",
+  "preco": 52.9,
+  "categoria": "CD",
+  "sku": "CD-NIR-001"
+},
+{
+  "_id": {
+    "$oid": "68d7f7896031df04850dd7df"
+  },
+  "nome": "Cafeteira Elétrica Mondial Pratic",
+  "descricao": "Cafeteira para até 20 xícaras de café.",
+  "preco": 129.9,
+  "categoria": "eletrodomestico",
+  "sku": "ELE-CAF-001"
+}]
