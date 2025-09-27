@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "C001",
+    "name": "Ana Souza",
+    "email": "ana@example.com",
+    "state": "SP",
+    "created_at": "2024-11-10T10:00:00Z"
+  },
+  {
+    "_id": "C002",
+    "name": "Bruno Lima",
+    "email": "bruno@example.com",
+    "state": "RJ",
+    "created_at": "2025-01-15T15:30:00Z"
+  },
+  {
+    "_id": "C003",
+    "name": "Carla Dias",
+    "email": "carla@example.com",
+    "state": "MG",
+    "created_at": "2025-03-22T09:45:00Z"
+  },
+  {
+    "_id": "C004",
+    "name": "Diego Nunes",
+    "email": "diego@example.com",
+    "state": "BA",
+    "created_at": "2025-05-02T20:10:00Z"
+  }
+]

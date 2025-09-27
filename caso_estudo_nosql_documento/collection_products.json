@@ -1,0 +1,96 @@
+[
+  {
+    "_id": "B1001",
+    "type": "book",
+    "name": "Banco de Dados Moderno",
+    "price": 129.9,
+    "categories": [
+      "livros",
+      "tecnologia"
+    ],
+    "attributes": {
+      "isbn13": "9780000000001",
+      "author": "A. Pereira",
+      "publisher": "TechBooks",
+      "pages": 420
+    }
+  },
+  {
+    "_id": "B1002",
+    "type": "book",
+    "name": "Cozinha Prática",
+    "price": 89.9,
+    "categories": [
+      "livros",
+      "culinaria"
+    ],
+    "attributes": {
+      "isbn13": "9780000000002",
+      "author": "B. Martins",
+      "publisher": "FoodBooks",
+      "pages": 200
+    }
+  },
+  {
+    "_id": "C2001",
+    "type": "cd",
+    "name": "Clássicos do Rock",
+    "price": 39.9,
+    "categories": [
+      "cds",
+      "rock"
+    ],
+    "attributes": {
+      "artist": "Vários",
+      "label": "MusicLab",
+      "track_count": 18
+    }
+  },
+  {
+    "_id": "C2002",
+    "type": "cd",
+    "name": "Jazz para Estudar",
+    "price": 49.9,
+    "categories": [
+      "cds",
+      "jazz"
+    ],
+    "attributes": {
+      "artist": "Vários",
+      "label": "BlueNote",
+      "track_count": 15
+    }
+  },
+  {
+    "_id": "A3001",
+    "type": "appliance",
+    "name": "Liquidificador Turbo 900W",
+    "price": 299.0,
+    "categories": [
+      "eletros",
+      "cozinha"
+    ],
+    "attributes": {
+      "brand": "KitchenPro",
+      "model": "LT900",
+      "power_watts": 900,
+      "voltage": "110/220V"
+    }
+  },
+  {
+    "_id": "A3002",
+    "type": "appliance",
+    "name": "Cafeteira Express 1200W",
+    "price": 499.0,
+    "categories": [
+      "eletros",
+      "cozinha"
+    ],
+    "attributes": {
+      "brand": "CoffeeMax",
+      "model": "CX1200",
+      "power_watts": 1200,
+      "voltage": "110/220V"
+    }
+  }
+]

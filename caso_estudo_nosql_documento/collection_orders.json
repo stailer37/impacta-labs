@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "O9001",
+    "customer_id": "C001",
+    "customer_state": "SP",
+    "status": "completed",
+    "created_at": "2025-09-22T19:00:00Z",
+    "items": [
+      {
+        "product_id": "B1001",
+        "product_name": "Banco de Dados Moderno",
+        "category": "book",
+        "unit_price": 129.9,
+        "quantity": 1
+      },
+      {
+        "product_id": "C2001",
+        "product_name": "Clássicos do Rock",
+        "category": "cd",
+        "unit_price": 39.9,
+        "quantity": 2
+      }
+    ],
+    "order_total": 209.7
+  },
+  {
+    "_id": "O9002",
+    "customer_id": "C002",
+    "customer_state": "RJ",
+    "status": "completed",
+    "created_at": "2025-09-15T19:00:00Z",
+    "items": [
+      {
+        "product_id": "A3001",
+        "product_name": "Liquidificador Turbo 900W",
+        "category": "appliance",
+        "unit_price": 299.0,
+        "quantity": 1
+      },
+      {
+        "product_id": "B1002",
+        "product_name": "Cozinha Prática",
+        "category": "book",
+        "unit_price": 89.9,
+        "quantity": 1
+      }
+    ],
+    "order_total": 388.9
+  },
+  {
+    "_id": "O9003",
+    "customer_id": "C003",
+    "customer_state": "MG",
+    "status": "completed",
+    "created_at": "2025-08-29T19:00:00Z",
+    "items": [
+      {
+        "product_id": "C2002",
+        "product_name": "Jazz para Estudar",
+        "category": "cd",
+        "unit_price": 49.9,
+        "quantity": 1
+      },
+      {
+        "product_id": "B1001",
+        "product_name": "Banco de Dados Moderno",
+        "category": "book",
+        "unit_price": 129.9,
+        "quantity": 1
+      }
+    ],
+    "order_total": 179.8
+  },
+  {
+    "_id": "O9004",
+    "customer_id": "C004",
+    "customer_state": "BA",
+    "status": "completed",
+    "created_at": "2025-08-18T19:00:00Z",
+    "items": [
+      {
+        "product_id": "A3002",
+        "product_name": "Cafeteira Express 1200W",
+        "category": "appliance",
+        "unit_price": 499.0,
+        "quantity": 1
+      }
+    ],
+    "order_total": 499.0
+  },
+  {
+    "_id": "O9005",
+    "customer_id": "C001",
+    "customer_state": "SP",
+    "status": "completed",
+    "created_at": "2025-09-25T19:00:00Z",
+    "items": [
+      {
+        "product_id": "B1002",
+        "product_name": "Cozinha Prática",
+        "category": "book",
+        "unit_price": 89.9,
+        "quantity": 1
+      },
+      {
+        "product_id": "C2002",
+        "product_name": "Jazz para Estudar",
+        "category": "cd",
+        "unit_price": 49.9,
+        "quantity": 3
+      }
+    ],
+    "order_total": 239.6
+  },
+  {
+    "_id": "O9006",
+    "customer_id": "C002",
+    "customer_state": "RJ",
+    "status": "cancelled",
+    "created_at": "2025-09-26T19:00:00Z",
+    "items": [
+      {
+        "product_id": "C2001",
+        "product_name": "Clássicos do Rock",
+        "category": "cd",
+        "unit_price": 39.9,
+        "quantity": 1
+      }
+    ],
+    "order_total": 39.9
+  }
+]
