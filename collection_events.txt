@@ -1,0 +1,92 @@
+[
+  {
+    "_id": { "$oid": "e1" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-01T09:30:00Z" },
+    "sessionId": "sess_001",
+    "customerId": { "$oid": "c1" },
+    "productId": { "$oid": "p1" },
+    "metadata": { "page": "/produto/p1", "referrer": "https://google.com" }
+  },
+  {
+    "_id": { "$oid": "e2" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-01T09:35:00Z" },
+    "sessionId": "sess_001",
+    "customerId": { "$oid": "c1" },
+    "productId": { "$oid": "p4" },
+    "metadata": { "page": "/produto/p4", "referrer": "/produto/p1" }
+  },
+  {
+    "_id": { "$oid": "e3" },
+    "eventType": "add_to_cart",
+    "timestamp": { "$date": "2025-09-01T09:40:00Z" },
+    "sessionId": "sess_001",
+    "customerId": { "$oid": "c1" },
+    "productId": { "$oid": "p1" },
+    "metadata": { "quantity": 2 }
+  },
+  {
+    "_id": { "$oid": "e4" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-02T10:00:00Z" },
+    "sessionId": "sess_002",
+    "customerId": { "$oid": "c2" },
+    "productId": { "$oid": "p2" },
+    "metadata": { "page": "/produto/p2", "referrer": "https://bing.com" }
+  },
+  {
+    "_id": { "$oid": "e5" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-02T10:05:00Z" },
+    "sessionId": "sess_002",
+    "customerId": { "$oid": "c2" },
+    "productId": { "$oid": "p5" },
+    "metadata": { "page": "/produto/p5", "referrer": "/produto/p2" }
+  },
+  {
+    "_id": { "$oid": "e6" },
+    "eventType": "add_to_cart",
+    "timestamp": { "$date": "2025-09-02T10:10:00Z" },
+    "sessionId": "sess_002",
+    "customerId": { "$oid": "c2" },
+    "productId": { "$oid": "p5" },
+    "metadata": { "quantity": 2 }
+  },
+  {
+    "_id": { "$oid": "e7" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-03T11:00:00Z" },
+    "sessionId": "sess_003",
+    "customerId": { "$oid": "c3" },
+    "productId": { "$oid": "p3" },
+    "metadata": { "page": "/produto/p3", "referrer": "https://yahoo.com" }
+  },
+  {
+    "_id": { "$oid": "e8" },
+    "eventType": "add_to_cart",
+    "timestamp": { "$date": "2025-09-03T11:10:00Z" },
+    "sessionId": "sess_003",
+    "customerId": { "$oid": "c3" },
+    "productId": { "$oid": "p7" },
+    "metadata": { "quantity": 1 }
+  },
+  {
+    "_id": { "$oid": "e9" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-04T09:00:00Z" },
+    "sessionId": "sess_004",
+    "customerId": { "$oid": "c4" },
+    "productId": { "$oid": "p8" },
+    "metadata": { "page": "/produto/p8", "referrer": "https://google.com" }
+  },
+  {
+    "_id": { "$oid": "e10" },
+    "eventType": "product_view",
+    "timestamp": { "$date": "2025-09-04T09:05:00Z" },
+    "sessionId": "sess_004",
+    "customerId": { "$oid": "c4" },
+    "productId": { "$oid": "p9" },
+    "metadata": { "page": "/produto/p9", "referrer": "/produto/p8" }
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "_id": { "$oid": "o1" },
+    "orderNumber": "20250901-0001",
+    "customerId": { "$oid": "c1" },
+    "createdAt": { "$date": "2025-09-01T10:00:00Z" },
+    "status": "paid",
+    "items": [
+      { "productId": { "$oid": "p1" }, "sku": "LB-0001", "name": "Introdução a Algoritmos", "category": "livro", "quantity": 2, "unitPrice": 79.90 },
+      { "productId": { "$oid": "p4" }, "sku": "CD-0001", "name": "Greatest Hits", "category": "cd", "quantity": 1, "unitPrice": 39.90 }
+    ],
+    "shipping": { "address": { "street": "Rua A, 123", "city": "São Paulo", "state": "SP", "zip": "01000-000", "country": "BR" } },
+    "totals": { "subtotal": 199.70, "shippingFee": 10.00, "tax": 0.00, "grandTotal": 209.70 }
+  },
+  {
+    "_id": { "$oid": "o2" },
+    "orderNumber": "20250902-0001",
+    "customerId": { "$oid": "c2" },
+    "createdAt": { "$date": "2025-09-02T11:00:00Z" },
+    "status": "paid",
+    "items": [
+      { "productId": { "$oid": "p2" }, "sku": "LB-0002", "name": "Python para Iniciantes", "category": "livro", "quantity": 1, "unitPrice": 59.90 },
+      { "productId": { "$oid": "p5" }, "sku": "CD-0002", "name": "Pop Classics", "category": "cd", "quantity": 2, "unitPrice": 34.90 }
+    ],
+    "shipping": { "address": { "street": "Rua B, 456", "city": "Rio de Janeiro", "state": "RJ", "zip": "20000-000", "country": "BR" } },
+    "totals": { "subtotal": 129.70, "shippingFee": 15.00, "tax": 0.00, "grandTotal": 144.70 }
+  },
+  {
+    "_id": { "$oid": "o3" },
+    "orderNumber": "20250903-0001",
+    "customerId": { "$oid": "c3" },
+    "createdAt": { "$date": "2025-09-03T12:00:00Z" },
+    "status": "paid",
+    "items": [
+      { "productId": { "$oid": "p3" }, "sku": "LB-0003", "name": "Java Essencial", "category": "livro", "quantity": 1, "unitPrice": 69.90 },
+      { "productId": { "$oid": "p6" }, "sku": "CD-0003", "name": "Rock Anthems", "category": "cd", "quantity": 1, "unitPrice": 29.90 },
+      { "productId": { "$oid": "p7" }, "sku": "EL-0001", "name": "Batedeira 300W", "category": "eletrodoméstico", "quantity": 1, "unitPrice": 199.90 }
+    ],
+    "shipping": { "address": { "street": "Rua C, 789", "city": "Belo Horizonte", "state": "MG", "zip": "30000-000", "country": "BR" } },
+    "totals": { "subtotal": 299.70, "shippingFee": 20.00, "tax": 0.00, "grandTotal": 319.70 }
+  },
+  {
+    "_id": { "$oid": "o4" },
+    "orderNumber": "20250904-0001",
+    "customerId": { "$oid": "c4" },
+    "createdAt": { "$date": "2025-09-04T10:30:00Z" },
+    "status": "paid",
+    "items": [
+      { "productId": { "$oid": "p8" }, "sku": "EL-0002", "name": "Liquidificador 500W", "category": "eletrodoméstico", "quantity": 1, "unitPrice": 249.90 },
+      { "productId": { "$oid": "p9" }, "sku": "EL-0003", "name": "Sanduicheira", "category": "eletrodoméstico", "quantity": 2, "unitPrice": 99.90 }
+    ],
+    "shipping": { "address": { "street": "Rua D, 321", "city": "São Paulo", "state": "SP", "zip": "01010-000", "country": "BR" } },
+    "totals": { "subtotal": 449.70, "shippingFee": 15.00, "tax": 0.00, "grandTotal": 464.70 }
+  },
+  {
+    "_id": { "$oid": "o5" },
+    "orderNumber": "20250905-0001",
+    "customerId": { "$oid": "c5" },
+    "createdAt": { "$date": "2025-09-05T11:30:00Z" },
+    "status": "paid",
+    "items": [
+      { "productId": { "$oid": "p10" }, "sku": "LB-0004", "name": "Data Science Básico", "category": "livro", "quantity": 1, "unitPrice": 89.90 },
+      { "productId": { "$oid": "p11" }, "sku": "LB-0005", "name": "SQL Avançado", "category": "livro", "quantity": 1, "unitPrice": 69.90 },
+      { "productId": { "$oid": "p12" }, "sku": "CD-0004", "name": "Jazz Collection", "category": "cd", "quantity": 1, "unitPrice": 44.90 }
+    ],
+    "shipping": { "address": { "street": "Rua E, 654", "city": "Rio de Janeiro", "state": "RJ", "zip": "20010-000", "country": "BR" } },
+    "totals": { "subtotal": 204.70, "shippingFee": 10.00, "tax": 0.00, "grandTotal": 214.70 }
+  }
+]

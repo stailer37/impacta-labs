@@ -1,0 +1,107 @@
+[
+   {
+      "_id":{
+         "$oid":"c1"
+      },
+      "name":"Ana Silva",
+      "email":"ana.silva@example.com",
+      "phone":"+55 11 91234-5678",
+      "address":{
+         "street":"Rua A, 123",
+         "city":"São Paulo",
+         "state":"SP",
+         "zip":"01000-000",
+         "country":"BR"
+      },
+      "createdAt":{
+         "$date":"2025-01-01T09:00:00Z"
+      },
+      "updatedAt":{
+         "$date":"2025-09-01T12:00:00Z"
+      }
+   },
+   {
+      "_id":{
+         "$oid":"c2"
+      },
+      "name":"Bruno Costa",
+      "email":"bruno.costa@example.com",
+      "phone":"+55 21 99876-5432",
+      "address":{
+         "street":"Rua B, 456",
+         "city":"Rio de Janeiro",
+         "state":"RJ",
+         "zip":"20000-000",
+         "country":"BR"
+      },
+      "createdAt":{
+         "$date":"2025-01-05T09:00:00Z"
+      },
+      "updatedAt":{
+         "$date":"2025-09-05T12:00:00Z"
+      }
+   },
+   {
+      "_id":{
+         "$oid":"c3"
+      },
+      "name":"Carla Mendes",
+      "email":"carla.mendes@example.com",
+      "phone":"+55 31 91234-9876",
+      "address":{
+         "street":"Rua C, 789",
+         "city":"Belo Horizonte",
+         "state":"MG",
+         "zip":"30000-000",
+         "country":"BR"
+      },
+      "createdAt":{
+         "$date":"2025-01-10T09:00:00Z"
+      },
+      "updatedAt":{
+         "$date":"2025-09-10T12:00:00Z"
+      }
+   },
+   {
+      "_id":{
+         "$oid":"c4"
+      },
+      "name":"Daniela Souza",
+      "email":"daniela.souza@example.com",
+      "phone":"+55 11 98765-4321",
+      "address":{
+         "street":"Rua D, 321",
+         "city":"São Paulo",
+         "state":"SP",
+         "zip":"01010-000",
+         "country":"BR"
+      },
+      "createdAt":{
+         "$date":"2025-02-01T09:00:00Z"
+      },
+      "updatedAt":{
+         "$date":"2025-09-15T12:00:00Z"
+      }
+   },
+   {
+      "_id":{
+         "$oid":"c5"
+      },
+      "name":"Eduardo Lima",
+      "email":"eduardo.lima@example.com",
+      "phone":"+55 21 91234-1111",
+      "address":{
+         "street":"Rua E, 654",
+         "city":"Rio de Janeiro",
+         "state":"RJ",
+         "zip":"20010-000",
+         "country":"BR"
+      },
+      "createdAt":{
+         "$date":"2025-02-15T09:00:00Z"
+      },
+      "updatedAt":{
+         "$date":"2025-09-20T12:00:00Z"
+      }
+   }
+]
