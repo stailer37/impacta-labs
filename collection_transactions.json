@@ -1,0 +1,159 @@
+[
+  {
+    "_id": "64f8a123e4b0c9d123456789",
+    "transaction_id": "TXN-2025-001",
+    "customer_id": "CUST-12345",
+    "customer_name": "João Silva Santos",
+    "customer_email": "joao.silva@email.com",
+    "customer_state": "SP",
+    "customer_city": "São Paulo",
+    "customer_segment": "recorrente",
+    "transaction_date": "2025-09-15T14:30:00Z",
+    "total_amount": 245.90,
+    "products": [
+      {
+        "product_id": "BOOK-001",
+        "name": "MongoDB Basics",
+        "category": "livros",
+        "price": 49.76,
+        "quantity": 1
+      },
+      {
+        "product_id": "ELECT-045",
+        "name": "Liquidificador Mondial",
+        "category": "eletrodomesticos",
+        "price": 156.00,
+        "quantity": 1
+      }
+    ],
+    "created_at": "2025-09-15T14:30:00Z",
+    "updated_at": "2025-09-15T14:30:00Z"
+  },
+  {
+    "_id": "64f8a123e4b0c9d123456790",
+    "transaction_id": "TXN-2025-002",
+    "customer_id": "CUST-67890",
+    "customer_name": "Maria Oliveira Costa",
+    "customer_email": "maria.costa@gmail.com",
+    "customer_state": "RJ",
+    "customer_city": "Rio de Janeiro",
+    "customer_segment": "novo",
+    "transaction_date": "2025-09-14T10:15:00Z",
+    "total_amount": 125.80,
+    "products": [
+      {
+        "product_id": "CD-023",
+        "name": "Metallica - The Black Album",
+        "category": "cds",
+        "price": 45.90,
+        "quantity": 1
+      },
+      {
+        "product_id": "BOOK-015",
+        "name": "Python para Análise de Dados",
+        "category": "livros",
+        "price": 69.90,
+        "quantity": 2
+      },
+      {
+        "product_id": "CD-067",
+        "name": "Led Zeppelin I",
+        "category": "cds",
+        "price": 35.50,
+        "quantity": 1
+      }
+    ],
+    "created_at": "2025-09-14T10:15:00Z",
+    "updated_at": "2025-09-14T10:15:00Z"
+  },
+  {
+    "_id": "64f8a123e4b0c9d123456791",
+    "transaction_id": "TXN-2025-003",
+    "customer_id": "CUST-11111",
+    "customer_name": "Carlos Eduardo Pereira",
+    "customer_email": "carlos.pereira@hotmail.com",
+    "customer_state": "MG",
+    "customer_city": "Belo Horizonte",
+    "customer_segment": "vip",
+    "transaction_date": "2025-09-13T16:45:00Z",
+    "total_amount": 234.50,
+    "products": [
+      {
+        "product_id": "ELECT-012",
+        "name": "Batedeira Planetária",
+        "category": "eletrodomesticos",
+        "price": 234.50,
+        "quantity": 1
+      }
+    ],
+    "created_at": "2025-09-13T16:45:00Z",
+    "updated_at": "2025-09-13T16:45:00Z"
+  },
+  {
+    "_id": "64f8a123e4b0c9d123456792",
+    "transaction_id": "TXN-2025-004",
+    "customer_id": "CUST-12345",
+    "customer_name": "João Silva Santos",
+    "customer_email": "joao.silva@email.com",
+    "customer_state": "SP",
+    "customer_city": "São Paulo",
+    "customer_segment": "recorrente",
+    "transaction_date": "2025-09-12T11:20:00Z",
+    "total_amount": 78.90,
+    "products": [
+      {
+        "product_id": "BOOK-008",
+        "name": "Spark: The Definitive Guide: Big Data Processing Made Simple (English Edition)",
+        "category": "livros",
+        "price": 39.90,
+        "quantity": 1
+      },
+      {
+        "product_id": "CD-089",
+        "name": "The Dark Side of the Moon",
+        "category": "cds",
+        "price": 39.00,
+        "quantity": 1
+      }
+    ],
+    "created_at": "2025-09-12T11:20:00Z",
+    "updated_at": "2025-09-12T11:20:00Z"
+  },
+  {
+    "_id": "64f8a123e4b0c9d123456793",
+    "transaction_id": "TXN-2025-005",
+    "customer_id": "CUST-33333",
+    "customer_name": "Ana Beatriz Ferreira",
+    "customer_email": "ana.ferreira@yahoo.com",
+    "customer_state": "RS",
+    "customer_city": "Porto Alegre",
+    "customer_segment": "recorrente",
+    "transaction_date": "2025-08-28T09:30:00Z",
+    "total_amount": 189.70,
+    "products": [
+      {
+        "product_id": "ELECT-078",
+        "name": "Cafeteira Elétrica",
+        "category": "eletrodomesticos",
+        "price": 145.00,
+        "quantity": 1
+      },
+      {
+        "product_id": "BOOK-032",
+        "name": "O Pistoleiro (A Torre Negra Livro 1)",
+        "category": "livros",
+        "price": 22.90,
+        "quantity": 1
+      },
+      {
+        "product_id": "CD-045",
+        "name": "Legião Urbana - Dois",
+        "category": "cds",
+        "price": 21.80,
+        "quantity": 1
+      }
+    ],
+    "created_at": "2025-08-28T09:30:00Z",
+    "updated_at": "2025-08-28T09:30:00Z"
+  }
+]
