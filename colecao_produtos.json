@@ -1,0 +1,5 @@
+[
+  { "_id": "produto001", "nome": "Livro: Python para Iniciantes", "categoria": "livro", "preco": 89.90, "estoque": 100 },
+  { "_id": "produto002", "nome": "CD: Clássicos do Rock", "categoria": "cd", "preco": 49.90, "estoque": 200 },
+  { "_id": "produto003", "nome": "Liquidificador Turbo", "categoria": "eletrodomestico", "preco": 199.90, "estoque": 50 }
+]

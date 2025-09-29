@@ -1,0 +1,12 @@
+[
+  { "_id": "clique001", "cliente_id": "cliente001", "produto_id": "produto002", "data": "2025-09-19T09:00:00" },
+  { "_id": "clique002", "cliente_id": "cliente002", "produto_id": "produto003", "data": "2025-09-20T14:00:00" },
+  { "_id": "clique003", "cliente_id": "cliente003", "produto_id": "produto001", "data": "2025-09-21T16:00:00" },
+  { "_id": "clique004", "cliente_id": "cliente004", "produto_id": "produto002", "data": "2025-09-22T07:00:00" },
+  { "_id": "clique005", "cliente_id": "cliente005", "produto_id": "produto003", "data": "2025-09-23T10:00:00" },
+  { "_id": "clique006", "cliente_id": "cliente006", "produto_id": "produto001", "data": "2025-09-24T14:00:00" },
+  { "_id": "clique007", "cliente_id": "cliente007", "produto_id": "produto002", "data": "2025-09-25T16:00:00" },
+  { "_id": "clique008", "cliente_id": "cliente008", "produto_id": "produto001", "data": "2025-09-26T06:00:00" },
+  { "_id": "clique009", "cliente_id": "cliente009", "produto_id": "produto003", "data": "2025-09-27T01:00:00" },
+  { "_id": "clique010", "cliente_id": "cliente010", "produto_id": "produto003", "data": "2025-09-28T18:00:00" } 
+]

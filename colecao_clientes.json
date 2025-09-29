@@ -1,0 +1,12 @@
+[
+  { "_id": "cliente001", "nome": "Ana Lima", "email": "analima@email.com", "estado": "SP", "data_cadastro": "2025-01-10" },
+  { "_id": "cliente002", "nome": "Carlos Mendes", "email": "carlosmendes@email.com", "estado": "RJ", "data_cadastro": "2025-02-20" },
+  { "_id": "cliente003", "nome": "Fernanda Rocha", "email": "fernandrochaa@email.com", "estado": "SP", "data_cadastro": "2025-03-05" },
+  { "_id": "cliente004", "nome": "Joao Abreu", "email": "joaoabreu@email.com", "estado": "RN", "data_cadastro": "2025-04-19" },
+  { "_id": "cliente005", "nome": "Maria Santos", "email": "mariasantos@email.com", "estado": "MG", "data_cadastro": "2025-02-01" },
+  { "_id": "cliente006", "nome": "Jose Silva", "email": "josesilva@email.com", "estado": "BA", "data_cadastro": "2025-01-15" },
+  { "_id": "cliente007", "nome": "Bianca de Jesus", "email": "biancajesus@email.com", "estado": "SP", "data_cadastro": "2025-03-10" },
+  { "_id": "cliente008", "nome": "Adriana Almeida", "email": "adrianaalmeida@email.com", "estado": "PR", "data_cadastro": "2025-03-30" },
+  { "_id": "cliente009", "nome": "Antonio Pereira", "email": "antoniopereira@email.com", "estado": "RJ", "data_cadastro": "2025-04-11" },
+  { "_id": "cliente010", "nome": "Luiz Barroso", "email": "luizbarroso@email.com", "estado": "SP", "data_cadastro": "2025-05-11" }
+]

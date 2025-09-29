@@ -1,0 +1,94 @@
+[
+  {
+    "_id": "compra001",
+    "cliente_id": "cliente001",
+    "data": "2025-09-20T10:00:00",
+    "produtos": [
+      { "produto_id": "produto002", "quantidade": 2 }
+    ],
+    "valor_total": 99.80
+  },
+  {
+    "_id": "compra002",
+    "cliente_id": "cliente002",
+    "data": "2025-09-21T15:30:00",
+    "produtos": [
+      { "produto_id": "produto003", "quantidade": 1 }
+    ],
+    "valor_total": 199.90
+  },
+  {
+    "_id": "compra003",
+    "cliente_id": "cliente003",
+    "data": "2025-09-22T11:45:00",
+    "produtos": [
+      { "produto_id": "produto001", "quantidade": 1 }
+    ],
+    "valor_total": 89.90
+  },
+  {
+    "_id": "compra004",
+    "cliente_id": "cliente004",
+    "data": "2025-09-23T07:00:00",
+    "produtos": [
+      { "produto_id": "produto002", "quantidade": 1 }
+    ],
+    "valor_total": 49.9
+  }, 
+    {
+    "_id": "compra005",
+    "cliente_id": "cliente005",
+    "data": "2025-09-24T06:00:00",
+    "produtos": [
+      { "produto_id": "produto003", "quantidade": 1 }
+    ],
+    "valor_total": 199.80
+  }, 
+    {
+    "_id": "compra006",
+    "cliente_id": "cliente006",
+    "data": "2025-09-25T16:00:00",
+    "produtos": [
+      { "produto_id": "produto001", "quantidade": 2 }
+    ],
+    "valor_total": 179.80
+  },
+    {
+    "_id": "compra007",
+    "cliente_id": "cliente007",
+    "data": "2025-09-26T10:00:00",
+    "produtos": [
+      { "produto_id": "produto002", "quantidade": 1 }
+    ],
+    "valor_total": 49.90
+  },
+    {
+    "_id": "compra008",
+    "cliente_id": "cliente008",
+    "data": "2025-09-27T14:00:00",
+    "produtos": [
+      { "produto_id": "produto001", "quantidade": 1 }
+    ],
+    "valor_total": 89.90
+  },
+    {
+    "_id": "compra009",
+    "cliente_id": "cliente009",
+    "data": "2025-09-28T16:00:00",
+    "produtos": [
+      { "produto_id": "produto003", "quantidade": 1 }
+    ],
+    "valor_total": 199.90
+  },  
+    {
+    "_id": "compra010",
+    "cliente_id": "cliente010",
+    "data": "2025-09-29T15:00:00",
+    "produtos": [
+      { "produto_id": "produto003", "quantidade": 1 }
+    ],
+    "valor_total": 199.90
+  }  
+]
+
+
