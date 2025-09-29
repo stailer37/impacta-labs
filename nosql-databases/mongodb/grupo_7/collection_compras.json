@@ -1,0 +1,78 @@
+[
+    {
+        "_id": "comp100",
+        "cliente_id": "cli001",
+        "data_compra": "2024-09-10T10:30:00Z",
+        "valor_total": 79.90,
+        "produtos": [
+            {
+                "sku": "LIV005",
+                "nome": "O Segredo da Floresta",
+                "categoria": "livro",
+                "quantidade": 1
+            }
+        ]
+    },
+    {
+        "_id": "comp101",
+        "cliente_id": "cli002",
+        "data_compra": "2024-09-10T14:45:00Z",
+        "valor_total": 350.50,
+        "produtos": [
+            {
+                "sku": "ELET010",
+                "nome": "Mixer Portátil",
+                "categoria": "eletrodomestico",
+                "quantidade": 1
+            },
+            {
+                "sku": "LIV001",
+                "nome": "A Arte da Guerra",
+                "categoria": "livro",
+                "quantidade": 1
+            }
+        ]
+    },
+    {
+        "_id": "comp102",
+        "cliente_id": "cli001",
+        "data_compra": "2024-09-11T09:15:00Z",
+        "valor_total": 49.99,
+        "produtos": [
+            {
+                "sku": "CD020",
+                "nome": "Coletânea Clássicos Vol. 1",
+                "categoria": "cd",
+                "quantidade": 2
+            }
+        ]
+    },
+    {
+        "_id": "comp103",
+        "cliente_id": "cli003",
+        "data_compra": "2024-09-11T16:00:00Z",
+        "valor_total": 120.00,
+        "produtos": [
+            {
+                "sku": "LIV015",
+                "nome": "Física Moderna",
+                "categoria": "livro",
+                "quantidade": 3
+            }
+        ]
+    },
+    {
+        "_id": "comp104",
+        "cliente_id": "cli004",
+        "data_compra": "2024-09-12T11:20:00Z",
+        "valor_total": 599.99,
+        "produtos": [
+            {
+                "sku": "ELET003",
+                "nome": "Mini Processador de Alimentos",
+                "categoria": "eletrodomestico",
+                "quantidade": 1
+            }
+        ]
+    }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "cli001",
+    "nome": "Ana Paula Souza",
+    "email": "ana.paula@email.com",
+    "data_cadastro": "2024-01-15",
+    "cidade": "São Paulo"
+  },
+  {
+    "_id": "cli002",
+    "nome": "Bruno Costa",
+    "email": "bruno.c@email.com",
+    "data_cadastro": "2024-02-20",
+    "cidade": "Rio de Janeiro"
+  },
+  {
+    "_id": "cli003",
+    "nome": "Carla Mendes",
+    "email": "carla.m@email.com",
+    "data_cadastro": "2024-03-05",
+    "cidade": "Belo Horizonte"
+  },
+  {
+    "_id": "cli004",
+    "nome": "Daniel Farias",
+    "email": "daniel.f@email.com",
+    "data_cadastro": "2024-04-10",
+    "cidade": "Porto Alegre"
+  },
+  {
+    "_id": "cli005",
+    "nome": "Elaine Gomes",
+    "email": "elaine.g@email.com",
+    "data_cadastro": "2024-05-18",
+    "cidade": "Curitiba"
+  }
+]
