@@ -1,0 +1,37 @@
+[
+  {
+    "id_produto": "1",
+    "nome": "O Hobbit",
+    "valor_unitario": 49.90,
+    "tipo_produto": "livro",
+    "quantidade_estoque": 150,
+    "descricao": {
+      "autor": "J.R.R. Tolkien",
+      "paginas": 320,
+      "editora": "HarperCollins Brasil"
+    }
+  },
+  {
+    "id_produto": "2",
+    "nome": "Liquidificador Philips Walita ProBlend 6",
+    "valor_unitario": 299.99,
+    "tipo_produto": "eletrodomestico",
+    "quantidade_estoque": 50,
+    "descricao": {
+      "voltagem": "110V/220V",
+      "potencia_watts": 800,
+      "capacidade_litros": 2
+    }
+  },
+  {
+    "id_produto": "3",
+    "nome": "CD The Dark Side of the Moon",
+    "valor_unitario": 39.90,
+    "tipo_produto": "cd",
+    "quantidade_estoque": 80,
+    "descricao": {
+      "banda": "Pink Floyd",
+      "genero": "Rock Progressivo"
+    }
+  }
+]

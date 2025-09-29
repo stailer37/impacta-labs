@@ -1,0 +1,68 @@
+[
+  {
+    "id_evento": "1",
+    "id_cliente": "cliente_123",
+    "timestamp": {
+      "$date": "2025-09-17T09:55:00Z"
+    },
+    "tipo_evento": "visualizacao_produto",
+    "detalhes_evento": {
+		"id_produto": "2"
+    }
+  },
+  {
+    "id_evento": "2",
+    "id_cliente": "cliente_123",
+    "timestamp": {
+      "$date": "2025-09-17T09:58:00Z"
+    },
+    "tipo_evento": "adicionar_carrinho",
+    "detalhes_evento": {
+		"id_produto": "2"
+    }
+  },
+  {
+    "id_evento": "3",
+    "id_cliente": "cliente_123",
+    "timestamp": {
+      "$date": "2025-09-17T09:58:00Z"
+    },
+    "tipo_evento": "visualizacao_produto",
+    "detalhes_evento": {
+		"id_produto": "1"
+    }
+  },
+  {
+    "id_evento": "4",
+    "id_cliente": "cliente_123",
+    "timestamp": {
+      "$date": "2025-09-17T09:59:00Z"
+    },
+    "tipo_evento": "adicionar_carrinho",
+    "detalhes_evento": {
+		"id_produto": "1"
+    }
+  },
+  {
+    "id_evento": "5",
+    "id_cliente": "cliente_456",
+    "timestamp": {
+      "$date": "2025-09-18T09:58:00Z"
+    },
+    "tipo_evento": "visualizacao_produto",
+    "detalhes_evento": {
+		"id_produto": "3"
+    }
+  },
+  {
+    "id_evento": "6",
+    "id_cliente": "cliente_456",
+    "timestamp": {
+      "$date": "2025-09-18T09:59:00Z"
+    },
+    "tipo_evento": "adicionar_carrinho",
+    "detalhes_evento": {
+		"id_produto": "3"
+    }
+  }
+]

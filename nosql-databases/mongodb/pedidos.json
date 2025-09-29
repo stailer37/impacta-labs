@@ -1,0 +1,42 @@
+[
+  {
+    "id_pedido": "1",
+    "id_cliente": "cliente_123",
+    "estado_cliente": "SP",
+    "data_compra": {
+      "$date": "2025-09-17T10:00:00Z"
+    },
+    "valor_total": 389.79,
+    "produtos": [
+      {
+		"id_produto": "2",
+        "nome_produto": "Liquidificador Philips Walita ProBlend 6",
+        "valor_pago": 299.99,
+        "quantidade_comprada": 1
+      },
+      {
+		"id_produto": "1",
+        "nome_produto": "O Hobbit",
+        "valor_pago": 49.90,
+        "quantidade_comprada": 2
+      }
+    ]
+  },
+  {
+    "id_pedido": "2",
+    "id_cliente": "cliente_456",
+    "estado_cliente": "MG",
+    "data_compra": {
+      "$date": "2025-09-17T11:30:00Z"
+    },
+    "valor_total": 39.90,
+    "produtos": [
+      {
+		"id_produto": "3",
+        "nome_produto": "CD The Dark Side of the Moon",
+        "valor_pago": 39.90,
+        "quantidade_comprada": 1
+      }
+    ]
+  }
+]
