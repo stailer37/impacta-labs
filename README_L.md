@@ -18,7 +18,7 @@ Essa estrutura permite responder facilmente às perguntas de negócio e adaptar 
 
 ## Pergunta escolhida
 
-**Qual é o valor médio das vendas por estado do cliente?**
+**Qual é o valor médio das vendas por estado ?**
 
 Utilizei o comando MongoDB com `aggregate` e `lookup` para unir dados de clientes e compras e calcular a média por estado.
 
