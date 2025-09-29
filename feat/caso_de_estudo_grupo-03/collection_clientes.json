@@ -1,0 +1,201 @@
+[
+  {
+    "evento_id": "cli_2025_001",
+    "tipo": "CLIENTE_CRIADO",
+    "timestamp": "2025-09-28T16:03:56Z",
+    "dados": {
+      "cliente_id": "C3801",
+      "nome": "Felipe Peixoto",
+      "email": "evelyn69@example.org",
+      "endereco": {
+        "rua": "Avenida Paulo Moreira, 29",
+        "cidade": "Campos das Flores",
+        "estado": "GO",
+        "cep": "18496-596"
+      },
+      "data_cadastro": "2025-01-10T16:03:56Z",
+      "cliques_recentes": [
+        {
+          "produto_id": "P0001",
+          "nome": "At ut aspernatur.",
+          "categoria": "livros",
+          "subcategoria": "literatura_brasileira",
+          "preco": 106.6,
+          "timestamp": "2025-09-28T14:04:56Z"
+        },
+        {
+          "produto_id": "P0001",
+          "nome": "At ut aspernatur.",
+          "categoria": "livros",
+          "subcategoria": "literatura_brasileira",
+          "preco": 106.6,
+          "timestamp": "2025-09-28T14:28:56Z"
+        },
+        {
+          "produto_id": "P0019",
+          "nome": "Sed.",
+          "categoria": "cds",
+          "subcategoria": "rock",
+          "preco": 75.74,
+          "timestamp": "2025-09-28T14:36:56Z"
+        }
+      ]
+    }
+  },
+  {
+    "evento_id": "cli_2025_002",
+    "tipo": "CLIENTE_CRIADO",
+    "timestamp": "2025-09-28T16:03:56Z",
+    "dados": {
+      "cliente_id": "C3128",
+      "nome": "Evelyn da Rocha",
+      "email": "enricogoncalves@example.net",
+      "endereco": {
+        "rua": "Feira Rezende, 3",
+        "cidade": "das Neves",
+        "estado": "RS",
+        "cep": "83634634"
+      },
+      "data_cadastro": "2025-05-05T16:03:56Z",
+      "cliques_recentes": [
+        {
+          "produto_id": "P0018",
+          "nome": "Quas explicabo.",
+          "categoria": "cds",
+          "subcategoria": "rock",
+          "preco": 40.53,
+          "timestamp": "2025-09-28T14:05:56Z"
+        },
+        {
+          "produto_id": "P0011",
+          "nome": "At itaque perferendis quos.",
+          "categoria": "cds",
+          "subcategoria": "pop",
+          "preco": 27.49,
+          "timestamp": "2025-09-28T14:28:56Z"
+        },
+        {
+          "produto_id": "P0012",
+          "nome": "Dolor voluptatum.",
+          "categoria": "cds",
+          "subcategoria": "pop",
+          "preco": 69.36,
+          "timestamp": "2025-09-28T16:00:56Z"
+        }
+      ]
+    }
+  },
+  {
+    "evento_id": "cli_2025_003",
+    "tipo": "CLIENTE_CRIADO",
+    "timestamp": "2025-09-28T16:03:56Z",
+    "dados": {
+      "cliente_id": "C8136",
+      "nome": "Maria Cavalcanti",
+      "email": "barbosafelipe@example.net",
+      "endereco": {
+        "rua": "Esplanada Antônio Vieira, 901",
+        "cidade": "Peixoto",
+        "estado": "GO",
+        "cep": "09527973"
+      },
+      "data_cadastro": "2025-08-08T16:03:56Z",
+      "cliques_recentes": [
+        {
+          "produto_id": "P0004",
+          "nome": "Tempore dolorem.",
+          "categoria": "livros",
+          "subcategoria": "didático",
+          "preco": 55.37,
+          "timestamp": "2025-09-28T15:03:56Z"
+        },
+        {
+          "produto_id": "P0007",
+          "nome": "Nisi eius.",
+          "categoria": "livros",
+          "subcategoria": "literatura_estrangeira",
+          "preco": 42.71,
+          "timestamp": "2025-09-28T15:16:56Z"
+        },
+        {
+          "produto_id": "P0005",
+          "nome": "Corrupti sed.",
+          "categoria": "livros",
+          "subcategoria": "literatura_estrangeira",
+          "preco": 104.47,
+          "timestamp": "2025-09-28T15:31:56Z"
+        }
+      ]
+    }
+  },
+  {
+    "evento_id": "cli_2025_004",
+    "tipo": "CLIENTE_CRIADO",
+    "timestamp": "2025-09-28T16:03:56Z",
+    "dados": {
+      "cliente_id": "C3929",
+      "nome": "Júlia Aragão",
+      "email": "alicecampos@example.org",
+      "endereco": {
+        "rua": "Travessa Barbosa, 42",
+        "cidade": "Rocha da Mata",
+        "estado": "AC",
+        "cep": "39920756"
+      },
+      "data_cadastro": "2025-01-31T16:03:56Z",
+      "cliques_recentes": [
+        {
+          "produto_id": "P0001",
+          "nome": "At ut aspernatur.",
+          "categoria": "livros",
+          "subcategoria": "literatura_brasileira",
+          "preco": 106.6,
+          "timestamp": "2025-09-28T15:06:56Z"
+        },
+        {
+          "produto_id": "P0005",
+          "nome": "Corrupti sed.",
+          "categoria": "livros",
+          "subcategoria": "literatura_estrangeira",
+          "preco": 104.47,
+          "timestamp": "2025-09-28T15:40:56Z"
+        }
+      ]
+    }
+  },
+  {
+    "evento_id": "cli_2025_005",
+    "tipo": "CLIENTE_CRIADO",
+    "timestamp": "2025-09-28T16:03:56Z",
+    "dados": {
+      "cliente_id": "C9130",
+      "nome": "Alana da Cunha",
+      "email": "rmoura@example.com",
+      "endereco": {
+        "rua": "Largo Santos, 10",
+        "cidade": "das Neves do Norte",
+        "estado": "RR",
+        "cep": "61814243"
+      },
+      "data_cadastro": "2025-03-25T16:03:56Z",
+      "cliques_recentes": [
+        {
+          "produto_id": "P0012",
+          "nome": "Dolor voluptatum.",
+          "categoria": "cds",
+          "subcategoria": "pop",
+          "preco": 69.36,
+          "timestamp": "2025-09-28T15:21:56Z"
+        },
+        {
+          "produto_id": "P0001",
+          "nome": "At ut aspernatur.",
+          "categoria": "livros",
+          "subcategoria": "literatura_brasileira",
+          "preco": 106.6,
+          "timestamp": "2025-09-28T16:02:56Z"
+        }
+      ]
+    }
+  }
+]
