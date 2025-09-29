@@ -1,5 +1,5 @@
 # Use a imagem oficial do MongoDB
-FROM mongo:latest
+FROM mongo:4.4
 
 # Define o diretório de trabalho
 WORKDIR /data/db
