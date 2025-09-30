@@ -10,12 +10,12 @@ Este relatório apresenta a arquitetura de dados proposta para a empresa fictíc
 
 ---
 
-## 4. Arquitetura de Dados
+## 4. Arquitetura de Dados e Principais Decisões de Arquitetura
 
-### Principais Decisões de Arquitetura
+
 
 #### 1. **Coleções Definidas**
-Foram estabelecidas **três coleções principais**, cada uma com um domínio claro:
+Foram estabelecidas **três coleções principais**, cada uma com um domínio:
 
 | Coleção     | Objetivo                           | Campos Relevantes |
 |-------------|------------------------------------|-------------------|
