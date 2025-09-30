@@ -1,0 +1,38 @@
+[
+    {
+        "id_cliente": 2,
+        "nome_cliente": "Diogo",
+        "email_cliente": "diogo@email.com",
+        "estado_cliente": "SP"
+    },
+    {
+        "id_cliente": 6,
+        "nome_cliente": "Antonio",
+        "email_cliente": "antonio@email.com",
+        "estado_cliente": "SP"
+    },
+    {
+        "id_cliente": 12,
+        "nome_cliente": "Bruno",
+        "email_cliente": "bruno@email.com",
+        "estado_cliente": "SP"
+    },
+    {
+        "id_cliente": 22,
+        "nome_cliente": "Santana",
+        "email_cliente": "santana@email.com",
+        "estado_cliente": "RJ"
+    },
+    {
+        "id_cliente": 35,
+        "nome_cliente": "Jose",
+        "email_cliente": "jose@email.com",
+        "estado_cliente": "RJ"
+    },
+    {
+        "id_cliente": 27,
+        "nome_cliente": "Silvio",
+        "email_cliente": "silvio@email.com",
+        "estado_cliente": "PE"
+    }
+]

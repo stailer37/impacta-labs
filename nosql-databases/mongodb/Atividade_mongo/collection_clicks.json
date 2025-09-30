@@ -1,0 +1,32 @@
+[
+    {
+        "id_click": 23154621,
+        "id_cliente": 12,
+        "id_produto": 455,
+        "timestamp": "2025-09-21T17:50:00Z"
+    },
+    {
+        "id_click": 4554524,
+        "id_cliente": 6,
+        "id_produto": 778,
+        "timestamp": "2025-09-14T17:51:48Z"
+    },
+    {
+        "id_click": 5465215,
+        "id_cliente": 22,
+        "id_produto": 566,
+        "timestamp": "2025-09-29T10:20:33Z"
+    },
+    {
+        "id_click": 4521533,
+        "id_cliente": 12,
+        "id_produto": 154,
+        "timestamp": "2025-09-01T09:22:41Z"
+    },
+    {
+        "id_click": 2458998,
+        "id_cliente": 27,
+        "id_produto": 333,
+        "timestamp": "2025-09-06T22:49:23Z"
+    }
+]

@@ -1,0 +1,68 @@
+[
+    {
+        "id_produto": 154,
+        "nome_produto": "Shrek 2",
+        "categoria_produto": "DVD",
+        "preco_produto": 25.90
+    },
+    {
+        "id_produto": 155,
+        "nome_produto": "O memino do pijama listrado",
+        "categoria_produto": "Livro",
+        "preco_produto": 68.00
+    },
+    {
+        "id_produto": 254,
+        "nome_produto": "Mixer",
+        "categoria_produto": "Eletrodoméstico",
+        "preco_produto": 150.00
+    },
+    {
+        "id_produto": 322,
+        "nome_produto": "Homem de Ferro 3",
+        "categoria_produto": "DVD",
+        "preco_produto": 25.90
+    },
+    {
+        "id_produto": 333,
+        "nome_produto": "Multiprocessador",
+        "categoria_produto": "Eletrodoméstico",
+        "preco_produto": 360.00
+    },
+    {
+        "id_produto": 878,
+        "nome_produto": "System of A Down",
+        "categoria_produto": "CD",
+        "preco_produto": 64.99
+    },
+    {
+        "id_produto": 455,
+        "nome_produto": "Linkin Park",
+        "categoria_produto": "CD",
+        "preco_produto": 68.50
+    },
+    {
+        "id_produto": 457,
+        "nome_produto": "O auto da compadecida",
+        "categoria_produto": "DVD",
+        "preco_produto": 25.90
+    },
+    {
+        "id_produto": 778,
+        "nome_produto": "300",
+        "categoria_produto": "DVD",
+        "preco_produto": 35
+    },
+    {
+        "id_produto": 566,
+        "nome_produto": "Microondas",
+        "categoria_produto": "Eletrodoméstico",
+        "preco_produto": 344.99
+    },
+    {
+        "id_produto": 229,
+        "nome_produto": "Emicida",
+        "categoria_produto": "CD",
+        "preco_produto": 24.50
+    }
+]
