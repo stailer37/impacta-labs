@@ -1,0 +1,562 @@
+[
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f47"
+    },
+    "id": "S001",
+    "client_id": "C101",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-20T10:30:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P001",
+        "name": "Livro - Dom Casmurro",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 35
+      },
+      {
+        "product_id": "P002",
+        "name": "CD - Legião Urbana",
+        "category": "CDs",
+        "quantity": 2,
+        "unit_price": 25
+      }
+    ],
+    "total_price": 85
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f48"
+    },
+    "id": "S002",
+    "client_id": "C102",
+    "client_state": "RJ",
+    "date_sale": {
+      "$date": "2025-09-18T15:45:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P003",
+        "name": "Liquidificador Oster",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 199
+      }
+    ],
+    "total_price": 199
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f49"
+    },
+    "id": "S003",
+    "client_id": "C103",
+    "client_state": "MG",
+    "date_sale": {
+      "$date": "2025-09-17T12:00:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P004",
+        "name": "Livro - A Revolução dos Bichos",
+        "category": "Livros",
+        "quantity": 2,
+        "unit_price": 30
+      }
+    ],
+    "total_price": 60
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f4a"
+    },
+    "id": "S004",
+    "client_id": "C104",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-22T09:30:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P005",
+        "name": "CD - Pink Floyd",
+        "category": "CDs",
+        "quantity": 1,
+        "unit_price": 45
+      },
+      {
+        "product_id": "P006",
+        "name": "Livro - 1984",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 38
+      }
+    ],
+    "total_price": 83
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f4b"
+    },
+    "id": "S005",
+    "client_id": "C105",
+    "client_state": "BA",
+    "date_sale": {
+      "$date": "2025-09-15T17:10:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P007",
+        "name": "Panela Elétrica Arno",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 230
+      }
+    ],
+    "total_price": 230
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f4c"
+    },
+    "id": "S006",
+    "client_id": "C106",
+    "client_state": "RS",
+    "date_sale": {
+      "$date": "2025-09-19T13:00:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P008",
+        "name": "Livro - O Pequeno Príncipe",
+        "category": "Livros",
+        "quantity": 3,
+        "unit_price": 25
+      }
+    ],
+    "total_price": 75
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f4d"
+    },
+    "id": "S007",
+    "client_id": "C107",
+    "client_state": "PE",
+    "date_sale": {
+      "$date": "2025-09-21T16:20:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P009",
+        "name": "CD - Queen Greatest Hits",
+        "category": "CDs",
+        "quantity": 2,
+        "unit_price": 40
+      }
+    ],
+    "total_price": 80
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f4e"
+    },
+    "id": "S008",
+    "client_id": "C108",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-16T11:15:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P010",
+        "name": "Sanduicheira Mondial",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 120
+      },
+      {
+        "product_id": "P011",
+        "name": "Livro - Sapiens",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 55
+      }
+    ],
+    "total_price": 175
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f4f"
+    },
+    "id": "S009",
+    "client_id": "C109",
+    "client_state": "SC",
+    "date_sale": {
+      "$date": "2025-09-14T08:40:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P012",
+        "name": "CD - Beatles Abbey Road",
+        "category": "CDs",
+        "quantity": 1,
+        "unit_price": 50
+      }
+    ],
+    "total_price": 50
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f50"
+    },
+    "id": "S010",
+    "client_id": "C110",
+    "client_state": "GO",
+    "date_sale": {
+      "$date": "2025-09-23T10:10:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P013",
+        "name": "Forno Elétrico Philco",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 349
+      }
+    ],
+    "total_price": 349
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f51"
+    },
+    "id": "S011",
+    "client_id": "C111",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-24T14:30:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P014",
+        "name": "Livro - Harry Potter e a Pedra Filosofal",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 45
+      },
+      {
+        "product_id": "P015",
+        "name": "CD - Nirvana",
+        "category": "CDs",
+        "quantity": 1,
+        "unit_price": 35
+      }
+    ],
+    "total_price": 80
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f52"
+    },
+    "id": "S012",
+    "client_id": "C112",
+    "client_state": "MG",
+    "date_sale": {
+      "$date": "2025-09-13T15:00:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P016",
+        "name": "Espremedor de Frutas Electrolux",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 150
+      }
+    ],
+    "total_price": 150
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f53"
+    },
+    "id": "S013",
+    "client_id": "C113",
+    "client_state": "PR",
+    "date_sale": {
+      "$date": "2025-09-25T18:45:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P017",
+        "name": "Livro - O Hobbit",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 42
+      }
+    ],
+    "total_price": 42
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f54"
+    },
+    "id": "S014",
+    "client_id": "C114",
+    "client_state": "CE",
+    "date_sale": {
+      "$date": "2025-09-26T13:30:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P018",
+        "name": "CD - Michael Jackson",
+        "category": "CDs",
+        "quantity": 2,
+        "unit_price": 39
+      }
+    ],
+    "total_price": 78
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f55"
+    },
+    "id": "S016",
+    "client_id": "C115",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-28T11:30:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P011",
+        "name": "Livro - Sapiens",
+        "category": "Livros",
+        "quantity": 2,
+        "unit_price": 55
+      }
+    ],
+    "total_price": 110
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f56"
+    },
+    "id": "S017",
+    "client_id": "C116",
+    "client_state": "RJ",
+    "date_sale": {
+      "$date": "2025-09-27T09:20:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P009",
+        "name": "CD - Queen Greatest Hits",
+        "category": "CDs",
+        "quantity": 1,
+        "unit_price": 40
+      },
+      {
+        "product_id": "P018",
+        "name": "CD - Michael Jackson",
+        "category": "CDs",
+        "quantity": 1,
+        "unit_price": 39
+      }
+    ],
+    "total_price": 79
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f57"
+    },
+    "id": "S018",
+    "client_id": "C117",
+    "client_state": "MG",
+    "date_sale": {
+      "$date": "2025-09-25T16:10:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P010",
+        "name": "Sanduicheira Mondial",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 120
+      }
+    ],
+    "total_price": 120
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f58"
+    },
+    "id": "S019",
+    "client_id": "C118",
+    "client_state": "BA",
+    "date_sale": {
+      "$date": "2025-09-24T10:00:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P004",
+        "name": "Livro - A Revolução dos Bichos",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 30
+      },
+      {
+        "product_id": "P011",
+        "name": "Livro - Sapiens",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 55
+      }
+    ],
+    "total_price": 85
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f59"
+    },
+    "id": "S020",
+    "client_id": "C119",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-22T14:40:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P003",
+        "name": "Liquidificador Oster",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 199
+      }
+    ],
+    "total_price": 199
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f5a"
+    },
+    "id": "S021",
+    "client_id": "C120",
+    "client_state": "RS",
+    "date_sale": {
+      "$date": "2025-09-21T12:50:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P009",
+        "name": "CD - Queen Greatest Hits",
+        "category": "CDs",
+        "quantity": 3,
+        "unit_price": 40
+      }
+    ],
+    "total_price": 120
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f5b"
+    },
+    "id": "S022",
+    "client_id": "C121",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-20T15:30:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P016",
+        "name": "Espremedor de Frutas Electrolux",
+        "category": "Eletrodomésticos",
+        "quantity": 2,
+        "unit_price": 150
+      }
+    ],
+    "total_price": 300
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f5c"
+    },
+    "id": "S023",
+    "client_id": "C122",
+    "client_state": "CE",
+    "date_sale": {
+      "$date": "2025-09-19T08:10:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P011",
+        "name": "Livro - Sapiens",
+        "category": "Livros",
+        "quantity": 1,
+        "unit_price": 55
+      }
+    ],
+    "total_price": 55
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f5d"
+    },
+    "id": "S024",
+    "client_id": "C123",
+    "client_state": "SP",
+    "date_sale": {
+      "$date": "2025-09-18T17:00:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P005",
+        "name": "CD - Pink Floyd",
+        "category": "CDs",
+        "quantity": 2,
+        "unit_price": 45
+      },
+      {
+        "product_id": "P007",
+        "name": "Panela Elétrica Arno",
+        "category": "Eletrodomésticos",
+        "quantity": 1,
+        "unit_price": 230
+      }
+    ],
+    "total_price": 320
+  },
+  {
+    "_id": {
+      "$oid": "68d9dd179216d4d12cce5f5e"
+    },
+    "id": "S025",
+    "client_id": "C124",
+    "client_state": "RJ",
+    "date_sale": {
+      "$date": "2025-09-17T10:20:00Z"
+    },
+    "products": [
+      {
+        "product_id": "P009",
+        "name": "CD - Queen Greatest Hits",
+        "category": "CDs",
+        "quantity": 1,
+        "unit_price": 40
+      },
+      {
+        "product_id": "P011",
+        "name": "Livro - Sapiens",
+        "category": "Livros",
+        "quantity": 2,
+        "unit_price": 55
+      }
+    ],
+    "total_price": 150
+  }
+]
