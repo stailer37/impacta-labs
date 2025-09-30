@@ -1,0 +1,128 @@
+products (catálogo)
+
+{
+  "productId": "sku-0001",        // string único e estático (não usar _id só por ObjectId)
+  "sku": "AMZ-LIV-0001",
+  "name": "Aprendendo MongoDB",
+  "category": "books",            // category hierárquica: "books", "cds", "kitchen_appliances" etc.
+  "subcategory": "programming",
+  "brand": "Editora X",
+  "price": 49.90,                 // preço corrente (para catálogo); histórico de preço pode ficar em outra coleção se necessário
+  "currency": "BRL",
+  "attributes": { "pages": 320, "format": "paperback" },
+  "tags": ["bestseller","mongodb"],
+  "variants": [],                 // se houver (cor, voltagem)
+  "stock": 120,
+  "createdAt": ISODate(...),
+  "updatedAt": ISODate(...),
+  "discontinued": false
+}
+
+
+customers:
+
+{
+  "customerId": "cust_12345",
+  "email": "ana@ex.com",
+  "name": "Ana Silva",
+  "address": {
+    "street": "...",
+    "city": "Manaus",
+    "state": "AM",
+    "postalCode": "69000-000",
+    "country": "BR"
+  },
+  "createdAt": ISODate(...),
+  "profile": { "birthYear": 1985, "gender": "F" },
+  "lifetimeValue": 1234.50
+}
+
+
+orders
+
+Documento por pedido:
+
+{
+  "_id": ObjectId(...),
+  "orderId": "ord_20250930_00001",
+  "customerId": "cust_12345",
+  "customerSnapshot": {
+    "name": "Ana Silva",
+    "address": { "city":"Manaus", "state":"AM" }  // snapshot para consistência histórica
+  },
+  "items": [
+    { "productId": "sku-0001", "quantity": 2, "price": 49.90, "currency":"BRL" },
+    { "productId": "sku-0042", "quantity": 1, "price": 199.90, "currency":"BRL" }
+  ],
+  "subtotal": 299.7,
+  "shipping": 15.0,
+  "tax": 0,
+  "total": 314.7,
+  "status": "completed", // pending, canceled, completed
+  "orderDate": ISODate("2025-09-25T13:12:00Z"),
+  "paymentMethod": "credit_card"
+}
+
+events (clickstream):
+
+{
+  "_id": ObjectId(...),
+  "eventId": "evt_abc123",
+  "type": "product_click", // product_view, add_to_cart, checkout_start, purchase_event (ou usar orders para compra)
+  "userId": "cust_12345",  // pode ser null para guest
+  "sessionId": "sess_789",
+  "productId": "sku-0001",
+  "page": "/product/sku-0001",
+  "referrer": "/search?q=mongo",
+  "timestamp": ISODate(...),
+  "metadata": { "device":"mobile", "browser":"Chrome" }
+}
+
+
+3) Eventos sistêmicos em JSON (exemplos práticos)
+a) Evento de clique (clickstream)
+
+{
+  "eventId": "evt_20250930_0001",
+  "type": "product_click",
+  "timestamp": "2025-09-30T14:05:12Z",
+  "userId": "cust_98765",
+  "sessionId": "sess_XYZ_111",
+  "productId": "sku-0001",
+  "page": "/product/sku-0001",
+  "metadata": { "device": "mobile", "ip": "200.1.2.3" }
+}
+
+
+b) Evento de compra / order (no orders collection — exemplo de documento)
+
+{
+  "orderId": "ord_20250929_9001",
+  "customerId": "cust_98765",
+  "customerSnapshot": { "name": "João", "address": { "state": "SP", "city":"São Paulo" } },
+  "items": [
+    { "productId": "sku-0001", "quantity": 1, "price": 49.90 },
+    { "productId": "sku-0100", "quantity": 2, "price": 79.90 }
+  ],
+  "subtotal": 209.70,
+  "total": 209.70,
+  "status": "completed",
+  "orderDate": "2025-09-29T18:20:00Z",
+  "paymentMethod": "boleto"
+}
+
+c) Evento de criação de produto (audit)
+
+{
+  "eventId": "evt_product_created_001",
+  "type": "product_created",
+  "timestamp": "2025-01-15T09:00:00Z",
+  "product": {
+    "productId": "sku-1234",
+    "name": "Liquidificador X",
+    "category": "kitchen_appliances",
+    "price": 299.90
+  },
+  "createdBy": "catalog_admin"
+}
+
