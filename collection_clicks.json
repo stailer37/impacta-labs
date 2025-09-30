@@ -1,0 +1,32 @@
+[
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d789b1"
+      },
+      "timestamp": {
+        "$date": "2025-09-28T10:14:30.000Z"
+      },
+      "customerId": {
+        "$oid": "651633519c288f34f2d7890d"
+      },
+      "productId": {
+        "$oid": "651633519c288f34f2d7890f"
+      },
+      "eventType": "product_view"
+    },
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d789b2"
+      },
+      "timestamp": {
+        "$date": "2025-09-29T14:25:10.000Z"
+      },
+      "customerId": {
+        "$oid": "651633519c288f34f2d7890a"
+      },
+      "productId": {
+        "$oid": "651633519c288f34f2d7890e"
+      },
+      "eventType": "add_to_cart"
+    }
+  ]

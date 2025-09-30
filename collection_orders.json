@@ -1,0 +1,69 @@
+[
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d7890b"
+      },
+      "customerId": {
+        "$oid": "651633519c288f34f2d7890a"
+      },
+      "customerState": "MG",
+      "timestamp": {
+        "$date": "2025-09-29T14:30:00.000Z"
+      },
+      "totalValue": {
+        "$numberDecimal": "749.90"
+      },
+      "products": [
+        {
+          "productId": {
+            "$oid": "651633519c288f34f2d7890e"
+          },
+          "name": "Batedeira planetária",
+          "category": "small_appliance",
+          "price": {
+            "$numberDecimal": "699.90"
+          },
+          "quantity": 1
+        },
+        {
+          "productId": {
+            "$oid": "651633519c288f34f2d7890c"
+          },
+          "name": "A Culpa é das Estrelas",
+          "category": "book",
+          "price": {
+            "$numberDecimal": "50.00"
+          },
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d78910"
+      },
+      "customerId": {
+        "$oid": "651633519c288f34f2d7890d"
+      },
+      "customerState": "SP",
+      "timestamp": {
+        "$date": "2025-09-28T10:15:00.000Z"
+      },
+      "totalValue": {
+        "$numberDecimal": "49.99"
+      },
+      "products": [
+        {
+          "productId": {
+            "$oid": "651633519c288f34f2d7890f"
+          },
+          "name": "Thriller - Michael Jackson",
+          "category": "cd",
+          "price": {
+            "$numberDecimal": "49.99"
+          },
+          "quantity": 1
+        }
+      ]
+    }
+  ]

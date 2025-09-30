@@ -1,0 +1,38 @@
+[
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d7890e"
+      },
+      "name": "Batedeira planetária",
+      "category": "small_appliance",
+      "price": {
+        "$numberDecimal": "699.90"
+      },
+      "description": "Batedeira planetária com 8 velocidades e tigela de inox.",
+      "stockQuantity": 50
+    },
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d7890c"
+      },
+      "name": "A Culpa é das Estrelas",
+      "category": "book",
+      "price": {
+        "$numberDecimal": "50.00"
+      },
+      "description": "Autor: John Green. Um romance sobre a vida e o amor.",
+      "stockQuantity": 200
+    },
+    {
+      "_id": {
+        "$oid": "651633519c288f34f2d7890f"
+      },
+      "name": "Thriller - Michael Jackson",
+      "category": "cd",
+      "price": {
+        "$numberDecimal": "49.99"
+      },
+      "description": "Álbum clássico de Michael Jackson, lançado em 1982.",
+      "stockQuantity": 150
+    }
+  ]
