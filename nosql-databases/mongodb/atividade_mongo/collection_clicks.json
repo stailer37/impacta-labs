@@ -1,0 +1,50 @@
+[
+    {
+        "id_click": 10024567,
+        "id_cliente": 101,
+        "id_produto": 1001,
+        "timestamp": "2025-09-05T14:32:10Z"
+    },
+    {
+        "id_click": 10024568,
+        "id_cliente": 102,
+        "id_produto": 1002,
+        "timestamp": "2025-09-12T19:47:55Z"
+    },
+    {
+        "id_click": 10024569,
+        "id_cliente": 103,
+        "id_produto": 1003,
+        "timestamp": "2025-09-20T08:15:44Z"
+    },
+    {
+        "id_click": 10024570,
+        "id_cliente": 104,
+        "id_produto": 1004,
+        "timestamp": "2025-09-25T11:03:28Z"
+    },
+    {
+        "id_click": 10024571,
+        "id_cliente": 105,
+        "id_produto": 1005,
+        "timestamp": "2025-09-29T21:56:02Z"
+    },
+    {
+        "id_click": 10024572,
+        "id_cliente": 106,
+        "id_produto": 1006,
+        "timestamp": "2025-09-30T09:41:12Z"
+    },
+    {
+        "id_click": 10024573,
+        "id_cliente": 107,
+        "id_produto": 1007,
+        "timestamp": "2025-09-30T10:05:37Z"
+    },
+    {
+        "id_click": 10024574,
+        "id_cliente": 108,
+        "id_produto": 1008,
+        "timestamp": "2025-09-30T11:25:49Z"
+    }
+]

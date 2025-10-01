@@ -1,0 +1,102 @@
+[
+    {
+        "id_venda": 5001,
+        "id_cliente": 101,
+        "timestamp_venda": "2025-09-03T15:22:18Z",
+        "total_venda": 129.80,
+        "produtos": [
+            { "id_produto": 1001, "quantidade": 2, "preco_unidade": 29.90 },
+            { "id_produto": 1002, "quantidade": 1, "preco_unidade": 54.00 }
+        ]
+    },
+    {
+        "id_venda": 5002,
+        "id_cliente": 103,
+        "timestamp_venda": "2025-09-05T11:45:50Z",
+        "total_venda": 189.90,
+        "produtos": [
+            { "id_produto": 1003, "quantidade": 1, "preco_unidade": 189.90 }
+        ]
+    },
+    {
+        "id_venda": 5003,
+        "id_cliente": 104,
+        "timestamp_venda": "2025-09-07T19:12:33Z",
+        "total_venda": 99.90,
+        "produtos": [
+            { "id_produto": 1004, "quantidade": 1, "preco_unidade": 39.90 },
+            { "id_produto": 1006, "quantidade": 1, "preco_unidade": 59.99 }
+        ]
+    },
+    {
+        "id_venda": 5004,
+        "id_cliente": 105,
+        "timestamp_venda": "2025-09-08T09:57:21Z",
+        "total_venda": 420.00,
+        "produtos": [
+            { "id_produto": 1005, "quantidade": 1, "preco_unidade": 420.00 }
+        ]
+    },
+    {
+        "id_venda": 5005,
+        "id_cliente": 102,
+        "timestamp_venda": "2025-09-10T14:41:37Z",
+        "total_venda": 72.50,
+        "produtos": [
+            { "id_produto": 1008, "quantidade": 1, "preco_unidade": 27.50 },
+            { "id_produto": 1011, "quantidade": 1, "preco_unidade": 38.00 },
+            { "id_produto": 1007, "quantidade": 1, "preco_unidade": 45.00 }
+        ]
+    },
+    {
+        "id_venda": 5006,
+        "id_cliente": 108,
+        "timestamp_venda": "2025-09-12T20:28:15Z",
+        "total_venda": 599.90,
+        "produtos": [
+            { "id_produto": 1010, "quantidade": 1, "preco_unidade": 599.90 }
+        ]
+    },
+    {
+        "id_venda": 5007,
+        "id_cliente": 107,
+        "timestamp_venda": "2025-09-14T16:11:09Z",
+        "total_venda": 101.90,
+        "produtos": [
+            { "id_produto": 1009, "quantidade": 1, "preco_unidade": 72.90 },
+            { "id_produto": 1001, "quantidade": 1, "preco_unidade": 29.90 }
+        ]
+    },
+    {
+        "id_venda": 5008,
+        "id_cliente": 106,
+        "timestamp_venda": "2025-09-18T18:34:44Z",
+        "total_venda": 84.00,
+        "produtos": [
+            { "id_produto": 1002, "quantidade": 1, "preco_unidade": 54.00 },
+            { "id_produto": 1008, "quantidade": 1, "preco_unidade": 27.50 }
+        ]
+    },
+    {
+        "id_venda": 5009,
+        "id_cliente": 103,
+        "timestamp_venda": "2025-09-22T12:21:59Z",
+        "total_venda": 144.99,
+        "produtos": [
+            { "id_produto": 1006, "quantidade": 1, "preco_unidade": 59.99 },
+            { "id_produto": 1007, "quantidade": 1, "preco_unidade": 45.00 },
+            { "id_produto": 1011, "quantidade": 1, "preco_unidade": 38.00 }
+        ]
+    },
+    {
+        "id_venda": 5010,
+        "id_cliente": 101,
+        "timestamp_venda": "2025-09-28T21:40:10Z",
+        "total_venda": 669.80,
+        "produtos": [
+            { "id_produto": 1010, "quantidade": 1, "preco_unidade": 599.90 },
+            { "id_produto": 1002, "quantidade": 1, "preco_unidade": 54.00 },
+            { "id_produto": 1001, "quantidade": 1, "preco_unidade": 29.90 }
+        ]
+    }
+]

@@ -1,0 +1,50 @@
+[
+    {
+        "id_cliente": 101,
+        "nome_cliente": "Mariana Costa",
+        "email_cliente": "mariana.costa@email.com",
+        "estado_cliente": "SP"
+    },
+    {
+        "id_cliente": 102,
+        "nome_cliente": "Rafael Almeida",
+        "email_cliente": "rafael.almeida@email.com",
+        "estado_cliente": "RJ"
+    },
+    {
+        "id_cliente": 103,
+        "nome_cliente": "Carolina Mendes",
+        "email_cliente": "carolina.mendes@email.com",
+        "estado_cliente": "MG"
+    },
+    {
+        "id_cliente": 104,
+        "nome_cliente": "Felipe Santos",
+        "email_cliente": "felipe.santos@email.com",
+        "estado_cliente": "BA"
+    },
+    {
+        "id_cliente": 105,
+        "nome_cliente": "Amanda Rocha",
+        "email_cliente": "amanda.rocha@email.com",
+        "estado_cliente": "PE"
+    },
+    {
+        "id_cliente": 106,
+        "nome_cliente": "Gustavo Ferreira",
+        "email_cliente": "gustavo.ferreira@email.com",
+        "estado_cliente": "RS"
+    },
+    {
+        "id_cliente": 107,
+        "nome_cliente": "Patrícia Lima",
+        "email_cliente": "patricia.lima@email.com",
+        "estado_cliente": "SP"
+    },
+    {
+        "id_cliente": 108,
+        "nome_cliente": "Henrique Moreira",
+        "email_cliente": "henrique.moreira@email.com",
+        "estado_cliente": "PR"
+    }
+]

@@ -1,0 +1,68 @@
+[
+    {
+        "id_produto": 1001,
+        "nome_produto": "Frozen II",
+        "categoria_produto": "DVD",
+        "preco_produto": 29.90
+    },
+    {
+        "id_produto": 1002,
+        "nome_produto": "Dom Casmurro",
+        "categoria_produto": "Livro",
+        "preco_produto": 54.00
+    },
+    {
+        "id_produto": 1003,
+        "nome_produto": "Liquidificador Philips",
+        "categoria_produto": "Eletrodoméstico",
+        "preco_produto": 189.90
+    },
+    {
+        "id_produto": 1004,
+        "nome_produto": "Avengers: Endgame",
+        "categoria_produto": "DVD",
+        "preco_produto": 39.90
+    },
+    {
+        "id_produto": 1005,
+        "nome_produto": "Batedeira Arno",
+        "categoria_produto": "Eletrodoméstico",
+        "preco_produto": 420.00
+    },
+    {
+        "id_produto": 1006,
+        "nome_produto": "Queen Greatest Hits",
+        "categoria_produto": "CD",
+        "preco_produto": 59.99
+    },
+    {
+        "id_produto": 1007,
+        "nome_produto": "Legião Urbana – Acústico",
+        "categoria_produto": "CD",
+        "preco_produto": 45.00
+    },
+    {
+        "id_produto": 1008,
+        "nome_produto": "Tropa de Elite",
+        "categoria_produto": "DVD",
+        "preco_produto": 27.50
+    },
+    {
+        "id_produto": 1009,
+        "nome_produto": "Harry Potter e a Pedra Filosofal",
+        "categoria_produto": "Livro",
+        "preco_produto": 72.90
+    },
+    {
+        "id_produto": 1010,
+        "nome_produto": "Air Fryer Mondial",
+        "categoria_produto": "Eletrodoméstico",
+        "preco_produto": 599.90
+    },
+    {
+        "id_produto": 1011,
+        "nome_produto": "Chico Buarque – Ao Vivo",
+        "categoria_produto": "CD",
+        "preco_produto": 38.00
+    }
+]
