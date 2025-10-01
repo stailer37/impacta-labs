@@ -1,5 +1,7 @@
 # Use a imagem oficial do MongoDB
-FROM mongo:latest
+FROM docker.io/library/mongo:7
+
+#FROM mongo:latest
 
 # Define o diretório de trabalho
 WORKDIR /data/db

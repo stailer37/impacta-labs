@@ -1,0 +1,266 @@
+[
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b01" },
+    "order_id": "AMZ-2025-00000001",
+    "customer_id": "cust_001",
+    "customer_state": "SP",
+    "created_at": { "$date": "2025-09-25T10:15:00Z" },
+    "status": "paid",
+    "payment": { "method": "credit_card", "value": 169.8, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a01" },
+        "sku": "BK-9788575229217",
+        "name": "Engenharia de Dados na Prática",
+        "category": "book",
+        "unit_price": 129.9,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a02" },
+        "sku": "CD-000123",
+        "name": "Greatest Hits",
+        "category": "cd",
+        "unit_price": 39.9,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b02" },
+    "order_id": "AMZ-2025-00000002",
+    "customer_id": "cust_002",
+    "customer_state": "RJ",
+    "created_at": { "$date": "2025-09-26T14:20:00Z" },
+    "status": "paid",
+    "payment": { "method": "pix", "value": 249.9, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a06" },
+        "sku": "BK-9781492052203",
+        "name": "Designing Data-Intensive Applications",
+        "category": "book",
+        "unit_price": 249.9,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b03" },
+    "order_id": "AMZ-2025-00000003",
+    "customer_id": "cust_003",
+    "customer_state": "MG",
+    "created_at": { "$date": "2025-09-27T09:45:00Z" },
+    "status": "pending",
+    "payment": { "method": "boleto", "value": 499.0, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a10" },
+        "sku": "KT-000989",
+        "name": "Air Fryer 5L Digital",
+        "category": "kitchen_appliance",
+        "unit_price": 499.0,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b04" },
+    "order_id": "AMZ-2025-00000004",
+    "customer_id": "cust_004",
+    "customer_state": "RS",
+    "created_at": { "$date": "2025-09-28T17:30:00Z" },
+    "status": "paid",
+    "payment": { "method": "credit_card", "value": 174.8, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a07" },
+        "sku": "BK-9788576081739",
+        "name": "Python para Análise de Dados",
+        "category": "book",
+        "unit_price": 139.9,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0b" },
+        "sku": "CD-000125",
+        "name": "Lo-Fi Coding Beats",
+        "category": "cd",
+        "unit_price": 29.9,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b05" },
+    "order_id": "AMZ-2025-00000005",
+    "customer_id": "cust_005",
+    "customer_state": "BA",
+    "created_at": { "$date": "2025-09-28T20:50:00Z" },
+    "status": "shipped",
+    "payment": { "method": "credit_card", "value": 329.9, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0f" },
+        "sku": "KT-000988",
+        "name": "Cafeteira Programável 20x",
+        "category": "kitchen_appliance",
+        "unit_price": 329.9,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b06" },
+    "order_id": "AMZ-2025-00000006",
+    "customer_id": "cust_006",
+    "customer_state": "PR",
+    "created_at": { "$date": "2025-09-29T11:05:00Z" },
+    "status": "paid",
+    "payment": { "method": "pix", "value": 363.9, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a05" },
+        "sku": "BK-9788576082675",
+        "name": "Data Warehouse: Conceitos e Projetos",
+        "category": "book",
+        "unit_price": 119.0,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0d" },
+        "sku": "CD-000127",
+        "name": "Rock for Engineers",
+        "category": "cd",
+        "unit_price": 37.9,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a11" },
+        "sku": "KT-000990",
+        "name": "Torradeira Inox 4 Fatias",
+        "category": "kitchen_appliance",
+        "unit_price": 219.0,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b07" },
+    "order_id": "AMZ-2025-00000007",
+    "customer_id": "cust_007",
+    "customer_state": "CE",
+    "created_at": { "$date": "2025-09-29T15:25:00Z" },
+    "status": "canceled",
+    "payment": { "method": "boleto", "value": 34.9, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0a" },
+        "sku": "CD-000124",
+        "name": "Acoustic Sessions",
+        "category": "cd",
+        "unit_price": 34.9,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b08" },
+    "order_id": "AMZ-2025-00000008",
+    "customer_id": "cust_008",
+    "customer_state": "GO",
+    "created_at": { "$date": "2025-09-30T08:40:00Z" },
+    "status": "paid",
+    "payment": { "method": "credit_card", "value": 459.8, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a08" },
+        "sku": "BK-9788576082676",
+        "name": "Arquitetura de Dados Moderna",
+        "category": "book",
+        "unit_price": 169.5,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a12" },
+        "sku": "KT-000991",
+        "name": "Espremedor Turbo Citrus",
+        "category": "kitchen_appliance",
+        "unit_price": 189.9,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0e" },
+        "sku": "CD-000128",
+        "name": "Electro Dataflow",
+        "category": "cd",
+        "unit_price": 33.5,
+        "qty": 3
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b09" },
+    "order_id": "AMZ-2025-00000009",
+    "customer_id": "cust_009",
+    "customer_state": "SC",
+    "created_at": { "$date": "2025-09-30T12:00:00Z" },
+    "status": "shipped",
+    "payment": { "method": "credit_card", "value": 799.0, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a13" },
+        "sku": "KT-000992",
+        "name": "Forno Micro-ondas Smart 30L",
+        "category": "kitchen_appliance",
+        "unit_price": 799.0,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8b1111a2b3c4d5e6f7b0a" },
+    "order_id": "AMZ-2025-00000010",
+    "customer_id": "cust_010",
+    "customer_state": "PE",
+    "created_at": { "$date": "2025-09-30T18:15:00Z" },
+    "status": "paid",
+    "payment": { "method": "pix", "value": 271.9, "currency": "BRL" },
+    "items": [
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a04" },
+        "sku": "BK-9788550804601",
+        "name": "MongoDB em Ação",
+        "category": "book",
+        "unit_price": 159.9,
+        "qty": 1
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a14" },
+        "sku": "CD-000129",
+        "name": "Bossa Nova Essentials",
+        "category": "cd",
+        "unit_price": 31.9,
+        "qty": 2
+      },
+      {
+        "product_id": { "$oid": "66f8a1111a2b3c4d5e6f7a09" },
+        "sku": "BK-9788575229781",
+        "name": "Spark: O Guia Definitivo",
+        "category": "book",
+        "unit_price": 189.0,
+        "qty": 1
+      }
+    ],
+    "schemaVersion": 1
+  }
+]

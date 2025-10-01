@@ -1,0 +1,391 @@
+[
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a01" },
+    "sku": "BK-9788575229217",
+    "name": "Engenharia de Dados na Prática",
+    "category": "book",
+    "brand": "Decifrando Arquiteturas de Dados",
+    "price": { "amount": 129.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "James Serra",
+      "isbn": "9788575229217",
+      "pages": 294,
+      "language": "pt-BR",
+      "publisher": "O'REILLY"
+    },
+    "created_at": { "$date": "2025-09-24T12:00:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:00:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a02" },
+    "sku": "CD-000123",
+    "name": "Greatest Hits",
+    "category": "cd",
+    "brand": "Example Records",
+    "price": { "amount": 39.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "The Example Band",
+      "label": "Example Records",
+      "tracks": ["Intro", "Hit Single", "Ballad"],
+      "release_year": 1999,
+      "genre": "Rock"
+    },
+    "created_at": { "$date": "2025-09-24T12:05:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:05:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a03" },
+    "sku": "KT-000987",
+    "name": "Liquidificador Turbo 900W",
+    "category": "kitchen_appliance",
+    "brand": "CozinhaMax",
+    "price": { "amount": 219.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "power_watts": 900,
+      "voltage": "110/220",
+      "color": "preto",
+      "dimensions_cm": { "w": 20, "h": 30, "d": 25 },
+      "weight_kg": 2.4,
+      "material": "inox"
+    },
+    "created_at": { "$date": "2025-09-24T12:10:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:10:00Z" },
+    "schemaVersion": 1
+  },
+
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a04" },
+    "sku": "BK-9788550804601",
+    "name": "MongoDB em Ação",
+    "category": "book",
+    "brand": "TechBooks",
+    "price": { "amount": 159.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "Kyle Banker",
+      "isbn": "9788550804601",
+      "pages": 312,
+      "language": "pt-BR",
+      "publisher": "Manning"
+    },
+    "created_at": { "$date": "2025-09-24T12:15:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:15:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a05" },
+    "sku": "BK-9788576082675",
+    "name": "Data Warehouse: Conceitos e Projetos",
+    "category": "book",
+    "brand": "DW Press",
+    "price": { "amount": 119.0, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "Ralph Kimball",
+      "isbn": "9788576082675",
+      "pages": 448,
+      "language": "pt-BR",
+      "publisher": "Alta Books"
+    },
+    "created_at": { "$date": "2025-09-24T12:20:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:20:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a06" },
+    "sku": "BK-9781492052203",
+    "name": "Designing Data-Intensive Applications",
+    "category": "book",
+    "brand": "O'Reilly",
+    "price": { "amount": 249.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "Martin Kleppmann",
+      "isbn": "9781492052203",
+      "pages": 616,
+      "language": "en",
+      "publisher": "O'Reilly"
+    },
+    "created_at": { "$date": "2025-09-24T12:25:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:25:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a07" },
+    "sku": "BK-9788576081739",
+    "name": "Python para Análise de Dados",
+    "category": "book",
+    "brand": "DataSci",
+    "price": { "amount": 139.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "Wes McKinney",
+      "isbn": "9788576081739",
+      "pages": 544,
+      "language": "pt-BR",
+      "publisher": "Alta Books"
+    },
+    "created_at": { "$date": "2025-09-24T12:30:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:30:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a08" },
+    "sku": "BK-9788576082676",
+    "name": "Arquitetura de Dados Moderna",
+    "category": "book",
+    "brand": "DataArch",
+    "price": { "amount": 169.5, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "Zhamak Dehghani",
+      "isbn": "9788576082676",
+      "pages": 320,
+      "language": "pt-BR",
+      "publisher": "Alta Books"
+    },
+    "created_at": { "$date": "2025-09-24T12:35:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:35:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a09" },
+    "sku": "BK-9788575229781",
+    "name": "Spark: O Guia Definitivo",
+    "category": "book",
+    "brand": "BigData Books",
+    "price": { "amount": 189.0, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "author": "Holden Karau",
+      "isbn": "9788575229781",
+      "pages": 520,
+      "language": "pt-BR",
+      "publisher": "Novatec"
+    },
+    "created_at": { "$date": "2025-09-24T12:40:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:40:00Z" },
+    "schemaVersion": 1
+  },
+
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0a" },
+    "sku": "CD-000124",
+    "name": "Acoustic Sessions",
+    "category": "cd",
+    "brand": "Indie Sounds",
+    "price": { "amount": 34.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "Luna Costa",
+      "label": "Indie Sounds",
+      "tracks": ["Morning Light", "Riverside", "Home"],
+      "release_year": 2021,
+      "genre": "Acoustic"
+    },
+    "created_at": { "$date": "2025-09-24T12:45:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:45:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0b" },
+    "sku": "CD-000125",
+    "name": "Lo-Fi Coding Beats",
+    "category": "cd",
+    "brand": "DevTracks",
+    "price": { "amount": 29.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "ByteWave",
+      "label": "DevTracks",
+      "tracks": ["Focus Mode", "Night Sprint", "Refactor"],
+      "release_year": 2023,
+      "genre": "Lo-Fi"
+    },
+    "created_at": { "$date": "2025-09-24T12:50:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:50:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0c" },
+    "sku": "CD-000126",
+    "name": "Symphony of Data",
+    "category": "cd",
+    "brand": "Orchestra Labs",
+    "price": { "amount": 44.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "Orquestra SinfoDados",
+      "label": "Orchestra Labs",
+      "tracks": ["ETL Overture", "Batch Sonata", "Streaming Finale"],
+      "release_year": 2018,
+      "genre": "Classical"
+    },
+    "created_at": { "$date": "2025-09-24T12:55:00Z" },
+    "updated_at": { "$date": "2025-09-24T12:55:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0d" },
+    "sku": "CD-000127",
+    "name": "Rock for Engineers",
+    "category": "cd",
+    "brand": "Example Records",
+    "price": { "amount": 37.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "The Pipelines",
+      "label": "Example Records",
+      "tracks": ["Deploy", "Rollback", "Hotfix"],
+      "release_year": 2020,
+      "genre": "Rock"
+    },
+    "created_at": { "$date": "2025-09-24T13:00:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:00:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0e" },
+    "sku": "CD-000128",
+    "name": "Electro Dataflow",
+    "category": "cd",
+    "brand": "DevTracks",
+    "price": { "amount": 33.5, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "Kafka Groove",
+      "label": "DevTracks",
+      "tracks": ["Topic 1", "Consumer Group", "Offset Reset"],
+      "release_year": 2022,
+      "genre": "Electronic"
+    },
+    "created_at": { "$date": "2025-09-24T13:05:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:05:00Z" },
+    "schemaVersion": 1
+  },
+
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a0f" },
+    "sku": "KT-000988",
+    "name": "Cafeteira Programável 20x",
+    "category": "kitchen_appliance",
+    "brand": "CozinhaMax",
+    "price": { "amount": 329.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "power_watts": 1200,
+      "voltage": "110/220",
+      "color": "inox",
+      "dimensions_cm": { "w": 22, "h": 34, "d": 28 },
+      "weight_kg": 3.1,
+      "material": "inox"
+    },
+    "created_at": { "$date": "2025-09-24T13:10:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:10:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a10" },
+    "sku": "KT-000989",
+    "name": "Air Fryer 5L Digital",
+    "category": "kitchen_appliance",
+    "brand": "AirMax",
+    "price": { "amount": 499.0, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "power_watts": 1700,
+      "voltage": "110/220",
+      "color": "preto",
+      "dimensions_cm": { "w": 28, "h": 35, "d": 32 },
+      "weight_kg": 4.7,
+      "material": "pp"
+    },
+    "created_at": { "$date": "2025-09-24T13:15:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:15:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a11" },
+    "sku": "KT-000990",
+    "name": "Torradeira Inox 4 Fatias",
+    "category": "kitchen_appliance",
+    "brand": "ToastPro",
+    "price": { "amount": 219.0, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "power_watts": 1400,
+      "voltage": "110/220",
+      "color": "inox",
+      "dimensions_cm": { "w": 30, "h": 20, "d": 18 },
+      "weight_kg": 2.1,
+      "material": "inox"
+    },
+    "created_at": { "$date": "2025-09-24T13:20:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:20:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a12" },
+    "sku": "KT-000991",
+    "name": "Espremedor Turbo Citrus",
+    "category": "kitchen_appliance",
+    "brand": "CozinhaMax",
+    "price": { "amount": 189.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "power_watts": 800,
+      "voltage": "110/220",
+      "color": "branco",
+      "dimensions_cm": { "w": 18, "h": 28, "d": 18 },
+      "weight_kg": 1.8,
+      "material": "pp"
+    },
+    "created_at": { "$date": "2025-09-24T13:25:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:25:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a13" },
+    "sku": "KT-000992",
+    "name": "Forno Micro-ondas Smart 30L",
+    "category": "kitchen_appliance",
+    "brand": "KitchenSmart",
+    "price": { "amount": 799.0, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "power_watts": 1500,
+      "voltage": "110/220",
+      "color": "prata",
+      "dimensions_cm": { "w": 48, "h": 28, "d": 38 },
+      "weight_kg": 12.0,
+      "material": "aço"
+    },
+    "created_at": { "$date": "2025-09-24T13:30:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:30:00Z" },
+    "schemaVersion": 1
+  },
+  {
+    "_id": { "$oid": "66f8a1111a2b3c4d5e6f7a14" },
+    "sku": "CD-000129",
+    "name": "Bossa Nova Essentials",
+    "category": "cd",
+    "brand": "Brasil Music",
+    "price": { "amount": 31.9, "currency": "BRL" },
+    "status": "ativo",
+    "attrs": {
+      "artist": "Quarteto do Sul",
+      "label": "Brasil Music",
+      "tracks": ["Copacabana", "Noite Clara", "Saudade"],
+      "release_year": 2017,
+      "genre": "Bossa Nova"
+    },
+    "created_at": { "$date": "2025-09-24T13:35:00Z" },
+    "updated_at": { "$date": "2025-09-24T13:35:00Z" },
+    "schemaVersion": 1
+  }
+]

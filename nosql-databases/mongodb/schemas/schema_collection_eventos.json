@@ -1,0 +1,43 @@
+db.createCollection("events", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["ts","session_id","type","schemaVersion"],
+      properties: {
+        ts: { bsonType: "date" },
+        session_id: { bsonType: "string" },
+        customer_id: { bsonType: ["string","null"] },
+        customer_state: { bsonType: ["string","null"], minLength: 2, maxLength: 2 },
+        type: { bsonType: "string" }, // "page_view" | "product_view" | "add_to_cart" | "purchase" ...
+        product: {
+          bsonType: ["object","null"],
+          properties: {
+            product_id: {},
+            sku: { bsonType: "string" },
+            category: { bsonType: "string" }
+          }
+        },
+        page: {
+          bsonType: ["object","null"],
+          properties: { url: { bsonType: "string" }, referrer: { bsonType: "string" } }
+        },
+        device: {
+          bsonType: ["object","null"],
+          properties: { ua: { bsonType: "string" }, platform: { bsonType: "string" } }
+        },
+        meta: { bsonType: ["object","null"] },
+        schemaVersion: { bsonType: "int", minimum: 1 }
+      }
+    }
+  },
+  validationLevel: "moderate"
+})
+
+db.events.createIndex({ ts: -1 }, { name: "ix_events_ts" })
+db.events.createIndex({ customer_id: 1, ts: -1 }, { name: "ix_events_customer_ts" })
+db.events.createIndex({ type: 1, ts: -1 }, { name: "ix_events_type_ts" })
+db.events.createIndex({ "product.sku": 1, ts: -1 }, { name: "ix_events_productsku_ts" })
+db.events.createIndex({ customer_state: 1, ts: -1 }, { name: "ix_events_state_ts" })
+
+Comando utilizado para inserir dados:
+mongoimport --db amazonas --events orders --file collection_eventos.json --jsonArray

@@ -1,0 +1,51 @@
+db.createCollection("orders", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["order_id","customer_id","customer_state","created_at","status","payment","items","schemaVersion"],
+      properties: {
+        order_id: { bsonType: "string" },
+        customer_id: { bsonType: "string" },
+        customer_state: { bsonType: "string", minLength: 2, maxLength: 2 },
+        created_at: { bsonType: "date" },
+        status: { bsonType: "string" }, // "paid" | etc.
+        payment: {
+          bsonType: "object",
+          required: ["method","value","currency"],
+          properties: {
+            method: { bsonType: "string" },
+            value: { bsonType: ["double","int","long","decimal"], minimum: 0 },
+            currency: { bsonType: "string", minLength: 3, maxLength: 3 }
+          }
+        },
+        items: {
+          bsonType: "array",
+          minItems: 1,
+          items: {
+            bsonType: "object",
+            required: ["product_id","sku","name","category","unit_price","qty"],
+            properties: {
+              product_id: {},
+              sku: { bsonType: "string" },
+              name: { bsonType: "string" },
+              category: { bsonType: "string" }, // "livro" | "cd" | "kitchen_appliance"
+              unit_price: { bsonType: ["double","int","long","decimal"], minimum: 0 },
+              qty: { bsonType: "int", minimum: 1 }
+            }
+          }
+        },
+        schemaVersion: { bsonType: "int", minimum: 1 }
+      }
+    }
+  },
+  validationLevel: "moderate"
+})
+
+db.orders.createIndex({ order_id: 1 }, { unique: true, name: "ux_orders_order_id" })
+db.orders.createIndex({ customer_id: 1, created_at: -1 }, { name: "ix_orders_customer_time" })
+db.orders.createIndex({ customer_state: 1, created_at: -1 }, { name: "ix_orders_state_time" })
+db.orders.createIndex({ created_at: -1 }, { name: "ix_orders_time" })
+db.orders.createIndex({ "items.sku": 1, created_at: -1 }, { name: "ix_orders_itemsku_time" })
+
+Comando utilizado para inserir dados:
+mongoimport --db amazonas --collection orders --file collection_orders.json --jsonArray

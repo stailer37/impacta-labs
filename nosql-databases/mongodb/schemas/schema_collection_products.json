@@ -1,0 +1,35 @@
+
+db.createCollection("products", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["sku","name","category","price","status","attrs","created_at","updated_at","schemaVersion"],
+      properties: {
+        sku: { bsonType: "string" },
+        name: { bsonType: "string" },
+        category: { bsonType: "string" }, // "livro" | "cd" | "kitchen_appliance"
+        brand: { bsonType: "string" },
+        price: {
+          bsonType: "object",
+          required: ["amount","currency"],
+          properties: {
+            amount: { bsonType: ["double","int","long","decimal"], minimum: 0 },
+            currency: { bsonType: "string", minLength: 3, maxLength: 3 }
+          }
+        },
+        status: { bsonType: "string" }, // "ativo" | "inativo"
+        attrs: { bsonType: "object" },
+        created_at: { bsonType: "date" },
+        updated_at: { bsonType: "date" },
+        schemaVersion: { bsonType: "int", minimum: 1 }
+      }
+    }
+  },
+  validationLevel: "moderate"
+})
+
+db.products.createIndex({ sku: 1 }, { unique: true, name: "ux_products_sku" })
+db.products.createIndex({ category: 1, status: 1 }, { name: "ix_products_category_status" })
+
+Comando utilizado para inserir dados:
+mongoimport --db amazonas --collection products --file collection_produtos.json --jsonArray
