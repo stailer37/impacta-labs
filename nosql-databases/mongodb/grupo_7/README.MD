@@ -1,13 +1,9 @@
 # Grupo 7 - NoSQL
 Nomes:
 Fernanda Cristina Gomes Nori - 2501681
-Hedir Saraiva de Albuquerque - 
-Felipe Santos Araujo - 
-Felipe Ensinas Alves - 2500260
-Felipe Santos Silvino - 2502102
+Hedir Saraiva de Albuquerque - 2501140
 Caio Afonso Felipe Da Silva - 2500389
 Danilo Pazianotto Oliveira - 2500466
-Lucas Washimi Thinen - 
 Isabelle tais da Silva Nunes - 2501861
 
 ## Escolha de coleção múltipla ou simples.
