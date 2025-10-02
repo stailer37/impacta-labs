@@ -34,41 +34,41 @@ command_mongo.sh
 **1**  A escolha definida foi seguir com coleção única chamada `pedidos`, assim a resposta para qualquer análise é feita olhando apenas uma coleção
 Os campos selecionados foram:
 
-* `_id` (ObjectId): Identificador único do pedido, gerado automaticamente pelo MongoDB.
+`_id` (ObjectId): Identificador único do pedido, gerado automaticamente pelo MongoDB.
 
-* `dataPedido` (ISODate): Data e hora em que o pedido foi realizado. Essencial para filtros temporais, como a pergunta sobre os "últimos 30 dias".
+`dataPedido` (ISODate): Data e hora em que o pedido foi realizado. Essencial para filtros temporais, como a pergunta sobre os "últimos 30 dias".
 
-* `status` (String): Status atual do pedido (ex: "Processando", "Enviado", "Entregue").
+`status` (String): Status atual do pedido (ex: "Processando", "Enviado", "Entregue").
 
-* `cliente` (Object): Um subdocumento com os dados do cliente no momento da compra.
+`cliente` (Object): Um subdocumento com os dados do cliente no momento da compra.
 
-* `clienteId` (String/ObjectId): ID único do cliente para referência, caso exista uma coleção de clientes para outros fins (ex: autenticação).
+`clienteId` (String/ObjectId): ID único do cliente para referência, caso exista uma coleção de clientes para outros fins (ex: autenticação).
 
-* `nome` (String): Nome do cliente.
+`nome` (String): Nome do cliente.
 
-* `endereco` (Object): Endereço de entrega.
+`endereco` (Object): Endereço de entrega.
 
-* `logradouro` (String): Rua, avenida, etc.
+`logradouro` (String): Rua, avenida, etc.
 
-* `cidade` (String): Cidade.
+`cidade` (String): Cidade.
 
-* `estado` (String): Sigla do estado (ex: "SP", "RJ"). Crucial para as perguntas de negócio baseadas em localização.
+`estado` (String): Sigla do estado (ex: "SP", "RJ"). Crucial para as perguntas de negócio baseadas em localização.
 
-* `cep` (String): Código de Endereçamento Postal.
+`cep` (String): Código de Endereçamento Postal.
 
-* `itens` (Array of Objects): Uma lista contendo todos os produtos comprados.
+`itens` (Array of Objects): Uma lista contendo todos os produtos comprados.
 
-* `produtoId` (String/ObjectId): ID de referência do produto.
+`produtoId` (String/ObjectId): ID de referência do produto.
 
-* `nomeProduto` (String): Nome do produto. Facilita a exibição do pedido sem precisar consultar outra coleção.
+`nomeProduto` (String): Nome do produto. Facilita a exibição do pedido sem precisar consultar outra coleção.
 
-* `categoria` (String): Categoria do produto ("Livros", "CDs", "Eletrodomésticos"). Fundamental para a pergunta sobre vendas por tipo de produto.
+`categoria` (String): Categoria do produto ("Livros", "CDs", "Eletrodomésticos"). Fundamental para a pergunta sobre vendas por tipo de produto.
 
-* `quantidade` (Integer): Quantidade de unidades compradas deste item.
+`quantidade` (Integer): Quantidade de unidades compradas deste item.
 
-* `precoUnitario` (Decimal): Preço do produto no momento da compra. Armazenar o preço aqui garante a integridade histórica, já que o preço do produto pode mudar no futuro.
+`precoUnitario` (Decimal): Preço do produto no momento da compra. Armazenar o preço aqui garante a integridade histórica, já que o preço do produto pode mudar no futuro.
 
-* `valorTotal` (Decimal): Soma total do pedido (quantidade * precoUnitario para todos os itens).
+`valorTotal` (Decimal): Soma total do pedido (quantidade * precoUnitario para todos os itens).
 
 **2** O exemplo está no arquivo [collection_pedidos.json](collection_pedidos.json)
 
