@@ -1,0 +1,96 @@
+[
+    {
+        "_id": {
+            "$oid": "6712ea84e4274c633a9484a1"
+        },
+        "dataPedido": {
+            "$date": "2025-09-15T14:30:00Z"
+        },
+        "status": "Entregue",
+        "cliente": {
+            "clienteId": "CLI001",
+            "nome": "Joana Silva",
+            "endereco": {
+                "logradouro": "Rua das Flores, 123",
+                "cidade": "São Paulo",
+                "estado": "SP",
+                "cep": "01234-567"
+            }
+        },
+        "itens": [
+            {
+                "produtoId": "LIV001",
+                "nomeProduto": "O Guia do Mochileiro das Galáxias",
+                "categoria": "Livros",
+                "quantidade": 1,
+                "precoUnitario": 45.50
+            },
+            {
+                "produtoId": "ELE001",
+                "nomeProduto": "Cafeteira Elétrica",
+                "categoria": "Eletrodomésticos",
+                "quantidade": 1,
+                "precoUnitario": 129.90
+            }
+        ],
+        "valorTotal": 175.40
+    },
+    {
+        "_id": {
+            "$oid": "6712ea84e4274c633a9484a2"
+        },
+        "dataPedido": {
+            "$date": "2025-09-28T18:00:00Z"
+        },
+        "status": "Enviado",
+        "cliente": {
+            "clienteId": "CLI002",
+            "nome": "Carlos Pereira",
+            "endereco": {
+                "logradouro": "Avenida Copacabana, 500",
+                "cidade": "Rio de Janeiro",
+                "estado": "RJ",
+                "cep": "22020-001"
+            }
+        },
+        "itens": [
+            {
+                "produtoId": "CD001",
+                "nomeProduto": "Abbey Road - The Beatles",
+                "categoria": "CDs",
+                "quantidade": 1,
+                "precoUnitario": 55.00
+            }
+        ],
+        "valorTotal": 55.00
+    },
+    {
+        "_id": {
+            "$oid": "6712ea84e4274c633a9484a3"
+        },
+        "dataPedido": {
+            "$date": "2025-10-01T10:15:00Z"
+        },
+        "status": "Processando",
+        "cliente": {
+            "clienteId": "CLI003",
+            "nome": "Ana Souza",
+            "endereco": {
+                "logradouro": "Praça da Liberdade, 100",
+                "cidade": "Belo Horizonte",
+                "estado": "MG",
+                "cep": "30140-010"
+            }
+        },
+        "itens": [
+            {
+                "produtoId": "LIV002",
+                "nomeProduto": "Duna",
+                "categoria": "Livros",
+                "quantidade": 2,
+                "precoUnitario": 62.00
+            }
+        ],
+        "valorTotal": 124.00
+    }
+]
