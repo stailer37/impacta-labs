@@ -28,3 +28,97 @@ seja em uma coleção única ou múltiplas, e devem definir quais campos especí
 Arquivo README.MD com os integrantes do grupo (fiquem a vontade para explicar os porquês das decisões no documento)
 `collection_{nome_a_escolha}.json` (caso optem por mais de uma collection, deverá haver mais de um arquivo JSON)
 command_mongo.sh
+
+## Resolução
+
+**1**  A escolha definida foi seguir com coleção única chamada `pedidos`, assim a resposta para qualquer análise é feita olhando apenas uma coleção
+Os campos selecionados foram:
+* `_id` (ObjectId): Identificador único do pedido, gerado automaticamente pelo MongoDB.
+
+* `dataPedido` (ISODate): Data e hora em que o pedido foi realizado. Essencial para filtros temporais, como a pergunta sobre os "últimos 30 dias".
+
+* `status` (String): Status atual do pedido (ex: "Processando", "Enviado", "Entregue").
+
+* `cliente` (Object): Um subdocumento com os dados do cliente no momento da compra.
+
+* `clienteId` (String/ObjectId): ID único do cliente para referência, caso exista uma coleção de clientes para outros fins (ex: autenticação).
+
+* `nome` (String): Nome do cliente.
+
+* `endereco` (Object): Endereço de entrega.
+
+* `logradouro` (String): Rua, avenida, etc.
+
+* `cidade` (String): Cidade.
+
+* `estado` (String): Sigla do estado (ex: "SP", "RJ"). Crucial para as perguntas de negócio baseadas em localização.
+
+* `cep` (String): Código de Endereçamento Postal.
+
+* `itens` (Array of Objects): Uma lista contendo todos os produtos comprados.
+
+* `produtoId` (String/ObjectId): ID de referência do produto.
+
+* `nomeProduto` (String): Nome do produto. Facilita a exibição do pedido sem precisar consultar outra coleção.
+
+* `categoria` (String): Categoria do produto ("Livros", "CDs", "Eletrodomésticos"). Fundamental para a pergunta sobre vendas por tipo de produto.
+
+* `quantidade` (Integer): Quantidade de unidades compradas deste item.
+
+* `precoUnitario` (Decimal): Preço do produto no momento da compra. Armazenar o preço aqui garante a integridade histórica, já que o preço do produto pode mudar no futuro.
+
+* `valorTotal` (Decimal): Soma total do pedido (quantidade * precoUnitario para todos os itens).
+
+**2** O exemplo está no arquivo [collection_pedidos.json](collection_pedidos.json)
+
+**3** Para responder a pergunta `Qual é o valor médio das vendas por estado do cliente?`
+
+```bash
+
+#!/bin/bash
+
+# Este script se conecta a uma instância local do MongoDB,
+# acessa o banco de dados 'amazonas_db' e executa uma consulta
+# de agregação na coleção 'pedidos' para responder à pergunta:
+# "Qual é o valor médio das vendas por estado do cliente?"
+
+# Certifique-se de que o mongosh (ou mongo) está no seu PATH
+# Como usar:
+# 1. Certifique-se de que os dados do arquivo collection_pedidos.json foram importados.
+#    Ex: mongoimport --uri mongodb://localhost:27017/amazonas_db --collection pedidos --file collection_pedidos.json --jsonArray
+# 2. Torne este script executável: chmod +x command_mongo.sh
+# 3. Execute o script: ./command_mongo.sh
+
+mongosh "mongodb://localhost:27017/amazonas_db" --eval '
+
+print("=====================================================================");
+print("Executando consulta: Qual o valor médio das vendas por estado?");
+print("=====================================================================");
+
+db.pedidos.aggregate([
+  // Etapa 1: Agrupar todos os documentos pelo estado do cliente.
+  {
+    $group: {
+      _id: "$cliente.endereco.estado", // O campo de agrupamento
+      valorMedioVenda: { $avg: "$valorTotal" } // Calcula a média do campo valorTotal para cada grupo
+    }
+  },
+
+  // Etapa 2: Formatar o resultado para melhor legibilidade.
+  {
+    $project: {
+      _id: 0, // Remover o campo _id padrão do resultado
+      estado: "$_id", // Renomear o campo _id para "estado"
+      valorMedioVenda: { $round: ["$valorMedioVenda", 2] } // Arredondar o resultado para 2 casas decimais
+    }
+  },
+
+  // Etapa 3 (Opcional): Ordenar os resultados do maior para o menor valor médio.
+  {
+    $sort: {
+      valorMedioVenda: -1 // -1 para ordem decrescente
+    }
+  }
+])
+
+```
