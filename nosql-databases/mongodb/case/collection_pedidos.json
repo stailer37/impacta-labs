@@ -1,7 +1,7 @@
 [
     {
         "_id": {
-            "$oid": "6712ea84e4274c633a9484a1"
+            "$oid": "68dde7a0162f878751ce5f47"
         },
         "dataPedido": {
             "$date": "2025-09-15T14:30:00Z"
@@ -23,21 +23,21 @@
                 "nomeProduto": "O Guia do Mochileiro das Galáxias",
                 "categoria": "Livros",
                 "quantidade": 1,
-                "precoUnitario": 45.50
+                "precoUnitario": 45.5
             },
             {
                 "produtoId": "ELE001",
                 "nomeProduto": "Cafeteira Elétrica",
                 "categoria": "Eletrodomésticos",
                 "quantidade": 1,
-                "precoUnitario": 129.90
+                "precoUnitario": 129.9
             }
         ],
-        "valorTotal": 175.40
+        "valorTotal": 175.4
     },
     {
         "_id": {
-            "$oid": "6712ea84e4274c633a9484a2"
+            "$oid": "68dde7a0162f878751ce5f48"
         },
         "dataPedido": {
             "$date": "2025-09-28T18:00:00Z"
@@ -59,14 +59,14 @@
                 "nomeProduto": "Abbey Road - The Beatles",
                 "categoria": "CDs",
                 "quantidade": 1,
-                "precoUnitario": 55.00
+                "precoUnitario": 55
             }
         ],
-        "valorTotal": 55.00
+        "valorTotal": 55
     },
     {
         "_id": {
-            "$oid": "6712ea84e4274c633a9484a3"
+            "$oid": "68dde7a0162f878751ce5f49"
         },
         "dataPedido": {
             "$date": "2025-10-01T10:15:00Z"
@@ -88,9 +88,9 @@
                 "nomeProduto": "Duna",
                 "categoria": "Livros",
                 "quantidade": 2,
-                "precoUnitario": 62.00
+                "precoUnitario": 62
             }
         ],
-        "valorTotal": 124.00
+        "valorTotal": 124
     }
 ]

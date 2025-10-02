@@ -75,27 +75,6 @@ Os campos selecionados foram:
 **3** Para responder a pergunta `Qual é o valor médio das vendas por estado do cliente?`
 
 ```bash
-
-#!/bin/bash
-
-# Este script se conecta a uma instância local do MongoDB,
-# acessa o banco de dados 'amazonas_db' e executa uma consulta
-# de agregação na coleção 'pedidos' para responder à pergunta:
-# "Qual é o valor médio das vendas por estado do cliente?"
-
-# Certifique-se de que o mongosh (ou mongo) está no seu PATH
-# Como usar:
-# 1. Certifique-se de que os dados do arquivo collection_pedidos.json foram importados.
-#    Ex: mongoimport --uri mongodb://localhost:27017/amazonas_db --collection pedidos --file collection_pedidos.json --jsonArray
-# 2. Torne este script executável: chmod +x command_mongo.sh
-# 3. Execute o script: ./command_mongo.sh
-
-mongosh "mongodb://localhost:27017/amazonas_db" --eval '
-
-print("=====================================================================");
-print("Executando consulta: Qual o valor médio das vendas por estado?");
-print("=====================================================================");
-
 db.pedidos.aggregate([
   // Etapa 1: Agrupar todos os documentos pelo estado do cliente.
   {
@@ -123,3 +102,5 @@ db.pedidos.aggregate([
 ])
 
 ```
+
+![alt text](agg.png)
