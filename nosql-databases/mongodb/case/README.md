@@ -33,6 +33,7 @@ command_mongo.sh
 
 **1**  A escolha definida foi seguir com coleção única chamada `pedidos`, assim a resposta para qualquer análise é feita olhando apenas uma coleção
 Os campos selecionados foram:
+
 * `_id` (ObjectId): Identificador único do pedido, gerado automaticamente pelo MongoDB.
 
 * `dataPedido` (ISODate): Data e hora em que o pedido foi realizado. Essencial para filtros temporais, como a pergunta sobre os "últimos 30 dias".
