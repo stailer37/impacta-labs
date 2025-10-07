@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mongo_db:
+    image: mongo:latest
+    container_name: mongodb_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: amazonas_ecommerce
+    volumes:
+      - mongo_data:/data/db
+      - ./collection_transactions.json:/tmp/data/collection_transactions.json 
+
+volumes:
+  mongo_data:
