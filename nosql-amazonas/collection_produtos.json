@@ -1,0 +1,11 @@
+[
+  { "_id": "prod_book_887", "nome": "MongoDB: O Guia Definitivo", "descricao": "Aprenda tudo sobre MongoDB com este guia completo.", "preco": { "$numberDecimal": "89.90" }, "categoria": "Livros", "estoque": 50 },
+  { "_id": "prod_cozinha_101", "nome": "Mixer Portátil 3 em 1", "descricao": "Ideal para vitaminas e receitas rápidas.", "preco": { "$numberDecimal": "99.90" }, "categoria": "Eletrodomésticos de Cozinha", "estoque": 30 },
+  { "_id": "prod_cd_554", "nome": "Acústico MTV - Legião Urbana", "descricao": "Álbum clássico da música brasileira.", "preco": { "$numberDecimal": "39.90" }, "categoria": "CDs", "estoque": 100 },
+  { "_id": "prod_book_123", "nome": "Arquitetura Limpa", "descricao": "O Guia do Artesão para Estrutura e Design de Software.", "preco": { "$numberDecimal": "75.00" }, "categoria": "Livros", "estoque": 40 },
+  { "_id": "prod_cozinha_234", "nome": "Cafeteira Expressa", "descricao": "Café de alta qualidade no conforto da sua casa.", "preco": { "$numberDecimal": "349.90" }, "categoria": "Eletrodomésticos de Cozinha", "estoque": 25 },
+  { "_id": "prod_cd_678", "nome": "Da Lama ao Caos - Chico Science", "descricao": "Marco do movimento manguebeat.", "preco": { "$numberDecimal": "45.00" }, "categoria": "CDs", "estoque": 80 },
+  { "_id": "prod_eletro_001", "nome": "Headphone Bluetooth Pro", "descricao": "Fone de ouvido sem fio com cancelamento de ruído.", "preco": { "$numberDecimal": "499.00" }, "categoria": "Eletrônicos", "estoque": 60 },
+  { "_id": "prod_eletro_002", "nome": "Smartwatch Fit 2", "descricao": "Relógio inteligente com monitoramento de atividades.", "preco": { "$numberDecimal": "799.00" }, "categoria": "Eletrônicos", "estoque": 45 },
+  { "_id": "prod_book_456", "nome": "O Programador Pragmático", "descricao": "Sua jornada para a maestria.", "preco": { "$numberDecimal": "95.50" }, "categoria": "Livros", "estoque": 35 }
+]
