@@ -1,0 +1,10 @@
+[
+  { "_id": "cli_12345", "nome": "Mariana Lima", "email": "mari.lima@example.com", "data_cadastro": { "$date": "2024-05-10T10:00:00Z" }, "endereco": { "rua": "Av. Paulista, 1000", "cidade": "São Paulo", "estado": "SP", "cep": "01310-100" } },
+  { "_id": "cli_67890", "nome": "Roberto Dias", "email": "roberto.d@example.com", "data_cadastro": { "$date": "2024-03-20T14:00:00Z" }, "endereco": { "rua": "Av. Copacabana, 500", "cidade": "Rio de Janeiro", "estado": "RJ", "cep": "22020-001" } },
+  { "_id": "cli_ABCDE", "nome": "Fernanda Costa", "email": "fe.costa@example.com", "data_cadastro": { "$date": "2025-01-15T11:00:00Z" }, "endereco": { "rua": "Rua da Bahia, 900", "cidade": "Belo Horizonte", "estado": "MG", "cep": "30160-011" } },
+  { "_id": "cli_FGHIJ", "nome": "Lucas Martins", "email": "lucas.m@example.com", "data_cadastro": { "$date": "2025-02-22T12:00:00Z" }, "endereco": { "rua": "Av. Sete de Setembro, 2775", "cidade": "Curitiba", "estado": "PR", "cep": "80230-000" } },
+  { "_id": "cli_KLMNO", "nome": "Beatriz Santos", "email": "bia.santos@example.com", "data_cadastro": { "$date": "2025-04-30T13:00:00Z" }, "endereco": { "rua": "Av. Oceânica, 409", "cidade": "Salvador", "estado": "BA", "cep": "40140-130" } },
+  { "_id": "cli_PQRST", "nome": "Thiago Pereira", "email": "thiago.p@example.com", "data_cadastro": { "$date": "2025-06-05T14:00:00Z" }, "endereco": { "rua": "Av. Beira Mar Norte, 1200", "cidade": "Florianópolis", "estado": "SC", "cep": "88015-300" } },
+  { "_id": "cli_UVWXY", "nome": "Juliana Alves", "email": "ju.alves@example.com", "data_cadastro": { "$date": "2025-08-19T15:00:00Z" }, "endereco": { "rua": "Rua da Moeda, 150", "cidade": "Recife", "estado": "PE", "cep": "50030-040" } },
+  { "_id": "cli_Z1234", "nome": "Carlos Andrade", "email": "carlos.a@example.com", "data_cadastro": { "$date": "2025-09-01T16:00:00Z" }, "endereco": { "rua": "SBN Quadra 2", "cidade": "Brasília", "estado": "DF", "cep": "70040-020" } }
+]
