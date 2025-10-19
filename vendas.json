@@ -1,0 +1,135 @@
+[
+  {
+    "evento_id": "vnd_2025_001",
+    "tipo": "VENDA_REGISTRADA",
+    "timestamp": "2025-09-28T15:59:20Z",
+    "dados": {
+      "venda_id": "V4448",
+      "cliente_id": "C4769",
+      "data_venda": "2025-09-28T15:59:20Z",
+      "valor_total": 184.78,
+      "itens": [
+        {
+          "produto_id": "P0008",
+          "nome": "Velit consequuntur odio.",
+          "categoria": "livros",
+          "preco_unitario": 92.39,
+          "quantidade": 2
+        }
+      ],
+      "estado_cliente": "GO"
+    }
+  },
+  {
+    "evento_id": "vnd_2025_002",
+    "tipo": "VENDA_REGISTRADA",
+    "timestamp": "2025-09-28T15:59:20Z",
+    "dados": {
+      "venda_id": "V9921",
+      "cliente_id": "C2853",
+      "data_venda": "2025-09-28T15:59:20Z",
+      "valor_total": 280.32,
+      "itens": [
+        {
+          "produto_id": "P0006",
+          "nome": "Voluptatum doloribus quo.",
+          "categoria": "livros",
+          "preco_unitario": 93.78,
+          "quantidade": 1
+        },
+        {
+          "produto_id": "P0015",
+          "nome": "Cupiditate nemo.",
+          "categoria": "cds",
+          "preco_unitario": 93.27,
+          "quantidade": 2
+        }
+      ],
+      "estado_cliente": "MT"
+    }
+  },
+  {
+    "evento_id": "vnd_2025_003",
+    "tipo": "VENDA_REGISTRADA",
+    "timestamp": "2025-09-28T15:59:20Z",
+    "dados": {
+      "venda_id": "V3297",
+      "cliente_id": "C4769",
+      "data_venda": "2025-09-28T15:59:20Z",
+      "valor_total": 432.11,
+      "itens": [
+        {
+          "produto_id": "P0016",
+          "nome": "Dicta ad adipisci.",
+          "categoria": "cds",
+          "preco_unitario": 118.7,
+          "quantidade": 1
+        },
+        {
+          "produto_id": "P0005",
+          "nome": "Corrupti sed.",
+          "categoria": "livros",
+          "preco_unitario": 104.47,
+          "quantidade": 1
+        },
+        {
+          "produto_id": "P0005",
+          "nome": "Corrupti sed.",
+          "categoria": "livros",
+          "preco_unitario": 104.47,
+          "quantidade": 2
+        }
+      ],
+      "estado_cliente": "GO"
+    }
+  },
+  {
+    "evento_id": "vnd_2025_004",
+    "tipo": "VENDA_REGISTRADA",
+    "timestamp": "2025-09-28T15:59:20Z",
+    "dados": {
+      "venda_id": "V9649",
+      "cliente_id": "C8148",
+      "data_venda": "2025-09-28T15:59:20Z",
+      "valor_total": 40.53,
+      "itens": [
+        {
+          "produto_id": "P0018",
+          "nome": "Quas explicabo.",
+          "categoria": "cds",
+          "preco_unitario": 40.53,
+          "quantidade": 1
+        }
+      ],
+      "estado_cliente": "GO"
+    }
+  },
+  {
+    "evento_id": "vnd_2025_005",
+    "tipo": "VENDA_REGISTRADA",
+    "timestamp": "2025-09-28T15:59:20Z",
+    "dados": {
+      "venda_id": "V6971",
+      "cliente_id": "C8148",
+      "data_venda": "2025-09-28T15:59:20Z",
+      "valor_total": 330.98,
+      "itens": [
+        {
+          "produto_id": "P0008",
+          "nome": "Velit consequuntur odio.",
+          "categoria": "livros",
+          "preco_unitario": 92.39,
+          "quantidade": 2
+        },
+        {
+          "produto_id": "P0009",
+          "nome": "Tempora veritatis sunt.",
+          "categoria": "livros",
+          "preco_unitario": 73.1,
+          "quantidade": 2
+        }
+      ],
+      "estado_cliente": "GO"
+    }
+  }
+]

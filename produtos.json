@@ -1,0 +1,311 @@
+[
+  {
+    "produto_id": "P0001",
+    "nome": "At ut aspernatur.",
+    "categoria": "livros",
+    "subcategoria": "literatura_brasileira",
+    "preco": 106.6,
+    "estoque": 278,
+    "data_cadastro": "2025-02-21T15:56:03Z",
+    "tags": [
+      "perferendis",
+      "aspernatur",
+      "nostrum",
+      "aspernatur"
+    ],
+    "vendido_30dias": 115
+  },
+  {
+    "produto_id": "P0002",
+    "nome": "Libero.",
+    "categoria": "livros",
+    "subcategoria": "literatura_estrangeira",
+    "preco": 50.26,
+    "estoque": 102,
+    "data_cadastro": "2025-02-25T15:56:03Z",
+    "tags": [
+      "soluta",
+      "aperiam",
+      "veritatis",
+      "reiciendis",
+      "recusandae"
+    ],
+    "vendido_30dias": 70
+  },
+  {
+    "produto_id": "P0003",
+    "nome": "Eaque ullam mollitia.",
+    "categoria": "livros",
+    "subcategoria": "didático",
+    "preco": 75.2,
+    "estoque": 134,
+    "data_cadastro": "2024-12-17T15:56:03Z",
+    "tags": [
+      "animi",
+      "iste"
+    ],
+    "vendido_30dias": 90
+  },
+  {
+    "produto_id": "P0004",
+    "nome": "Tempore dolorem.",
+    "categoria": "livros",
+    "subcategoria": "didático",
+    "preco": 55.37,
+    "estoque": 276,
+    "data_cadastro": "2025-06-20T15:56:03Z",
+    "tags": [
+      "facere",
+      "veniam",
+      "neque",
+      "beatae",
+      "deserunt"
+    ],
+    "vendido_30dias": 102
+  },
+  {
+    "produto_id": "P0005",
+    "nome": "Corrupti sed.",
+    "categoria": "livros",
+    "subcategoria": "literatura_estrangeira",
+    "preco": 104.47,
+    "estoque": 125,
+    "data_cadastro": "2025-02-24T15:56:03Z",
+    "tags": [
+      "tenetur",
+      "quo",
+      "nihil",
+      "iusto",
+      "reprehenderit"
+    ],
+    "vendido_30dias": 75
+  },
+  {
+    "produto_id": "P0006",
+    "nome": "Voluptatum doloribus quo.",
+    "categoria": "livros",
+    "subcategoria": "didático",
+    "preco": 93.78,
+    "estoque": 270,
+    "data_cadastro": "2025-05-23T15:56:03Z",
+    "tags": [
+      "adipisci",
+      "natus",
+      "maxime",
+      "quis",
+      "rerum"
+    ],
+    "vendido_30dias": 79
+  },
+  {
+    "produto_id": "P0007",
+    "nome": "Nisi eius.",
+    "categoria": "livros",
+    "subcategoria": "literatura_estrangeira",
+    "preco": 42.71,
+    "estoque": 118,
+    "data_cadastro": "2025-03-30T15:56:03Z",
+    "tags": [
+      "quod",
+      "iste",
+      "maxime",
+      "voluptatem",
+      "adipisci"
+    ],
+    "vendido_30dias": 76
+  },
+  {
+    "produto_id": "P0008",
+    "nome": "Velit consequuntur odio.",
+    "categoria": "livros",
+    "subcategoria": "literatura_brasileira",
+    "preco": 92.39,
+    "estoque": 185,
+    "data_cadastro": "2025-04-22T15:56:03Z",
+    "tags": [
+      "possimus",
+      "soluta",
+      "minima"
+    ],
+    "vendido_30dias": 84
+  },
+  {
+    "produto_id": "P0009",
+    "nome": "Tempora veritatis sunt.",
+    "categoria": "livros",
+    "subcategoria": "literatura_estrangeira",
+    "preco": 73.1,
+    "estoque": 44,
+    "data_cadastro": "2025-08-26T15:56:03Z",
+    "tags": [
+      "quod",
+      "quisquam"
+    ],
+    "vendido_30dias": 124
+  },
+  {
+    "produto_id": "P0010",
+    "nome": "Similique a.",
+    "categoria": "livros",
+    "subcategoria": "infantil",
+    "preco": 65.67,
+    "estoque": 183,
+    "data_cadastro": "2024-12-27T15:56:03Z",
+    "tags": [
+      "minima",
+      "eligendi",
+      "dolore",
+      "adipisci"
+    ],
+    "vendido_30dias": 182
+  },
+  {
+    "produto_id": "P0011",
+    "nome": "At itaque perferendis quos.",
+    "categoria": "cds",
+    "subcategoria": "pop",
+    "preco": 27.49,
+    "estoque": 254,
+    "data_cadastro": "2025-02-01T15:56:03Z",
+    "tags": [
+      "porro",
+      "quidem"
+    ],
+    "vendido_30dias": 190
+  },
+  {
+    "produto_id": "P0012",
+    "nome": "Dolor voluptatum.",
+    "categoria": "cds",
+    "subcategoria": "pop",
+    "preco": 69.36,
+    "estoque": 249,
+    "data_cadastro": "2024-12-10T15:56:03Z",
+    "tags": [
+      "iure",
+      "omnis"
+    ],
+    "vendido_30dias": 66
+  },
+  {
+    "produto_id": "P0013",
+    "nome": "Vero eos magni reprehenderit.",
+    "categoria": "cds",
+    "subcategoria": "sertanejo",
+    "preco": 82.8,
+    "estoque": 108,
+    "data_cadastro": "2025-02-09T15:56:03Z",
+    "tags": [
+      "perspiciatis",
+      "est",
+      "beatae",
+      "repellendus"
+    ],
+    "vendido_30dias": 118
+  },
+  {
+    "produto_id": "P0014",
+    "nome": "Nobis sint.",
+    "categoria": "cds",
+    "subcategoria": "pop",
+    "preco": 105.15,
+    "estoque": 14,
+    "data_cadastro": "2025-09-14T15:56:03Z",
+    "tags": [
+      "provident",
+      "eaque"
+    ],
+    "vendido_30dias": 45
+  },
+  {
+    "produto_id": "P0015",
+    "nome": "Cupiditate nemo.",
+    "categoria": "cds",
+    "subcategoria": "clássico",
+    "preco": 93.27,
+    "estoque": 208,
+    "data_cadastro": "2025-05-09T15:56:03Z",
+    "tags": [
+      "magni",
+      "explicabo",
+      "deleniti"
+    ],
+    "vendido_30dias": 76
+  },
+  {
+    "produto_id": "P0016",
+    "nome": "Dicta ad adipisci.",
+    "categoria": "cds",
+    "subcategoria": "pop",
+    "preco": 118.7,
+    "estoque": 132,
+    "data_cadastro": "2025-06-16T15:56:03Z",
+    "tags": [
+      "nulla",
+      "aperiam",
+      "harum",
+      "aut",
+      "totam"
+    ],
+    "vendido_30dias": 154
+  },
+  {
+    "produto_id": "P0017",
+    "nome": "Nihil esse natus dignissimos.",
+    "categoria": "cds",
+    "subcategoria": "sertanejo",
+    "preco": 19.8,
+    "estoque": 66,
+    "data_cadastro": "2024-10-01T15:56:03Z",
+    "tags": [
+      "inventore",
+      "quas"
+    ],
+    "vendido_30dias": 168
+  },
+  {
+    "produto_id": "P0018",
+    "nome": "Quas explicabo.",
+    "categoria": "cds",
+    "subcategoria": "rock",
+    "preco": 40.53,
+    "estoque": 134,
+    "data_cadastro": "2024-12-20T15:56:03Z",
+    "tags": [
+      "expedita",
+      "modi",
+      "architecto",
+      "minima"
+    ],
+    "vendido_30dias": 179
+  },
+  {
+    "produto_id": "P0019",
+    "nome": "Sed.",
+    "categoria": "cds",
+    "subcategoria": "rock",
+    "preco": 75.74,
+    "estoque": 115,
+    "data_cadastro": "2024-12-12T15:56:03Z",
+    "tags": [
+      "aliquid",
+      "sed"
+    ],
+    "vendido_30dias": 156
+  },
+  {
+    "produto_id": "P0020",
+    "nome": "Nam.",
+    "categoria": "cds",
+    "subcategoria": "pop",
+    "preco": 100.59,
+    "estoque": 218,
+    "data_cadastro": "2024-11-26T15:56:03Z",
+    "tags": [
+      "nobis",
+      "explicabo",
+      "deserunt"
+    ],
+    "vendido_30dias": 100
+  }
+]
