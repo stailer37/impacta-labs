@@ -45,6 +45,8 @@ Neste exercício iremos explorar diversas funcionalidades do Spark para processa
 
 ## A) Conhecendo os consoles interativos do Spark
 
+Objetivo: Familiarizar-se com os ambientes interativos do Spark, que são excelentes para exploração e prototipação de código.
+
 1. Inicie console `spark-shell` para scala
 - Em um terminal linux, execute o comando:
     ```shell
@@ -143,7 +145,9 @@ Neste exercício iremos explorar diversas funcionalidades do Spark para processa
     12
     ```
 
-## B) Interagindo com a API de processamento batch do Spark
+## B) Processamento em Batch com a API de RDDs
+
+Objetivo: Aprender a carregar, transformar e salvar dados em um cenário de processamento em lote (_batch_), com foco na análise do código.
 
 5. Crie um arquivo com 100K transações de cartão de crédito
 - Copie o conteúdo do script `live_transactions_generator.py` armazenado em `./resources/scripts` para um novo documento no gedit
@@ -199,6 +203,15 @@ Neste exercício iremos explorar diversas funcionalidades do Spark para processa
 > [!WARNING]
 > Como geramos 100K transações, o número de transações aprovadas e canceladas pode variar a cada execução do script.
 
+### Entendendo o Código: Filter e Funções Lambda
+Vamos detalhar a linha aprovadas = transactions.filter(lambda linha: "APROVADA" in linha):
+
+- `transactions.filter(...)`: `filter` é uma transformação do Spark. Ela cria um novo RDD contendo apenas os elementos do RDD original que satisfazem uma determinada condição.
+- `lambda l: ...`: Esta é uma função anônima (lambda) em Python. É uma forma curta de escrever uma função. Aqui, `l` (linha) é o nome que damos para cada elemento do RDD transactions à medida que ele é processado.
+- `"APROVADA" in linha`: Esta é a condição. Para cada linha do RDD, o Python verifica se a _string_ `"APROVADA"` existe dentro dela. A expressão retorna `True` ou `False`.
+
+Em resumo: O Spark percorre cada linha do RDD _transactions_, aplica a função _lambda_ e, se o resultado for `True`, a linha é incluída no novo RDD aprovadas.
+
 9. Materialize o RDD de transações canceladas no HDFS
 - Execute
     ```python
@@ -229,7 +242,30 @@ Neste exercício iremos explorar diversas funcionalidades do Spark para processa
     [(u'BRL', 84454529), (u'USD', 83530616)]
     ```
 
+### Entendendo o Código: map e reduceByKey
+
+Vamos analisar o fluxo de dados passo a passo:
+
+1. `aprovadas.map(lambda linha: linha.split(","))`
+- `map`: É uma transformação que aplica uma função a cada elemento de um RDD para criar um novo RDD. O RDD resultante sempre terá o mesmo número de elementos que o original.
+- O que faz: Para cada linha (que é uma string como `"2017-09-27,jfta0igc,Loja3,APROVADA,BRL,9178"`), a função `split(",")` a transforma em uma lista de strings: `["2017-09-27", "jfta0igc", "Loja3", "APROVADA", "BRL", "9178"]`.
+- Resultado: Um novo RDD onde cada elemento é uma lista de strings.
+
+2. `.map(lambda colunas: (colunas[4], int(colunas[5])))`
+- Encadeamento: Note que estamos aplicando um `map` no resultado do `map` anterior. Isso é chamado de encadeamento (_chaining_) e é uma prática comum e eficiente.
+- O que faz: Para cada `colunas` (a lista de strings do passo anterior), esta função cria uma tupla (um par chave-valor). A chave é `colunas[4]` (a moeda, ex: `"BRL"`) e o valor é `int(colunas[5])` (o valor da transação convertido para inteiro, ex: 9178).
+- Resultado: Um RDD de pares chave-valor, como (`"BRL", 9178)`, `("USD", 1236)`, etc.
+
+3. `kv_currency_amount.reduceByKey(lambda a, b: a + b)`
+- `reduceByKey`: Esta é uma transformação poderosa que opera apenas em RDDs de pares chave-valor. Ela primeiro agrupa todos os valores que têm a mesma chave e, em seguida, aplica uma função para "reduzir" (agregar) todos os valores de cada grupo a um único valor.
+- O que faz: Para a chave `"BRL"`, ela pega todos os valores associados (ex: `[9178, 8694, 5438, ...]`) e os soma usando a função `lambda a, b: a + b`.
+- Resultado: Um RDD final com a soma total por moeda, como `("BRL", 84454529)`.
+
+Este fluxo `map` -> `map` -> `reduceByKey` é a essência do processamento distribuído com Spark: preparar os dados em um formato chave-valor e depois agregar os resultados.
+
 ## C) Interagindo com a API streaming do Spark
+
+Objetivo: Entender como o Spark processa fluxos de dados contínuos (streaming) usando o conceito de micro-lotes (micro-batches).
 
 11. Reinicie o console pyspark com mais de 1 thread para que o Streaming não fique travado
 - Pressione CTRL+D para fechar o console atual

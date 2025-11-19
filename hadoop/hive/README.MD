@@ -115,9 +115,9 @@ Neste exercício, iremos modelar uma base de dados de compras com cartão de cr�
     ```
 
 > [!NOTE] 
-> - A tabela `credit_card.transactions` é uma tabela externa, ou seja, os dados não são armazenados no Hive, mas sim no HDFS.  
-> - A tabela é particionada pela coluna `dt`, que representa a data da transação.  
-> - A tabela é armazenada no formato de texto delimitado por pipe (`|`).
+> Uma tabela `EXTERNAL` informa ao Hive que os dados são gerenciados fora do Hive, em um local específico no HDFS. Se você deletar uma tabela externa (`DROP TABLE`), o Hive apaga apenas os metadados do Metastore, mas os arquivos de dados no HDFS permanecem intactos. Isso é uma medida de segurança para evitar a perda acidental de dados brutos. Em contraste, uma tabela `MANAGED` (o padrão) teria seus dados deletados junto com a tabela.
+> `PARTITIONED BY (dt BIGINT)`: Este é um elemento chave para obter maior desempenho no Hive. Estamos dizendo ao Hive para organizar os dados fisicamente em subdiretórios baseados na coluna `dt` (data). Quando você fizer uma consulta com um filtro`WHERE dt = 20170912`, o Hive será inteligente o suficiente para ler apenas os dados dentro do subdiretório `/db/credit_card/transactions/dt=20170912`, ignorando todos os outros. Isso é chamado de _partition pruning_ e acelera drasticamente as consultas.  
+
 
 7. Verifique no menu `Databases` lateral que o novo `schema` foi criado com os novos metadados:  
   - Clique no ícone de refresh (seta circular) para atualizar a lista de bancos de dados, caso necessário.  
@@ -141,6 +141,9 @@ Neste exercício, iremos modelar uma base de dados de compras com cartão de cr�
     ```
   - Atualize a visão do navegador de arquivos e verifique que uma nova pasta de partição foi criada.  
     ![7_partition_folder](./resources/images/7_partition_folder.png)
+
+> [!NOTE] 
+> O comando `INSERT INTO` no Hive é diferente dos bancos de dados tradicionais. Por baixo dos panos, ele executa um job _MapReduce_ para escrever os dados no arquivo correto dentro do diretório da partição especificada. É uma operação mais "cara" e geralmente não é usada para inserções de linha única, mas sim para carregar dados em lote.
 
 10. Criando um novo arquivo usando o Hue:  
    - Dê dois cliques para entrar na pasta da partição `dt=20170912`.  
@@ -227,6 +230,10 @@ select * from credit_card.transactions_stage limit 10;
   select stg.ts, stg.card_id, stg.store, stg.status, stg.currency, stg.amount,
       cast(from_unixtime(unix_timestamp(stg.ts), 'YYYYmmdd') as bigint);
   ```
+
+> [!NOTE] 
+> `SET hive.exec.dynamic.partition.mode=nonstrict;`: Por segurança, o Hive exige que você habilite explicitamente o modo de partição dinâmica. Isso permite que o Hive crie partições em tempo de execução com base nos valores dos dados que estão sendo inseridos.
+
   - Aguarde o término de execução da consulta (pode levar alguns minutos).  
   - Verifique que diversas partições foram criadas.  
   ![16_imported_partitions](./resources/images/16_imported_partitions.png)
