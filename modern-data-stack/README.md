@@ -59,14 +59,13 @@ Para iniciar o ambiente do laboratório, você precisará ter o [Docker](https:/
 
 | Serviço         | URL de Acesso                                    | Porta Padrão | Usuário/Senha                        |
 |-----------------|--------------------------------------------------|--------------|--------------------------------------|
-| MinIO           | [http://localhost:9000](http://localhost:9000)   | 9000         |None/None                             |
 | MinIO Console   | [http://localhost:9001](http://localhost:9001)   | 9001         |admin/impacta2025                     |
 | Kafka UI        | [http://localhost:8083](http://localhost:8083)   | 8083         |None/None                             |
 | PagilaDB        | `postgresql://localhost:5432/pagila_db`          | 5432         |pagila_user/pagila_pass               |
 | Superset        | [http://localhost:8088](http://localhost:8088)   | 8088         |None/None                             |
 | Apache Nifi     | [https://localhost:8443](https://localhost:8443) | 8443         |admin/ctsBtRBKHRAx69EqUghvvgEvjnaLjFEB|
 | LakeKeeper      | [http://localhost:8181](http://localhost:8181)   | 8181         |None/None                             |
-| Trino           | [http://localhost:8085](http://localhost:8085)   | 8085         |trino/None                            |
+| Trino           | [http://localhost:8084](http://localhost:8084)   | 8084         |trino/None                            |
 | Jupyter         | [http://localhost:8888](http://localhost:8888)   | 8888         |None/None                             |
 | Elasticsearch   | [http://localhost:9200](http://localhost:9200)   | 9200         |None/None                             |
 

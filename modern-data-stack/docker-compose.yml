@@ -20,7 +20,7 @@ services:
       - "8888:8888"
 
   minio:
-    image: bitnami/minio:latest
+    image: minio/minio:latest
     environment:
       - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=impacta2025
@@ -29,11 +29,12 @@ services:
       - MINIO_SCHEME=http
       - MINIO_DEFAULT_BUCKETS=raw,trusted,refined
     healthcheck:
-      test: [ "CMD", "mc", "ls", "local", "|", "grep", "raw" ]
+      test: [ "CMD", "mc", "admin", "info", "play/" ]
       interval: 2s
       timeout: 10s
       retries: 2
       start_period: 15s
+    command: server --address ":9000" --console-address ":9001" /data
     networks:
       infra-data-network:
     ports:
@@ -89,7 +90,7 @@ services:
       infra-data-network:
 
   superset_db:
-    image: bitnami/postgresql:16.3.0
+    image: bitnami/postgresql:latest
     environment:
       - POSTGRES_USER=superset_user
       - POSTGRES_PASSWORD=superset_pass
@@ -121,7 +122,7 @@ services:
       retries: 3
       start_period: 3s
     depends_on:
-      migrate:
+      lakekeeper_migrate:
         condition: service_completed_successfully
       lakekeeper_db:
         condition: service_healthy
@@ -132,7 +133,7 @@ services:
     ports:
       - "8181:8181"
 
-  migrate:
+  lakekeeper_migrate:
     image: ${LAKEKEEPER_TEST__SERVER_IMAGE:-quay.io/lakekeeper/catalog:latest-main}
     pull_policy: always
     environment:
@@ -148,7 +149,7 @@ services:
     networks:
       infra-data-network:   
   
-  bootstrap:
+  lakekeeper_skip_bootstrap:
     image: curlimages/curl
     depends_on:
       lakekeeper:
@@ -167,12 +168,12 @@ services:
       - '{"accept-terms-of-use": true}'
       - "-o"
       - "/dev/null"
-      # - "--fail-with-body"
+      - "--fail-with-body"
     networks:
       infra-data-network:
   
   lakekeeper_db:
-    image: bitnami/postgresql:16.3.0
+    image: bitnami/postgresql:latest
     environment:
       - POSTGRES_USER=lakekeeper_user
       - POSTGRES_PASSWORD=lakekeeper_pass
@@ -207,13 +208,14 @@ services:
       infra-data-network:
 
   pagila_db:
-    image: bitnami/postgresql:16.3.0
+    image: bitnami/postgresql:latest
     environment:
        POSTGRES_DB: pagila_db
        POSTGRES_USER: pagila_user
        POSTGRES_PASSWORD: pagila_pass
     volumes:
-      - ./volumes/pagila/pagila-schema-data.sql:/docker-entrypoint-initdb.d/pagila-schemas-data.sql
+      - ./configs/pagila/pagila-schema.sql:/docker-entrypoint-initdb.d/pagila-schema.sql
+      - ./configs/pagila/pagila-data.sql:/docker-entrypoint-initdb.d/pagila-data.sql
       - ./volumes/pagila:/bitnami/postgresql
     ports:
        - "5432:5432"
