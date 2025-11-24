@@ -364,3 +364,97 @@ Quer um desafio maior?
   > [!TIP]
   > **Dica:** O parâmetro `py-files` permite enviar arquivos python para o cluster Spark
 
+## Conteúdo Extra
+
+### O que é Data Skew?
+
+Data Skew (ou assimetria de dados) ocorre quando os dados não são distribuídos uniformemente entre as partições. Em operações de `groupBy` ou `join`, isso significa que algumas chaves têm um volume de dados desproporcionalmente maior que outras. O resultado é que, enquanto 99 tarefas terminam em segundos, uma única tarefa pode levar horas para processar a partição "pesada", tornando-se o gargalo de todo o job.
+
+### Como detectar Data Skew?
+
+A Spark UI é sua melhor amiga. Na aba "Stages", procure por um estágio que está demorando muito. Dentro dele, olhe a lista de tarefas. Se a maioria das tarefas tem uma duração similar, mas algumas poucas têm uma duração muito maior e processam muito mais dados, você encontrou o _Data Skew_.
+
+### Como resolver Data Skew?
+
+A ideia é quebrar a chave assimétrica em múltiplas chaves _"salted"_ para distribuir a carga entre mais tarefas.
+
+Cenário: Um join entre um _DataFrame_ de vendas (`vendas_df`) e um de usuários (`usuarios_df`), onde um ID de usuário (ex: -1 para "usuário não logado") representa 90% das vendas.
+
+```python
+from pyspark.sql.functions import col, lit, rand, concat, floor
+
+# 1. Crie uma nova coluna com um "sal" aleatório (ex: de 0 a 9)
+salt_range = 10
+vendas_com_sal = vendas_df.withColumn('salt', floor(rand() * salt_range))
+
+# 2. Crie a nova chave de join salted
+vendas_com_sal = vendas_com_sal.withColumn(
+    'salted_user_id',
+    concat(
+        col('user_id'),
+        lit('_'),
+        col('salt')
+    )
+)
+
+# --- Lado do DataFrame PEQUENO (usuarios_df) ---
+
+# 3. "Exploda" o DataFrame pequeno para que ele possa dar join com todas as chaves salgadas
+usuarios_explodido = usuarios_df.crossJoin(spark.range(salt_range).withColumnRenamed('id', 'salt'))
+
+# 4. Crie a mesma chave de join salgada
+usuarios_explodido = usuarios_explodido.withColumn('salted_user_id', 
+                                                   concat(col('user_id'), lit('_'), col('salt')))
+
+# 5. Execute o join com a chave salgada!
+resultado_final = vendas_com_sal.join(usuarios_explodido, ['salted_user_id'])
+```
+
+A chave problemática `user_id = -1` foi transformada em 10 chaves diferentes (`-1_0`, `-1_1`, ..., `-1_9`). A carga de trabalho que antes estava em uma única tarefa agora está distribuída entre 10 tarefas, eliminando o gargalo.
+
+### Boas Práticas para Evitar Erros de OutOfMemory (OOM)
+
+O erro de `java.lang.OutOfMemoryError` é um dos problemas mais comuns e frustrantes no Spark. Ele pode acontecer no _Driver_ ou nos _Executors_.
+
+As causas mais comuns de OOM no Executor:
+1. Partições muito grandes: Uma única partição não cabe na memória do Executor.
+2. collect() em dados grandes: df.collect() tenta trazer todos os dados do DataFrame para a memória do Driver. Nunca faça isso em um DataFrame grande. Use take(), show() ou salve o resultado em disco.
+3. groupByKey: Evite groupByKey a todo custo. Ele agrupa todos os valores de uma chave na memória antes de aplicar a função. Use reduceByKey ou aggregateByKey (para RDDs) ou groupBy().agg() (para DataFrames), que realizam a agregação de forma mais eficiente.
+
+Estratégias e Boas Práticas para Evitar OOM:
+| Técnica | Descrição | Exemplo de Código |
+| :--- | :--- | :--- |
+| **Aumentar Partições** | Se suas partições são muito grandes, reparticione para criar partições menores que caibam na memória. | `df.repartition(500)` |
+| **Broadcast Join** | Se você está fazendo um join entre uma tabela grande e uma pequena (ex: < 100MB), use um `broadcast join`. O Spark enviará uma cópia da tabela pequena para cada Executor, evitando um shuffle caro e que consome muita memória. | `from pyspark.sql.functions import broadcast`<br>`df_grande.join(broadcast(df_pequeno), ['id'])` |
+| **Filtrar Cedo (`Predicate Pushdown`)** | Sempre aplique seus filtros (`WHERE` ou `filter()`) o mais cedo possível no seu código. O Catalyst Optimizer já faz isso (Predicate Pushdown), mas ser explícito ajuda a garantir que você leia o mínimo de dados possível. | `spark.read.parquet('...').filter(col('data') > '2023-01-01')` |
+| **Usar `persist()` com Sabedoria** | Se você for usar um DataFrame várias vezes, use `df.persist(StorageLevel.MEMORY_AND_DISK)`. O Spark o manterá em memória (e em disco se não couber). Isso evita que ele seja recalculado a cada ação. | `df_processado = df.filter(...).groupBy(...)`<br>`df_processado.persist()`<br>`df_processado.count()`<br>`df_processado.write.parquet('...')` |
+| **Escolher o Formato Certo** | Prefira formatos de arquivo colunares como **Parquet** ou **ORC**. Eles são mais eficientes para leitura e permitem que o Spark leia apenas as colunas que você precisa (*column pruning*). | `df.write.parquet('path/to/output')` |
+
+### API de DataFrame do Spark
+Quando utilizamos a API de DataFrame (ou Dataset) no Apache Spark, não estamos apenas usando uma interface mais amigável que os RDDs; estamos, na verdade, desbloqueando um ecossistema de otimizações automáticas e poderosas que são a base da alta performance do Spark. Este documento detalha os principais componentes por trás dessa "mágica".
+
+A API de DataFrame nos fornece um rico conjunto de otimizações, tais como:
+| Componente de Otimização | Descrição Detalhada |
+| :--- | :--- |
+| **Adaptive Query Execution (AQE)** | Otimiza dinamicamente os planos de consulta em tempo de execução, com base em estatísticas e padrões de execução. É uma otimização "inteligente" que ajusta a estratégia do job *enquanto* ele está rodando. |
+| **In-Memory Columnar Storage (Tungsten)** | Um formato de armazenamento em memória que organiza os dados em colunas, em vez de linhas. Isso permite uma performance analítica muito mais eficiente e reduz drasticamente o consumo de memória. |
+| **Estatísticas Nativas (Built-in Statistics)** | Coleta automática de estatísticas (como valores mínimos/máximos e contagem de nulos) ao salvar dados em formatos otimizados (Parquet, Delta), permitindo um planejamento de consulta mais inteligente. |
+| **Catalyst Optimizer e Photon** | O **Catalyst** é o framework de otimização de consultas do Spark SQL, enquanto o **Photon** é um motor de execução de última geração que acelera ainda mais o processamento. |
+
+Quando um DataFrame é avaliado (ou seja, quando uma ação é chamada), o Driver cria um plano de execução otimizado através de uma série de transformações, convertendo o plano lógico em um plano de execução físico eficiente que minimiza o uso de recursos e o tempo de execução.
+
+O fluxo é o seguinte:
+
+**Plano Lógico Não Resolvido → Plano Lógico Analisado → Plano Lógico Otimizado → Plano Físico**
+
+1.  **Plano Lógico Não Resolvido**: O Spark cria uma representação abstrata da sua consulta. Neste ponto, ele ainda não verificou se as tabelas ou colunas que você usou realmente existem.
+2.  **Análise**: O Spark consulta seu catálogo (Metastore) para resolver e validar os nomes de tabelas, colunas e funções, criando um **Plano Lógico Analisado**.
+3.  **Otimização Lógica**: O Catalyst Optimizer aplica dezenas de regras (como Predicate Pushdown) ao plano lógico para reestruturá-lo de forma mais eficiente, resultando em um **Plano Lógico Otimizado**.
+4.  **Otimização Física**: O Spark gera um ou mais **Planos Físicos** a partir do plano lógico otimizado. Um plano físico descreve exatamente *como* a consulta será executada (ex: usar um `Hash Join` ou um `Sort-Merge Join`). Se houver mais de um plano, o otimizador baseado em custo escolhe o melhor.
+5.  **Geração de Código**: Finalmente, o Tungsten entra em ação, gerando bytecode otimizado para a CPU a partir do plano físico escolhido, garantindo a máxima performance durante a execução.
+
+### Referências
+- [Apache Spark Documentation](https://spark.apache.org/docs/latest/sql-performance-tuning.html)
+- [Understanding Spark's Catalyst Optimizer](https://databricks.com/glossary/what-is-catalyst-optimizer)
+- [Adaptive Query Execution in Spark](https://www.databricks.com/blog/2020/05/29/adaptive-query-execution-speeding-up-spark-sql-at-runtime.html)
+- [Tungsten: Bringing Spark Closer to Bare Metal](https://databricks.com/blog/2015/03/31/tungsten-bringing-spark-closer-to-bare-metal.html)
