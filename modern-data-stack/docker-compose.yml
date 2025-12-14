@@ -2,15 +2,6 @@ services:
 
   jupyter:
     image: quay.io/jupyter/pyspark-notebook:2024-10-14
-    depends_on:
-      lakekeeper:
-        condition: service_healthy
-      trino:
-        condition: service_healthy
-      superset:
-        condition: service_healthy
-      pagila_db:
-        condition: service_healthy
     command: start-notebook.sh --NotebookApp.token=''
     volumes:
       - ./volumes/jupyter/notebooks:/home/jovyan/examples/
@@ -20,14 +11,13 @@ services:
       - "8888:8888"
 
   minio:
-    image: minio/minio:latest
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
     environment:
       - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=impacta2025
       - MINIO_API_PORT_NUMBER=9000
       - MINIO_CONSOLE_PORT_NUMBER=9001
       - MINIO_SCHEME=http
-      - MINIO_DEFAULT_BUCKETS=raw,trusted,refined
     healthcheck:
       test: [ "CMD", "mc", "admin", "info", "play/" ]
       interval: 2s
@@ -188,7 +178,7 @@ services:
       infra-data-network:
 
   nifi:
-    image: apache/nifi:latest
+    image: apache/nifi:2.4.0
     container_name: nifi
     ports:
       - "8443:8443"
@@ -214,8 +204,8 @@ services:
        POSTGRES_USER: pagila_user
        POSTGRES_PASSWORD: pagila_pass
     volumes:
-      - ./configs/pagila/pagila-schema.sql:/docker-entrypoint-initdb.d/pagila-schema.sql
-      - ./configs/pagila/pagila-data.sql:/docker-entrypoint-initdb.d/pagila-data.sql
+      - ./configs/pagila/pagila-schema.sql:/docker-entrypoint.initdb/pagila-schema.sql
+      - ./configs/pagila/pagila-data.sql:/docker-entrypoint.initdb/pagila-data.sql
       - ./volumes/pagila:/bitnami/postgresql
     ports:
        - "5432:5432"
@@ -260,18 +250,6 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local-kafka
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-    networks:
-      infra-data-network:
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-    ports:
-      - "9200:9200"
-    volumes:
-      - ./volumes/elasticsearch:/usr/share/elasticsearch/data
     networks:
       infra-data-network:
 

@@ -30,8 +30,6 @@ Bem-vindo ao laboratório de **Data Lakehouse** da Impacta! Este repositório re
     - [LakeKeeper](https://docs.lakekeeper.io/docs/latest/concepts/)
 - **Trino**: Consultas SQL distribuídas em grandes volumes de dados.
     - [Trino](https://trino.io/docs/current/)
-- **Elasticsearch**: Busca e análise de dados em tempo real.
-    - [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 - **Jupyter**: Notebooks interativos para análise e experimentação.
     - [Jupyter](https://jupyter.org/documentation)
 
@@ -62,18 +60,17 @@ Para iniciar o ambiente do laboratório, você precisará ter o [Docker](https:/
 | MinIO Console   | [http://localhost:9001](http://localhost:9001)   | 9001         |admin/impacta2025                     |
 | Kafka UI        | [http://localhost:8083](http://localhost:8083)   | 8083         |None/None                             |
 | PagilaDB        | `postgresql://localhost:5432/pagila_db`          | 5432         |pagila_user/pagila_pass               |
-| Superset        | [http://localhost:8088](http://localhost:8088)   | 8088         |None/None                             |
+| Superset        | [http://localhost:8088](http://localhost:8088)   | 8088         |admin/impacta2025                     |
 | Apache Nifi     | [https://localhost:8443](https://localhost:8443) | 8443         |admin/ctsBtRBKHRAx69EqUghvvgEvjnaLjFEB|
 | LakeKeeper      | [http://localhost:8181](http://localhost:8181)   | 8181         |None/None                             |
 | Trino           | [http://localhost:8084](http://localhost:8084)   | 8084         |trino/None                            |
 | Jupyter         | [http://localhost:8888](http://localhost:8888)   | 8888         |None/None                             |
-| Elasticsearch   | [http://localhost:9200](http://localhost:9200)   | 9200         |None/None                             |
 
 ## Como Praticar
 Para começar a praticar, siga o passo a passo abaixo:
 1. **Ingestão de Dados**: Utilize o Apache Nifi para criar um fluxo de dados que ingeste informações do PagilaDB e envie para o MinIO.
 2. **Processamento de Dados**: Use o Apache Spark para processar os dados ingeridos e gerar tabelas em formato de Lake House.
-3. **Streaming de Dados**: Configure o Apache Kafka para receber dados em tempo real.
+3. **Streaming de Dados**: Configure o Apache Kafka para receber dados em tempo real e o Spark Streaming para processa-los.
 4. **Visualização de Dados**: Utilize o Apache Superset para criar dashboards e visualizar os dados através do Trino.
 
 ## Exercícios
@@ -90,15 +87,17 @@ Para começar a praticar, siga o passo a passo abaixo:
             - `Database Connection URL`: Defina a URL de conexão como `jdbc:postgresql://pagila_db:5432/pagila_db`.
             - `Database Driver Class Name`: Defina como `org.postgresql.Driver`.
             - `Database User`: Defina o usuário do banco de dados `pagila_user`.
-            - `Database Password`: Defina a senha do banco de dados, por exemplo, `pagila_pass`.denar os dados.
+            - `Database Password`: Defina a senha do banco de dados, por exemplo, `pagila_pass`.
             - Valide as configurações clicando em `Verification`.
             - Em caso de sucesso, clique em `Apply` para salvar as configurações.
         - Habilite o controller service clicando no botão ≡ e selecionando `Enable`.
     - Nas configurações do `QueryDatabaseTable`, defina as seguintes propriedades:
         - `Database Type`: Selecione `PostgreSQL`.
         - `Table Name`: Defina como `customer`.
-        - `Maximum-value Columns`: Defina como `last_update` para controle de incremental.
-        - `Initial Load Strategy`: Selecione `Start at Current Maximum Values` para carregar controle de incremental.
+    - Apenas para conhecimento, é possível fazer ingestões de dados incrementais, para isso, os seguintes parâmetros devem ser alterados:
+        - `Initial Load Strategy`: Selecione `Start at Beginning` para fazer uma carga completa ou configure o `Initial Load Strategy` como `Start at Current Maximum Values` para carregar controle de incremental.
+            - Caso queira testar o modo incremental, defina o `Maximum-value Columns` como `last_update`
+    - Por fim, altere o nível de log para `DEBUG` na aba `Settings`.
     - Clique em `Apply` para salvar as configurações.
 
     b. Use o `ConvertAvroToParquet` para converter os dados para o formato Parquet.
@@ -123,8 +122,9 @@ Para começar a praticar, siga o passo a passo abaixo:
 
     d. Conecte o `ConvertAvroToParquet` ao `PutS3Object`.
     e. Altere as `Relationships` do `ConvertAvroToParquet` `PutS3Object` para `success` e `failure`.
-    f. Execute o fluxo clicando no botão de "play" no canto superior esquerdo do Apache Nifi.
-    g. Verifique se os dados foram enviados corretamente para o MinIO acessando o console em [http://localhost:9001](http://localhost:9001).
+    f. Altere o nível de log para `DEBUG`
+    g. Execute o fluxo clicando no botão de "play" no canto superior esquerdo do Apache Nifi.
+    h. Verifique se os dados foram enviados corretamente para o MinIO acessando o console em [http://localhost:9001](http://localhost:9001).
 
 - Lista de Tabelas do PagilaDB:
 
@@ -173,13 +173,13 @@ Para começar a praticar, siga o passo a passo abaixo:
 
 ### Processamento de Dados com Apache Spark
 1. Criando um job no Apache Spark para processar os dados do MinIO e gerar tabelas em formato de Lake House.
-    - Abra o Notebook Jupyter em [http://localhost:8888](http://localhost:8888) e selecione o notebook `spark_processing.ipynb`.
+    - Abra o Notebook Jupyter em [http://localhost:8888](http://localhost:8888), abra a pasta `examples` e selecione o notebook `spark_batch.ipynb`.
     - No notebook, você encontrará células de código já preparadas para ler os dados do MinIO, processá-los e salvá-los no formato Iceberg.
 
 ### Conectando o Trino ao SuperSet
 1. Abra o Apache Superset em [http://localhost:8088](http://localhost:8088).
 2. Crie uma nova fonte de dados conectando ao Trino:
-    - Vá para `Data` > `Databases` > `+ Database`.
+    - Clique em `Settings` (encontra-se no canto superior direito) > `Data Connections` > `+ Database` (botão azul próximo ao `Settings`).
     - Selecione `Trino` como o tipo de banco de dados.
     - Preencha as informações de conexão:
         - `SQLAlchemy URI`: `trino://admin@trino:8080/trusted`
@@ -261,7 +261,7 @@ Para começar a praticar, siga o passo a passo abaixo:
     - Crie um novo tópico chamado `popular_critics` para receber os dados de avaliação de filmes, com as seguintes configurações:
         - **Topic Name**: popular_critics
         - **Partitions**: 1 (para simplificar o ambiente de desenvolvimento)
-        - **Cleanup Policy**: `Delete` (para manter apenas a última mensagem por chave)
+        - **Cleanup Policy**: `Delete`
         > [!NOTE]
         > Tipos de Cleanup Policy:
         > - `Delete`: mensagens são removidas após o período de retenção.
