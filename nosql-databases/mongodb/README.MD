@@ -3,16 +3,16 @@
 ### 1.1 Introdução 
 Nosso primeiro passo será nos familiarizar com os componentes principais do MongoDB, ajudando você a entender seu propósito e como interagir com eles.
 
-Ao longo deste laboratório, você ira interagir com uma instalação _standalone_ do MongoDB. Contudo, é importante ressaltar que em ambientes de produção, você provavelmente ira se deparar com um _deploy_ mais completo.
+Ao longo deste laboratório, você irá conectar-se a uma instalação _standalone_ do MongoDB. Contudo, é importante ressaltar que em ambientes de produção, você provavelmente se deparará com um _deploy_ mais completo.
 
 ### 1.2 Componentes  
 Os componentes principais do MongoDB são:
 
-- [**mongosh**]("https://www.mongodb.com/pt-br/docs/mongodb-shell/"): O próprio shell do MongoDB, uma interface interativa em JavaScript e Node.js que você pode usar para se conectar e executar comandos.
+- [**mongosh**](!https://www.mongodb.com/pt-br/docs/mongodb-shell/): O próprio shell do MongoDB, uma interface interativa em JavaScript e Node.js que você pode usar para se conectar e executar comandos.
 - **mongod**: O processo principal (daemon), o processo central do sistema MongoDB.
 - **mongos**: O processo que direciona consultas e operações de escrita em um cluster fragmentado.
   
-Há também as **Ferramentas de Banco de Dados do MongoDB**, um conjunto de ferramentas para tarefas administrativas, como backup, restauração e importação/exportação de dados. Essas ferramentas são executadas como processos separados e não são necessárias para o funcionamento básico do MongoDB.
+Há também as **Ferramentas de Banco de Dados do MongoDB**, um conjunto de ferramentas para tarefas administrativas, como backup, restauração e importação/exportação de dados. Essas ferramentas são executadas como processos separados e não são necessárias para o funcionamento básico do MongoDB e, portanto, não serão abordadas neste laboratório.
 
 ### 1.3 Interação dos Componentes
 Você precisa de uma ferramenta para acessar uma instância do **mongod**. Você pode usar o shell do MongoDB ou uma ferramenta de terceiros.
@@ -37,12 +37,13 @@ As implementações possíveis incluem o seguinte:
 
 **_Standalone_ (Instância Independente):** A instalação básica, um único nó mongod.
 
-**_Replica set_ (Conjunto de Réplicas):** Replicação padrão, várias cópias dos dados em servidores de banco de dados diferentes, oferecendo um nível de tolerância a falhas contra a perda de um único servidor de banco de dados.
+**_Replica set_ (Conjunto de Réplicas):** Replicação padrão, várias cópias dos dados em servidores de diferentes, oferecendo um nível de tolerância a falhas contra a perda de um único servidor de banco de dados.
 
 ![](./resources/images/replica-set-read-write-operations-primary.png)
 
 O _primário_ e os _secundários_ são processos `mongod` que rodam em diferentes locais. Você pode usar o shell do MongoDB (`mongo`) para interagir com eles.
 
+> [!INFO]
 > A configuração mínima recomendada para um conjunto de réplicas é de três membros — um primário e dois secundários.
 
 **_Sharded cluster_ (Cluster Fragmentado):** Esse recurso de cluster do MongoDB permite distribuir dados em várias máquinas (escala horizontal), para conjuntos de dados muito grandes e operações de alto desempenho.
@@ -100,16 +101,16 @@ Uma vez conectado, você pode navegar e exibir as estruturas do banco de dados.
 1. As coleções são objetos capazes de realizar várias operações diferentes. O método insert adiciona documentos a uma coleção. Por exemplo, o seguinte código adiciona um único documento que descreve um livro de Kurt Vonnegut à coleção de livros:
 
 ```json
-db.books.insertOne( { title: "Mother Night", author: "Kurt Vonnegut, Jr." } )
+db.books.insertOne( { title: "Grande Sertão: Veredas", author: "João Guimarães Rosa" } )
 ```
 
 > [!TIP]
 >  É uma boa prática incluir um identificador único em cada documento quando ele é inserido.
 
-2. Em vez de simplesmente adicionar um documento de livro com o título e o nome do autor, uma opção melhor seria incluir um identificador único, como em:
+2. Em vez de simplesmente adicionar um documento de livro com o título e o nome do autor, uma opção melhor seria, portanto, incluir um identificador único, como em:
 
 ```json
-db.books.insertOne( {book_id: 1298747, "title":"Mother Night", "author": "Kurt Vonnegut, Jr."} )
+db.books.insertOne( {book_id: 1298747, "title":"Grande Sertão: Veredas", "author": "João Guimarães Rosa"} )
 ```
 
 > [!TIP]
@@ -120,20 +121,20 @@ db.books.insertOne( {book_id: 1298747, "title":"Mother Night", "author": "Kurt V
 ```json
 db.books.insertMany([
    {
-      "book_id": 1298747,
-      "title":"Mother Night",
-      "author": "Kurt Vonnegut, Jr."
-   },
-   {
-      "book_id": 639397,
-      "title":"Science and the Modern World",
-      "author": "Alfred North Whitehead"
-   },
-   {
-      "book_id": 1456701,
-      "title":"Foundation and Empire",
-      "author": "Isaac Asimov"
-   }
+         "book_id": 1298747,
+         "title": "Grande Sertão: Veredas",
+         "author": "João Guimarães Rosa"
+    },
+    {
+         "book_id": 639397,
+         "title": "Dom Casmurro",
+         "author": "Machado de Assis"
+    },
+    {
+         "book_id": 1456701,
+         "title": "O Tempo e o Vento",
+         "author": "Erico Verissimo"
+    }
 ])
 ```
 
@@ -142,39 +143,24 @@ db.books.insertMany([
 
 ### 1.7 Exibindo dados no MongoDB
 
-O método `find` é usado para recuperar documentos de uma coleção. Como você pode esperar, o método `find` aceita um documento de consulta opcional que especifica quais documentos devem ser retornados. Se você quiser apenas um subconjunto de documentos no banco de dados, deverá especificar critérios de seleção usando um documento.
+O método `find` é usado para recuperar documentos de uma coleção. Como você pode imaginar ele aceita uma parametrização de consulta opcional que especifica quais documentos devem ser retornados. Se você quiser apenas um subconjunto de documentos no banco de dados, deverá especificar critérios de seleção usando um documento.
 
-1. Por exemplo, o seguinte comando retorna todos os livros de Kurt Vonnegut, Jr.:
+1. Por exemplo, o seguinte comando retorna todos os livros de João Guimarães Rosa:
 
 ```json
-db.books.find( { "author": "Kurt Vonnegut, Jr." } )
+   db.books.find( { "author": "João Guimarães Rosa" } )
 ```
 
-2. Posso retornar todos os documentos dentro da coleção `books` usando o seguinte comando:
+2. Poderia também retornar todos os documentos dentro da coleção `books` usando o seguinte comando:
 
 ```json
 db.books.find()
 ```
 
-### 1.8 Deletando dados no MongoDB
-
-1. Para deletar um documento, execute o seguinte comando:
-```json
-db.books.deleteOne( { "book_id": 1298747 } )
-```
-2. Para deletar um documento utilizando um atributo específico, execute o seguinte comando:
-```json
-db.books.deleteOne( { "author": "Kurt Vonnegut, Jr." } )
-```
-3. Para deletar todos os documentos, execute o seguinte comando:
-```json
-db.books.deleteMany( {} )
-```
-
 > [!TIP]
->  É importante ter um cuidado especial ao excluir documentos que possam estar referenciados em outros documentos. Bancos de dados relacionais foram projetados para evitar esse tipo de problema, mas bancos de dados de documentos dependem do código da aplicação para gerenciar esse tipo de integridade de dados.
+> Por padrão, o método `find` retorna um cursor para os documentos que correspondem à consulta. Um cursor é um ponteiro para o conjunto de resultados retornado pela consulta. Você pode iterar sobre o cursor para acessar os documentos individuais. Isso é útil quando você está lidando com grandes conjuntos de dados, pois permite que você carregue os documentos um de cada vez, em vez de carregar todos os documentos na memória de uma só vez.
 
-### 1.9 Atualizando dados no MongoDB
+### 1.8 Atualizando dados no MongoDB
 
 1. Para atualizar um documento, execute o seguinte comando:
 ```json
@@ -191,13 +177,13 @@ Bancos de dados de documentos às vezes oferecem outros operadores além dos com
 db.books.find()
 ```
 
-3. O comando a seguir alteraria a quantidade de Mother Night de 10 para 15:
+3. O comando a seguir alteraria a quantidade de "Grande Sertão: Veredas" de 10 para 15:
 
 ```json
-db.books.updateOne( { "title": "Mother Night" }, { $inc: { "quantity": 5 } } )
+db.books.updateOne( { "title": "Grande Sertão: Veredas" }, { $inc: { "quantity": 5 } } )
 ```
 
-### 1.10 Consultas Complexas
+### 1.9 Consultas Complexas
 Para realizar consultas mais complexas, você pode usar condicionais e operadores booleanos.
 
 1. Para recuperar todos os livros com uma quantidade maior ou igual a 10 e menor que 50, você poderia usar o seguinte comando:
@@ -217,12 +203,37 @@ Exemplos de operadores de comparação comuns incluem:
 Entre outros, veja a [documentação oficial](https://docs.mongodb.com/manual/reference/operator/query-comparison/).
 
 
-### 1.11 Utilizando agregações no MongoDB
+### 1.10 Utilizando agregações no MongoDB
 
 Operações de agregação processam diversos documentos e geram resultados calculados. Você pode usar operações de agregação para:
 - Agrupar valores de diversos documentos.
 - Executar operações nos dados agrupados para gerar um único resultado.
 - Analisar alterações de dados ao longo do tempo.
+
+1. Vamos adicionar mais alguns livros à coleção `books` para que possamos realizar algumas operações de agregação:
+
+```json
+db.books.insertMany([
+   {
+         "book_id": 2233445,
+         "title": "Memórias Póstumas de Brás Cubas",
+         "author": "Machado de Assis",
+         "quantity": 30
+    },
+    {
+         "book_id": 3344556,
+         "title": "Vidas Secas",
+         "author": "Graciliano Ramos",
+         "quantity": 20
+    },
+    {
+         "book_id": 4455667,
+         "title": "O Alienista",
+         "author": "Machado de Assis",
+         "quantity": 15
+    }
+])
+```
 
 1. Para agrupar os livros por autor, execute o seguinte comando:
 ```json
@@ -237,6 +248,24 @@ db.books.aggregate([
   { $group: { _id: "$author", total: { $sum: "$quantity" } } }
 ])
 ```
+
+### 1.11 Deletando dados no MongoDB
+
+1. Para deletar um documento, execute o seguinte comando:
+```json
+db.books.deleteOne( { "book_id": 1298747 } )
+```
+2. Para deletar um documento utilizando um atributo específico, execute o seguinte comando:
+```json
+db.books.deleteOne( { "author": "João Guimarães Rosa" } )
+```
+3. Para deletar todos os documentos, execute o seguinte comando:
+```json
+db.books.deleteMany( {} )
+```
+
+> [!TIP]
+>  É importante ter um cuidado especial ao excluir documentos que possam estar referenciados em outros documentos. Bancos de dados relacionais foram projetados para evitar esse tipo de problema, mas bancos de dados de documentos dependem do código da aplicação para gerenciar esse tipo de integridade de dados. Portanto, certifique-se de que sua aplicação lide adequadamente com referências antes de excluir documentos.
 
 ## 2. Agora é sua vez
 
