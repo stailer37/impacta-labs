@@ -2,6 +2,12 @@
 
 Este repositório fornece uma visão geral de alguns dos principais bancos de dados NoSQL amplamente utilizados no mercado. Abaixo, você encontrará descrições breves e links para a documentação oficial de cada tecnologia.
 
+## Redis
+Redis é um banco de dados NoSQL em memória, conhecido por sua alta performance e baixa latência. Ele suporta várias estruturas de dados, como strings, hashes, listas, conjuntos e sorted sets, tornando-o ideal para casos de uso que exigem acesso rápido a dados, como caching, filas e sessões.
+
+- [Laboratório de Redis](./redis/README.MD)
+- [Documentação oficial do Redis](https://redis.io/documentation)
+
 ## MongoDB
 MongoDB é um banco de dados NoSQL orientado a documentos, projetado para armazenar dados em um formato flexível de documentos JSON, permitindo consultas dinâmicas e escalabilidade horizontal. Ele é ideal para aplicações que requerem flexibilidade nos esquemas e que lidam com grandes volumes de dados de forma ágil.
 
