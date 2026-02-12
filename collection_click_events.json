@@ -1,0 +1,162 @@
+[
+  {
+    "event_id": "E001",
+    "customer_id": "C011",
+    "product_id": "P003",
+    "session_id": "S362",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T00:10:00Z"
+  },
+  {
+    "event_id": "E002",
+    "customer_id": "C010",
+    "product_id": "P005",
+    "session_id": "S231",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T00:20:00Z"
+  },
+  {
+    "event_id": "E003",
+    "customer_id": "C015",
+    "product_id": "P007",
+    "session_id": "S311",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T00:30:00Z"
+  },
+  {
+    "event_id": "E004",
+    "customer_id": "C009",
+    "product_id": "P010",
+    "session_id": "S527",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T00:40:00Z"
+  },
+  {
+    "event_id": "E005",
+    "customer_id": "C007",
+    "product_id": "P007",
+    "session_id": "S569",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T00:50:00Z"
+  },
+  {
+    "event_id": "E006",
+    "customer_id": "C001",
+    "product_id": "P013",
+    "session_id": "S291",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T01:00:00Z"
+  },
+  {
+    "event_id": "E007",
+    "customer_id": "C015",
+    "product_id": "P007",
+    "session_id": "S868",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T01:10:00Z"
+  },
+  {
+    "event_id": "E008",
+    "customer_id": "C012",
+    "product_id": "P007",
+    "session_id": "S638",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T01:20:00Z"
+  },
+  {
+    "event_id": "E009",
+    "customer_id": "C003",
+    "product_id": "P011",
+    "session_id": "S239",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T01:30:00Z"
+  },
+  {
+    "event_id": "E010",
+    "customer_id": "C005",
+    "product_id": "P001",
+    "session_id": "S739",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T01:40:00Z"
+  },
+  {
+    "event_id": "E011",
+    "customer_id": "C002",
+    "product_id": "P004",
+    "session_id": "S336",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T01:50:00Z"
+  },
+  {
+    "event_id": "E012",
+    "customer_id": "C009",
+    "product_id": "P013",
+    "session_id": "S429",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T02:00:00Z"
+  },
+  {
+    "event_id": "E013",
+    "customer_id": "C012",
+    "product_id": "P010",
+    "session_id": "S665",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T02:10:00Z"
+  },
+  {
+    "event_id": "E014",
+    "customer_id": "C008",
+    "product_id": "P006",
+    "session_id": "S229",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T02:20:00Z"
+  },
+  {
+    "event_id": "E015",
+    "customer_id": "C005",
+    "product_id": "P011",
+    "session_id": "S592",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T02:30:00Z"
+  },
+  {
+    "event_id": "E016",
+    "customer_id": "C014",
+    "product_id": "P001",
+    "session_id": "S276",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T02:40:00Z"
+  },
+  {
+    "event_id": "E017",
+    "customer_id": "C001",
+    "product_id": "P015",
+    "session_id": "S253",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T02:50:00Z"
+  },
+  {
+    "event_id": "E018",
+    "customer_id": "C015",
+    "product_id": "P013",
+    "session_id": "S746",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T03:00:00Z"
+  },
+  {
+    "event_id": "E019",
+    "customer_id": "C001",
+    "product_id": "P012",
+    "session_id": "S194",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T03:10:00Z"
+  },
+  {
+    "event_id": "E020",
+    "customer_id": "C006",
+    "product_id": "P011",
+    "session_id": "S845",
+    "event_type": "product_view",
+    "timestamp": "2026-02-01T03:20:00Z"
+  }
+]

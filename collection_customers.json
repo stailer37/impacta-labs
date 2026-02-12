@@ -1,0 +1,107 @@
+[
+  {
+    "customer_id": "C001",
+    "name": "Cliente 1",
+    "email": "cliente1@email.com",
+    "state": "MG",
+    "created_at": "2026-01-02T00:00:00Z"
+  },
+  {
+    "customer_id": "C002",
+    "name": "Cliente 2",
+    "email": "cliente2@email.com",
+    "state": "MG",
+    "created_at": "2026-01-03T00:00:00Z"
+  },
+  {
+    "customer_id": "C003",
+    "name": "Cliente 3",
+    "email": "cliente3@email.com",
+    "state": "MG",
+    "created_at": "2026-01-04T00:00:00Z"
+  },
+  {
+    "customer_id": "C004",
+    "name": "Cliente 4",
+    "email": "cliente4@email.com",
+    "state": "PR",
+    "created_at": "2026-01-05T00:00:00Z"
+  },
+  {
+    "customer_id": "C005",
+    "name": "Cliente 5",
+    "email": "cliente5@email.com",
+    "state": "RJ",
+    "created_at": "2026-01-06T00:00:00Z"
+  },
+  {
+    "customer_id": "C006",
+    "name": "Cliente 6",
+    "email": "cliente6@email.com",
+    "state": "SC",
+    "created_at": "2026-01-07T00:00:00Z"
+  },
+  {
+    "customer_id": "C007",
+    "name": "Cliente 7",
+    "email": "cliente7@email.com",
+    "state": "SP",
+    "created_at": "2026-01-08T00:00:00Z"
+  },
+  {
+    "customer_id": "C008",
+    "name": "Cliente 8",
+    "email": "cliente8@email.com",
+    "state": "PE",
+    "created_at": "2026-01-09T00:00:00Z"
+  },
+  {
+    "customer_id": "C009",
+    "name": "Cliente 9",
+    "email": "cliente9@email.com",
+    "state": "PE",
+    "created_at": "2026-01-10T00:00:00Z"
+  },
+  {
+    "customer_id": "C010",
+    "name": "Cliente 10",
+    "email": "cliente10@email.com",
+    "state": "CE",
+    "created_at": "2026-01-11T00:00:00Z"
+  },
+  {
+    "customer_id": "C011",
+    "name": "Cliente 11",
+    "email": "cliente11@email.com",
+    "state": "PE",
+    "created_at": "2026-01-12T00:00:00Z"
+  },
+  {
+    "customer_id": "C012",
+    "name": "Cliente 12",
+    "email": "cliente12@email.com",
+    "state": "SP",
+    "created_at": "2026-01-13T00:00:00Z"
+  },
+  {
+    "customer_id": "C013",
+    "name": "Cliente 13",
+    "email": "cliente13@email.com",
+    "state": "PE",
+    "created_at": "2026-01-14T00:00:00Z"
+  },
+  {
+    "customer_id": "C014",
+    "name": "Cliente 14",
+    "email": "cliente14@email.com",
+    "state": "SC",
+    "created_at": "2026-01-15T00:00:00Z"
+  },
+  {
+    "customer_id": "C015",
+    "name": "Cliente 15",
+    "email": "cliente15@email.com",
+    "state": "BA",
+    "created_at": "2026-01-16T00:00:00Z"
+  }
+]
