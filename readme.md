@@ -304,7 +304,7 @@ A modelagem foi orientada pelas perguntas analíticas do negócio, garantindo qu
 - Modelagem de dados no MongoDB  
   https://www.mongodb.com/pt-br/docs/manual/data-modeling/
 
-- Melhores práticas para modelagem de dados no MongoDB
+- Melhores práticas para modelagem de dados no MongoDB  
   https://www.mongodb.com/pt-br/docs/manual/data-modeling/best-practices/
 
 - Single vs Multiple Collections in MongoDB  
