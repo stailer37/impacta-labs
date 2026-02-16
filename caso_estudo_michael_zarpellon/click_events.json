@@ -1,0 +1,33 @@
+[{
+  "event_id": "E999",
+  "customer_id": "C321",
+  "product_id": "P001",
+  "event_type": "view",
+  "timestamp": "2026-02-15T10:30:00Z",
+  "metadata": {
+    "device": "mobile",
+    "browser": "chrome"
+  }
+},
+{
+  "event_id": "E998",
+  "customer_id": "C654",
+  "product_id": "P002",
+  "event_type": "add_to_cart",
+  "timestamp": "2026-02-15T11:00:00Z",
+  "metadata": {
+    "device": "desktop",
+    "browser": "firefox"
+  }
+},
+{
+  "event_id": "E997",
+  "customer_id": "C987",
+  "product_id": "P003",
+  "event_type": "purchase",
+  "timestamp": "2026-02-15T12:00:00Z",
+  "metadata": {
+    "device": "tablet",
+    "browser": "safari"
+  }
+}]

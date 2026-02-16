@@ -1,0 +1,60 @@
+[{
+  "order_id": "O789",
+  "customer_id": "C321",
+  "customer_state": "RJ",
+  "order_date": { "$date": "2026-02-15T14:30:00Z" },
+  "items": [
+    {
+      "product_id": "P001",
+      "category": "eletrodomestico",
+      "quantity": 1,
+      "unit_price": 299.90
+    }
+  ],
+  "total_amount": 299.90
+},
+{
+  "order_id": "O456",
+  "customer_id": "C654",
+  "customer_state": "RJ",
+  "order_date": { "$date": "2026-02-15T14:30:00Z" },
+  "items": [
+    {
+      "product_id": "P002",
+      "category": "eletronico",
+      "quantity": 5,
+      "unit_price": 1999.90
+    }
+  ],
+  "total_amount": 9999.50
+},
+{
+  "order_id": "O123",
+  "customer_id": "C987",
+  "customer_state": "MG",
+  "order_date": { "$date": "2026-02-15T14:30:00Z" },
+  "items": [
+    {
+      "product_id": "P003",
+      "category": "eletronico",
+      "quantity": 2,
+      "unit_price": 499.90
+    }
+  ],
+  "total_amount": 999.80
+},
+{
+  "order_id": "O321",
+  "customer_id": "C321",
+  "customer_state": "SP",
+  "order_date": { "$date": "2026-02-15T14:30:00Z" },
+  "items": [
+    {
+      "product_id": "P001",
+      "category": "eletrodomestico",
+      "quantity": 3,
+      "unit_price": 299.90
+    }
+  ],
+  "total_amount": 899.70
+}]
