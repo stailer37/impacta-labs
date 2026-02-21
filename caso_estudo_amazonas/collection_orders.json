@@ -1,0 +1,13 @@
+[
+  {
+    "_id": "o1",
+    "userId": "u1",
+    "state": "SP",
+    "createdAt": "2026-02-20T15:10:00Z",
+    "items": [
+      { "productId": "p1", "category": "book", "qty": 1, "unitPrice": 79.9 },
+      { "productId": "p3", "category": "kitchen_appliance", "qty": 1, "unitPrice": 199.0 }
+    ],
+    "totalAmount": 278.9
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "p1",
+    "sku": "BOOK-0001",
+    "title": "MongoDB para Iniciantes",
+    "category": "book",
+    "price": 79.9,
+    "active": true,
+    "attributes": { "author": "João Silva", "isbn": "9781234567890", "pages": 320 }
+  },
+  {
+    "_id": "p2",
+    "sku": "CD-0007",
+    "title": "Greatest Hits",
+    "category": "cd",
+    "price": 39.9,
+    "active": true,
+    "attributes": { "artist": "The Band", "genre": "Rock" }
+  },
+  {
+    "_id": "p3",
+    "sku": "KITCH-0020",
+    "title": "Liquidificador Turbo 900W",
+    "category": "kitchen_appliance",
+    "price": 199.0,
+    "active": true,
+    "attributes": { "brand": "MaxKitchen", "voltage": "110V", "powerW": 900 }
+  }
+]

@@ -1,0 +1,4 @@
+[
+  { "_id": "u1", "name": "Ana", "state": "SP", "createdAt": "2026-02-01T10:00:00Z" },
+  { "_id": "u2", "name": "Bruno", "state": "RJ", "createdAt": "2026-02-03T12:30:00Z" }
+]
