@@ -15,7 +15,7 @@ Optamos por múltiplas collections:
 - users: dados do cliente e estado
 - products: catálogo com campos comuns + attributes flexível por tipo
 - orders: compras com itens (qty, unitPrice, category) e total
-- events: eventos sistêmicos (exemplos em JSON)
+- events: eventos de clique e compra (exemplos em JSON)
 
 Motivos:
 - Clique tende a ter alto volume, separar evita inflar usuário/produto

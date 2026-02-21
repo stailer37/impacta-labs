@@ -1,7 +1,7 @@
 [
   {
     "eventType": "click",
-    "ts": "2026-02-20T15:01:10Z",
+    "ts": "2026-02-21T15:01:10Z",
     "userId": "u1",
     "sessionId": "sess_abc123",
     "productId": "p3",
@@ -10,14 +10,10 @@
   },
   {
     "eventType": "purchase",
-    "ts": "2026-02-20T15:10:00Z",
+    "ts": "2026-02-21T15:10:00Z",
     "userId": "u1",
     "orderId": "o1",
     "state": "SP",
-    "items": [
-      { "productId": "p1", "category": "book", "qty": 1, "unitPrice": 79.9 },
-      { "productId": "p3", "category": "kitchen_appliance", "qty": 1, "unitPrice": 199.0 }
-    ],
     "totalAmount": 278.9
   }
 ]
