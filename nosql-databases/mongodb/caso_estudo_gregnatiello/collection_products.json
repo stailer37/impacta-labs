@@ -1,0 +1,46 @@
+[
+  {
+    "_id": 101,
+    "name": "Livro - MongoDB na Prática",
+    "category": "Livros",
+    "price": 120,
+    "attributes": {
+      "autor": "Carlos Andrade",
+      "editora": "TechBooks",
+      "paginas": 320
+    }
+  },
+  {
+    "_id": 102,
+    "name": "CD - Grandes Sucessos 90s",
+    "category": "CDs",
+    "price": 40,
+    "attributes": {
+      "artista": "Vários",
+      "genero": "Pop",
+      "duracao_minutos": 78
+    }
+  },
+  {
+    "_id": 103,
+    "name": "Liquidificador Turbo 900W",
+    "category": "Eletrodomésticos",
+    "price": 350,
+    "attributes": {
+      "marca": "Arno",
+      "potencia": "900W",
+      "voltagem": "110V"
+    }
+  },
+  {
+    "_id": 104,
+    "name": "Air Fryer Digital 5L",
+    "category": "Eletrodomésticos",
+    "price": 600,
+    "attributes": {
+      "marca": "Mondial",
+      "capacidade": "5L",
+      "voltagem": "220V"
+    }
+  }
+]

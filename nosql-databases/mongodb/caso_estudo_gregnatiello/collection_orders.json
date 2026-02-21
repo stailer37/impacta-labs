@@ -1,0 +1,176 @@
+[
+  {
+    "_id": 1,
+    "customer_id": 1,
+    "customer_state": "AM",
+    "order_date": { "$date": "2026-02-01T10:00:00Z" },
+    "items": [
+      {
+        "product_id": 101,
+        "product_name": "Livro - MongoDB na Prática",
+        "category": "Livros",
+        "unit_price": 120,
+        "quantity": 2
+      }
+    ],
+    "total_amount": 240
+  },
+  {
+    "_id": 2,
+    "customer_id": 2,
+    "customer_state": "AM",
+    "order_date": { "$date": "2026-02-03T14:30:00Z" },
+    "items": [
+      {
+        "product_id": 103,
+        "product_name": "Liquidificador Turbo 900W",
+        "category": "Eletrodomésticos",
+        "unit_price": 350,
+        "quantity": 1
+      }
+    ],
+    "total_amount": 350
+  },
+  {
+    "_id": 3,
+    "customer_id": 3,
+    "customer_state": "SP",
+    "order_date": { "$date": "2026-02-05T09:15:00Z" },
+    "items": [
+      {
+        "product_id": 102,
+        "product_name": "CD - Grandes Sucessos 90s",
+        "category": "CDs",
+        "unit_price": 40,
+        "quantity": 3
+      }
+    ],
+    "total_amount": 120
+  },
+  {
+    "_id": 4,
+    "customer_id": 4,
+    "customer_state": "RJ",
+    "order_date": { "$date": "2026-02-07T16:00:00Z" },
+    "items": [
+      {
+        "product_id": 104,
+        "product_name": "Air Fryer Digital 5L",
+        "category": "Eletrodomésticos",
+        "unit_price": 600,
+        "quantity": 1
+      }
+    ],
+    "total_amount": 600
+  },
+  {
+    "_id": 5,
+    "customer_id": 5,
+    "customer_state": "MG",
+    "order_date": { "$date": "2026-02-10T11:20:00Z" },
+    "items": [
+      {
+        "product_id": 101,
+        "product_name": "Livro - MongoDB na Prática",
+        "category": "Livros",
+        "unit_price": 120,
+        "quantity": 1
+      },
+      {
+        "product_id": 102,
+        "product_name": "CD - Grandes Sucessos 90s",
+        "category": "CDs",
+        "unit_price": 40,
+        "quantity": 2
+      }
+    ],
+    "total_amount": 200
+  },
+  {
+    "_id": 6,
+    "customer_id": 6,
+    "customer_state": "SP",
+    "order_date": { "$date": "2026-02-12T13:45:00Z" },
+    "items": [
+      {
+        "product_id": 103,
+        "product_name": "Liquidificador Turbo 900W",
+        "category": "Eletrodomésticos",
+        "unit_price": 350,
+        "quantity": 2
+      }
+    ],
+    "total_amount": 700
+  },
+  {
+    "_id": 7,
+    "customer_id": 7,
+    "customer_state": "RJ",
+    "order_date": { "$date": "2026-02-15T18:10:00Z" },
+    "items": [
+      {
+        "product_id": 102,
+        "product_name": "CD - Grandes Sucessos 90s",
+        "category": "CDs",
+        "unit_price": 40,
+        "quantity": 1
+      }
+    ],
+    "total_amount": 40
+  },
+  {
+    "_id": 8,
+    "customer_id": 8,
+    "customer_state": "AM",
+    "order_date": { "$date": "2026-02-18T08:50:00Z" },
+    "items": [
+      {
+        "product_id": 104,
+        "product_name": "Air Fryer Digital 5L",
+        "category": "Eletrodomésticos",
+        "unit_price": 600,
+        "quantity": 1
+      }
+    ],
+    "total_amount": 600
+  },
+  {
+    "_id": 9,
+    "customer_id": 9,
+    "customer_state": "MG",
+    "order_date": { "$date": "2026-02-20T15:30:00Z" },
+    "items": [
+      {
+        "product_id": 101,
+        "product_name": "Livro - MongoDB na Prática",
+        "category": "Livros",
+        "unit_price": 120,
+        "quantity": 3
+      }
+    ],
+    "total_amount": 360
+  },
+  {
+    "_id": 10,
+    "customer_id": 10,
+    "customer_state": "SP",
+    "order_date": { "$date": "2026-02-21T19:00:00Z" },
+    "items": [
+      {
+        "product_id": 103,
+        "product_name": "Liquidificador Turbo 900W",
+        "category": "Eletrodomésticos",
+        "unit_price": 350,
+        "quantity": 1
+      },
+      {
+        "product_id": 101,
+        "product_name": "Livro - MongoDB na Prática",
+        "category": "Livros",
+        "unit_price": 120,
+        "quantity": 1
+      }
+    ],
+    "total_amount": 470
+  }
+]

@@ -1,0 +1,12 @@
+[
+  { "_id": 1, "name": "Carlos Silva", "email": "carlos@email.com", "state": "AM" },
+  { "_id": 2, "name": "Ana Souza", "email": "ana@email.com", "state": "AM" },
+  { "_id": 3, "name": "Marcos Lima", "email": "marcos@email.com", "state": "SP" },
+  { "_id": 4, "name": "Juliana Rocha", "email": "juliana@email.com", "state": "RJ" },
+  { "_id": 5, "name": "Fernanda Alves", "email": "fernanda@email.com", "state": "MG" },
+  { "_id": 6, "name": "Ricardo Mendes", "email": "ricardo@email.com", "state": "SP" },
+  { "_id": 7, "name": "Patrícia Gomes", "email": "patricia@email.com", "state": "RJ" },
+  { "_id": 8, "name": "Lucas Martins", "email": "lucas@email.com", "state": "AM" },
+  { "_id": 9, "name": "Beatriz Costa", "email": "beatriz@email.com", "state": "MG" },
+  { "_id": 10, "name": "Thiago Pereira", "email": "thiago@email.com", "state": "SP" }
+]
