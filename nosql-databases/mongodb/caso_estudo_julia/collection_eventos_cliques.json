@@ -1,0 +1,7 @@
+{
+  "_id": { "$oid": "65f301" },
+  "clienteId": { "$oid": "65f001" },
+  "produtoId": { "$oid": "65f101" },
+  "tipoEvento": "view",
+  "timestamp": { "$date": "2025-02-10T14:00:00Z" }
+}

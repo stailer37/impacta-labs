@@ -1,0 +1,16 @@
+{
+  "_id": { "$oid": "65f201" },
+  "clienteId": { "$oid": "65f001" },
+  "dataPedido": { "$date": "2025-02-10T14:30:00Z" },
+  "estadoCliente": "SP",
+  "itens": [
+    {
+      "produtoId": { "$oid": "65f101" },
+      "nomeProduto": "Livro MongoDB Avançado",
+      "categoria": "livro",
+      "quantidade": 2,
+      "precoUnitario": 120.00
+    }
+  ],
+  "valorTotal": 240.00
+}

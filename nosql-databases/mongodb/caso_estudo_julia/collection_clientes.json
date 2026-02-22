@@ -1,0 +1,7 @@
+{
+  "_id": { "$oid": "65f001" },
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "estado": "SP",
+  "dataCadastro": { "$date": "2025-01-10T10:00:00Z" }
+}

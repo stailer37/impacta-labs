@@ -1,0 +1,10 @@
+{
+  "_id": { "$oid": "65f101" },
+  "nome": "Livro MongoDB Avançado",
+  "categoria": "livro",
+  "preco": 120.00,
+  "autor": "Carlos Souza",
+  "isbn": "978-65-00000-00-0",
+  "ativo": true,
+  "dataCriacao": { "$date": "2025-01-01T10:00:00Z" }
+}
