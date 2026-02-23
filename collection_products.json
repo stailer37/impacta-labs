@@ -1,0 +1,37 @@
+[
+  {
+    "product_id": "P2001",
+    "name": "Air Fryer 4L",
+    "category": "eletrodomestico_cozinha",
+    "price": 399.90,
+    "created_at": "2026-01-01T10:00:00Z"
+  },
+  {
+    "product_id": "P2002",
+    "name": "Liquidificador Turbo 1000W",
+    "category": "eletrodomestico_cozinha",
+    "price": 249.90,
+    "created_at": "2026-01-05T10:00:00Z"
+  },
+  {
+    "product_id": "P2003",
+    "name": "Livro MongoDB Avançado",
+    "category": "livro",
+    "price": 79.90,
+    "created_at": "2026-01-07T10:00:00Z"
+  },
+  {
+    "product_id": "P2004",
+    "name": "Livro Arquitetura de Software",
+    "category": "livro",
+    "price": 99.90,
+    "created_at": "2026-01-08T10:00:00Z"
+  },
+  {
+    "product_id": "P2005",
+    "name": "CD Rock Clássico",
+    "category": "cd",
+    "price": 39.90,
+    "created_at": "2026-01-12T10:00:00Z"
+  }
+]

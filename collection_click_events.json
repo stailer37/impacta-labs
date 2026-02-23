@@ -1,0 +1,46 @@
+[
+  {
+    "event_id": "E4001",
+    "customer_id": "C1001",
+    "product_id": "P2001",
+    "event_type": "product_click",
+    "timestamp": "2026-02-20T11:55:00Z",
+    "metadata": {
+      "device": "mobile",
+      "source": "homepage"
+    }
+  },
+  {
+    "event_id": "E4002",
+    "customer_id": "C1002",
+    "product_id": "P2003",
+    "event_type": "product_click",
+    "timestamp": "2026-02-18T15:00:00Z",
+    "metadata": {
+      "device": "desktop",
+      "source": "search"
+    }
+  },
+  {
+    "event_id": "E4003",
+    "customer_id": "C1003",
+    "product_id": "P2002",
+    "event_type": "product_click",
+    "timestamp": "2026-02-10T09:50:00Z",
+    "metadata": {
+      "device": "tablet",
+      "source": "recommendation"
+    }
+  },
+  {
+    "event_id": "E4004",
+    "customer_id": "C1004",
+    "product_id": "P2004",
+    "event_type": "product_click",
+    "timestamp": "2026-02-21T13:30:00Z",
+    "metadata": {
+      "device": "mobile",
+      "source": "homepage"
+    }
+  }
+]

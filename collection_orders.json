@@ -1,0 +1,80 @@
+[
+  {
+    "order_id": "O3001",
+    "customer_id": "C1001",
+    "state": "SP",
+    "items": [
+      {
+        "product_id": "P2001",
+        "name": "Air Fryer 4L",
+        "category": "eletrodomestico_cozinha",
+        "quantity": 1,
+        "unit_price": 399.90
+      },
+      {
+        "product_id": "P2003",
+        "name": "Livro MongoDB Avançado",
+        "category": "livro",
+        "quantity": 2,
+        "unit_price": 79.90
+      }
+    ],
+    "total_amount": 559.70,
+    "created_at": "2026-02-20T12:00:00Z"
+  },
+  {
+    "order_id": "O3002",
+    "customer_id": "C1002",
+    "state": "RJ",
+    "items": [
+      {
+        "product_id": "P2004",
+        "name": "Livro Arquitetura de Software",
+        "category": "livro",
+        "quantity": 1,
+        "unit_price": 99.90
+      },
+      {
+        "product_id": "P2005",
+        "name": "CD Rock Clássico",
+        "category": "cd",
+        "quantity": 3,
+        "unit_price": 39.90
+      }
+    ],
+    "total_amount": 219.60,
+    "created_at": "2026-02-18T16:00:00Z"
+  },
+  {
+    "order_id": "O3003",
+    "customer_id": "C1003",
+    "state": "MG",
+    "items": [
+      {
+        "product_id": "P2002",
+        "name": "Liquidificador Turbo 1000W",
+        "category": "eletrodomestico_cozinha",
+        "quantity": 1,
+        "unit_price": 249.90
+      }
+    ],
+    "total_amount": 249.90,
+    "created_at": "2026-02-10T10:00:00Z"
+  },
+  {
+    "order_id": "O3004",
+    "customer_id": "C1001",
+    "state": "SP",
+    "items": [
+      {
+        "product_id": "P2005",
+        "name": "CD Rock Clássico",
+        "category": "cd",
+        "quantity": 2,
+        "unit_price": 39.90
+      }
+    ],
+    "total_amount": 79.80,
+    "created_at": "2026-02-22T18:00:00Z"
+  }
+]
