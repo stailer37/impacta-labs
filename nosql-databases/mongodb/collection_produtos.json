@@ -1,0 +1,10 @@
+[
+    { "_id": { "$oid": "65f100000000000000000001" }, "nome": "Livro MongoDB Avançado", "categoria": "livro", "preco": 120, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000002" }, "nome": "Livro Node.js", "categoria": "livro", "preco": 95, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000003" }, "nome": "CD Rock Nacional", "categoria": "cd", "preco": 40, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000004" }, "nome": "CD Jazz Clássico", "categoria": "cd", "preco": 55, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000005" }, "nome": "Air Fryer 5L", "categoria": "eletrodomestico", "preco": 500, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000006" }, "nome": "Liquidificador Turbo", "categoria": "eletrodomestico", "preco": 250, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000007" }, "nome": "Livro Python", "categoria": "livro", "preco": 110, "ativo": true },
+    { "_id": { "$oid": "65f100000000000000000008" }, "nome": "Grill Elétrico", "categoria": "eletrodomestico", "preco": 300, "ativo": true }
+  ]

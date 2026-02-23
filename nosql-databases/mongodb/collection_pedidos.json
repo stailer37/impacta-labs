@@ -1,0 +1,110 @@
+[
+  {
+    "cliente_id": { "$oid": "65f000000000000000000001" },
+    "estado_cliente": "SP",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000001" }, "nome_produto": "Livro MongoDB Avançado", "categoria": "livro", "quantidade": 1, "preco_unitario": 120 }
+    ],
+    "valor_total": 120,
+    "data_pedido": { "$date": "2026-02-15T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000002" },
+    "estado_cliente": "RJ",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000005" }, "nome_produto": "Air Fryer 5L", "categoria": "eletrodomestico", "quantidade": 1, "preco_unitario": 500 }
+    ],
+    "valor_total": 500,
+    "data_pedido": { "$date": "2026-02-10T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000003" },
+    "estado_cliente": "MG",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000003" }, "nome_produto": "CD Rock Nacional", "categoria": "cd", "quantidade": 2, "preco_unitario": 40 }
+    ],
+    "valor_total": 80,
+    "data_pedido": { "$date": "2026-01-15T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000004" },
+    "estado_cliente": "BA",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000006" }, "nome_produto": "Liquidificador Turbo", "categoria": "eletrodomestico", "quantidade": 1, "preco_unitario": 250 }
+    ],
+    "valor_total": 250,
+    "data_pedido": { "$date": "2026-02-01T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000005" },
+    "estado_cliente": "RS",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000002" }, "nome_produto": "Livro Node.js", "categoria": "livro", "quantidade": 3, "preco_unitario": 95 }
+    ],
+    "valor_total": 285,
+    "data_pedido": { "$date": "2026-02-18T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000006" },
+    "estado_cliente": "SP",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000008" }, "nome_produto": "Grill Elétrico", "categoria": "eletrodomestico", "quantidade": 1, "preco_unitario": 300 }
+    ],
+    "valor_total": 300,
+    "data_pedido": { "$date": "2026-02-20T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000001" },
+    "estado_cliente": "SP",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000007" }, "nome_produto": "Livro Python", "categoria": "livro", "quantidade": 2, "preco_unitario": 110 }
+    ],
+    "valor_total": 220,
+    "data_pedido": { "$date": "2026-02-12T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000002" },
+    "estado_cliente": "RJ",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000003" }, "nome_produto": "CD Rock Nacional", "categoria": "cd", "quantidade": 1, "preco_unitario": 40 }
+    ],
+    "valor_total": 40,
+    "data_pedido": { "$date": "2026-02-05T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000003" },
+    "estado_cliente": "MG",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000004" }, "nome_produto": "CD Jazz Clássico", "categoria": "cd", "quantidade": 2, "preco_unitario": 55 }
+    ],
+    "valor_total": 110,
+    "data_pedido": { "$date": "2026-02-14T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000004" },
+    "estado_cliente": "BA",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000005" }, "nome_produto": "Air Fryer 5L", "categoria": "eletrodomestico", "quantidade": 1, "preco_unitario": 500 }
+    ],
+    "valor_total": 500,
+    "data_pedido": { "$date": "2026-02-17T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000005" },
+    "estado_cliente": "RS",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000008" }, "nome_produto": "Grill Elétrico", "categoria": "eletrodomestico", "quantidade": 1, "preco_unitario": 300 }
+    ],
+    "valor_total": 300,
+    "data_pedido": { "$date": "2026-02-19T00:00:00Z" }
+  },
+  {
+    "cliente_id": { "$oid": "65f000000000000000000006" },
+    "estado_cliente": "SP",
+    "itens": [
+      { "produto_id": { "$oid": "65f100000000000000000002" }, "nome_produto": "Livro Node.js", "categoria": "livro", "quantidade": 1, "preco_unitario": 95 }
+    ],
+    "valor_total": 95,
+    "data_pedido": { "$date": "2026-02-21T00:00:00Z" }
+  }
+]
