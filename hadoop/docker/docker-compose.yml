@@ -1,0 +1,237 @@
+networks:
+  hadoop_net:
+    driver: bridge
+
+volumes:
+  namenode_data:
+  datanode1_data:
+  datanode2_data:
+  historyserver_data:
+  hive_pg_data:
+  mysql_data:
+  hue_db:
+
+x-bde-platform: &bde-platform
+  platform: linux/amd64
+
+services:
+
+  # ──────────────────────────── HDFS ────────────────────────────
+  namenode:
+    <<: *bde-platform
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    hostname: namenode
+    restart: unless-stopped
+    ports:
+      - "9870:9870"   # NameNode Web UI
+      - "9000:9000"   # HDFS RPC
+    volumes:
+      - namenode_data:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=hadoop-lab
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+
+  datanode1:
+    <<: *bde-platform
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode1
+    hostname: datanode1
+    restart: unless-stopped
+    volumes:
+      - datanode1_data:/hadoop/dfs/data
+    environment:
+      - SERVICE_PRECONDITION=namenode:9870
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - namenode
+
+  datanode2:
+    <<: *bde-platform
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode2
+    hostname: datanode2
+    restart: unless-stopped
+    volumes:
+      - datanode2_data:/hadoop/dfs/data
+    environment:
+      - SERVICE_PRECONDITION=namenode:9870
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - namenode
+
+  # ──────────────────────────── YARN / MapReduce ────────────────────────────
+  resourcemanager:
+    <<: *bde-platform
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: resourcemanager
+    hostname: resourcemanager
+    restart: unless-stopped
+    ports:
+      - "8088:8088"   # ResourceManager Web UI
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 namenode:9870 datanode1:9864 datanode2:9864
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - datanode1
+      - datanode2
+
+  nodemanager:
+    <<: *bde-platform
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: nodemanager
+    hostname: nodemanager
+    restart: unless-stopped
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 resourcemanager:8088
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - resourcemanager
+
+  historyserver:
+    <<: *bde-platform
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    container_name: historyserver
+    hostname: historyserver
+    restart: unless-stopped
+    ports:
+      - "8188:8188"   # MapReduce History Server Web UI
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 resourcemanager:8088
+    volumes:
+      - historyserver_data:/hadoop/yarn/timeline
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - resourcemanager
+
+  # ──────────────────────────── Hive ────────────────────────────
+  hive-metastore-db:
+    image: postgres:13-alpine
+    container_name: hive-metastore-db
+    hostname: hive-metastore-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=metastore
+      - POSTGRES_USER=hive
+      - POSTGRES_PASSWORD=hive123
+    volumes:
+      - hive_pg_data:/var/lib/postgresql/data
+    networks:
+      - hadoop_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hive -d metastore"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  hive-metastore:
+    <<: *bde-platform
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    container_name: hive-metastore
+    hostname: hive-metastore
+    restart: unless-stopped
+    environment:
+      - SERVICE_PRECONDITION=namenode:9870 datanode1:9864 datanode2:9864 hive-metastore-db:5432
+    env_file: hadoop.env
+    command: metastore
+    networks:
+      - hadoop_net
+    depends_on:
+      hive-metastore-db:
+        condition: service_healthy
+      namenode:
+        condition: service_started
+
+  hiveserver2:
+    <<: *bde-platform
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    container_name: hiveserver2
+    hostname: hiveserver2
+    restart: unless-stopped
+    ports:
+      - "10000:10000"  # HiveServer2 Thrift (Beeline / JDBC)
+      - "10002:10002"  # HiveServer2 Web UI
+    environment:
+      - SERVICE_PRECONDITION=hive-metastore:9083
+      - HIVE_CORE_CONF_javax_jdo_option_ConnectionURL=jdbc:postgresql://hive-metastore-db/metastore
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - hive-metastore
+
+  # ──────────────────────────── MySQL (fonte de dados para Sqoop) ────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    hostname: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=impacta
+      - MYSQL_USER=sqoop
+      - MYSQL_PASSWORD=sqoop123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - hadoop_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ──────────────────────────── Sqoop ────────────────────────────
+  sqoop:
+    build:
+      context: ./sqoop
+      args:
+        - TARGETPLATFORM=linux/amd64
+    platform: linux/amd64
+    container_name: sqoop
+    hostname: sqoop
+    restart: unless-stopped
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      namenode:
+        condition: service_started
+      hiveserver2:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    command: tail -f /dev/null
+
+  # ──────────────────────────── Hue ────────────────────────────
+  hue:
+    image: gethue/hue:4.11.0
+    container_name: hue
+    hostname: hue
+    restart: unless-stopped
+    ports:
+      - "8888:8888"   # Hue Web UI
+    volumes:
+      - ./hue/hue.ini:/usr/share/hue/desktop/conf/z-hue.ini
+      - hue_db:/tmp/desktop
+    networks:
+      - hadoop_net
+    depends_on:
+      - namenode
+      - resourcemanager
+      - hiveserver2
