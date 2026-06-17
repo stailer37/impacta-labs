@@ -1,0 +1,213 @@
+networks:
+  hadoop_net:
+    driver: bridge
+
+volumes:
+  namenode_data:
+  datanode1_data:
+  datanode2_data:
+  datanode3_data:
+  mysql_data:
+  hive_pg_data:
+
+x-datanode-common: &datanode-common
+  image: apache/hadoop:3.4.2
+  env_file: hadoop.env
+  networks:
+    - hadoop_net
+  depends_on:
+    namenode:
+      condition: service_healthy
+
+services:
+
+  namenode:
+    image: apache/hadoop:3.4.2
+    container_name: namenode
+    hostname: namenode
+    restart: unless-stopped
+    command: ["hdfs", "namenode"]
+    ports:
+      - "9870:9870"   # NameNode Web UI
+      - "8020:8020"   # HDFS RPC
+    env_file: hadoop.env
+    environment:
+      - ENSURE_NAMENODE_DIR=/data/dfs/name
+    volumes:
+      - namenode_data:/data
+    networks:
+      - hadoop_net
+    healthcheck:
+      test: ["CMD-SHELL", "hdfs dfsadmin -safemode get 2>/dev/null | grep -q 'Safe mode is OFF'"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 40s
+
+  datanode1:
+    <<: *datanode-common
+    container_name: datanode1
+    hostname: datanode1
+    restart: unless-stopped
+    command: ["hdfs", "datanode"]
+    volumes:
+      - datanode1_data:/data
+
+  datanode2:
+    <<: *datanode-common
+    container_name: datanode2
+    hostname: datanode2
+    restart: unless-stopped
+    command: ["hdfs", "datanode"]
+    volumes:
+      - datanode2_data:/data
+
+  datanode3:
+    <<: *datanode-common
+    container_name: datanode3
+    hostname: datanode3
+    restart: unless-stopped
+    command: ["hdfs", "datanode"]
+    volumes:
+      - datanode3_data:/data
+
+  resourcemanager:
+    image: apache/hadoop:3.4.2
+    container_name: resourcemanager
+    hostname: resourcemanager
+    restart: unless-stopped
+    command: ["yarn", "resourcemanager"]
+    ports:
+      - "8088:8088"   # ResourceManager Web UI
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      namenode:
+        condition: service_healthy
+
+  nodemanager:
+    image: apache/hadoop:3.4.2
+    container_name: nodemanager
+    hostname: nodemanager
+    restart: unless-stopped
+    command: ["yarn", "nodemanager"]
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - resourcemanager
+
+  # ──────────────────────────── Fonte de dados (MySQL) ────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    hostname: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=impacta
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - hadoop_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ──────────────────────────── Hive Metastore (Catálogo de Metadados) ────────────────────────────
+  hive-metastore-db:
+    image: postgres:13-alpine
+    container_name: hive-metastore-db
+    hostname: hive-metastore-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=metastore
+      - POSTGRES_USER=hive
+      - POSTGRES_PASSWORD=hive123
+    volumes:
+      - hive_pg_data:/var/lib/postgresql/data
+    networks:
+      - hadoop_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hive -d metastore"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  hive-metastore:
+    image: apache/hive:3.1.3
+    container_name: hive-metastore
+    hostname: hive-metastore
+    restart: unless-stopped
+    entrypoint: ["bash", "/init-metastore.sh"]
+    environment:
+      - SERVICE_NAME=metastore
+      - DB_DRIVER=postgres
+      - HIVE_CUSTOM_CONF_DIR=/hive_custom_conf
+    ports:
+      - "9083:9083"
+    volumes:
+      - ./hive/conf:/hive_custom_conf
+      - ./hive/init-metastore.sh:/init-metastore.sh
+    networks:
+      - hadoop_net
+    depends_on:
+      hive-metastore-db:
+        condition: service_healthy
+      namenode:
+        condition: service_healthy
+
+  # ──────────────────────────── Spark ────────────────────────────
+  spark-master:
+    build: ./spark
+    image: hadoop-lab/spark:3.4.0
+    container_name: spark-master
+    hostname: spark-master
+    restart: unless-stopped
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.master.Master"]
+    ports:
+      - "7077:7077"   # Spark Master RPC
+      - "8080:8080"   # Spark Master Web UI
+    networks:
+      - hadoop_net
+    depends_on:
+      namenode:
+        condition: service_healthy
+      hive-metastore:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+
+  spark-worker:
+    build: ./spark
+    image: hadoop-lab/spark:3.4.0
+    container_name: spark-worker
+    hostname: spark-worker
+    restart: unless-stopped
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
+    ports:
+      - "8081:8081"   # Spark Worker Web UI
+    networks:
+      - hadoop_net
+    depends_on:
+      - spark-master
+
+  historyserver:
+    image: apache/hadoop:3.4.2
+    container_name: historyserver
+    hostname: historyserver
+    restart: unless-stopped
+    command: ["mapred", "historyserver"]
+    ports:
+      - "19888:19888"  # MapReduce JobHistory Web UI
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      - resourcemanager
