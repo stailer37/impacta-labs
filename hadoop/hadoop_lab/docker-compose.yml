@@ -1,5 +1,6 @@
 networks:
   hadoop_net:
+    name: hadoop-lab-net
     driver: bridge
 
 volumes:
@@ -168,6 +169,7 @@ services:
     container_name: hiveserver2
     hostname: hiveserver2
     restart: unless-stopped
+    entrypoint: ["bash", "/init-hiveserver2.sh"]
     environment:
       - SERVICE_NAME=hiveserver2
       - SERVICE_OPTS=-Dhive.metastore.uris=thrift://hive-metastore:9083
@@ -178,10 +180,14 @@ services:
       - "10002:10002"  # HiveServer2 Web UI
     volumes:
       - ./hive/conf:/hive_custom_conf
+      - ./hive/init-hiveserver2.sh:/init-hiveserver2.sh
     networks:
       - hadoop_net
     depends_on:
-      - hive-metastore
+      hive-metastore:
+        condition: service_started
+      namenode:
+        condition: service_healthy
 
   # ──────────────────────────── Spark ────────────────────────────
   spark-master:
