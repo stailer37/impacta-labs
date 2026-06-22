@@ -1,0 +1,92 @@
+version: 2
+
+models:
+  - name: sales_performance
+    description: |
+      Data product de vendas: uma linha por item de pedido, com as dimensões de
+      cliente, vendedor e produto já achatadas. É o contrato estável que times de
+      BI/analytics devem consumir — não fct_sales/dim_* diretamente, que são
+      detalhe de implementação interno da camada refined.
+    meta:
+      owner: "Data Engineering"
+      domain: sales
+      maturity: stable
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: sales_line_id
+        description: Chave única do item de pedido (`order_id-product_id`).
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: Identificador do pedido.
+        data_type: integer
+        data_tests:
+          - not_null
+      - name: order_date
+        description: Data em que o pedido foi feito.
+        data_type: date
+        data_tests:
+          - not_null
+      - name: ship_date
+        description: Data de envio do pedido (nulo se ainda não enviado/pendente/cancelado).
+        data_type: date
+      - name: status
+        description: Status do pedido (`completed`, `pending`, `cancelled`).
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: customer_id
+        description: Identificador do cliente.
+        data_type: integer
+        data_tests:
+          - not_null
+      - name: customer_name
+        description: Nome do cliente.
+        data_type: varchar
+      - name: customer_segment
+        description: Segmento do cliente (`Consumer`, `Corporate`, `Home Office`).
+        data_type: varchar
+      - name: customer_region
+        description: Região do cliente.
+        data_type: varchar
+      - name: customer_country
+        description: País do cliente.
+        data_type: varchar
+      - name: employee_id
+        description: Identificador do vendedor responsável pelo pedido.
+        data_type: integer
+        data_tests:
+          - not_null
+      - name: employee_name
+        description: Nome do vendedor.
+        data_type: varchar
+      - name: employee_region
+        description: Região de atuação do vendedor.
+        data_type: varchar
+      - name: product_id
+        description: Identificador do produto.
+        data_type: integer
+        data_tests:
+          - not_null
+      - name: product_name
+        description: Nome do produto.
+        data_type: varchar
+      - name: product_category
+        description: Categoria do produto.
+        data_type: varchar
+      - name: quantity
+        description: Quantidade vendida nesse item de pedido.
+        data_type: integer
+      - name: unit_price
+        description: Preço unitário do produto no momento da venda.
+        data_type: decimal(10,2)
+      - name: discount
+        description: Desconto aplicado, como fração (ex. 0.10 = 10%).
+        data_type: decimal(4,3)
+      - name: line_revenue
+        description: Receita líquida do item (`quantity * unit_price * (1 - discount)`).
+        data_type: decimal(13,4)

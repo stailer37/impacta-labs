@@ -1,0 +1,19 @@
+name: 'sales_lakehouse'
+version: '1.0.0'
+config-version: 2
+
+profile: 'sales_lakehouse'
+
+model-paths: ["models"]
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  sales_lakehouse:
+    trusted:
+      +materialized: table
+      +database: trusted
+      +schema: sales_db
+    refined:
+      +materialized: table
+      +database: refined
+      +schema: marts

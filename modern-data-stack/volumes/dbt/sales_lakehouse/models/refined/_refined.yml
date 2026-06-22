@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: Uma linha por cliente.
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_employee
+    description: Uma linha por vendedor, com o nome do gerente resolvido via self-join.
+    columns:
+      - name: employee_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_product
+    description: Uma linha por produto do catálogo.
+    columns:
+      - name: product_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: Spine de datas cobrindo o intervalo de order_date observado em stg_orders.
+    columns:
+      - name: date_day
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fct_sales
+    description: >
+      Fato de vendas, grain = item de pedido. `sales_line_id` é uma chave surrogate
+      (order_id-product_id) usada só pra testar a unicidade da chave composta sem
+      depender do pacote dbt_utils.
+    columns:
+      - name: sales_line_id
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+      - name: employee_id
+        data_tests:
+          - not_null

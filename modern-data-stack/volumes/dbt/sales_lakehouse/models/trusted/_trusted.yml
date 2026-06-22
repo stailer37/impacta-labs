@@ -1,0 +1,63 @@
+version: 2
+
+sources:
+  - name: raw
+    database: raw
+    schema: sales_db
+    description: >
+      Camada de landing (1:1 com a origem), gerada pela ingestão via NiFi a partir do
+      sales_db transacional. Ainda não populada neste lab — depende de um rework futuro
+      do fluxo NiFi para materializar essas tabelas como Iceberg.
+    tables:
+      - name: customers
+      - name: employees
+      - name: products
+      - name: orders
+      - name: order_items
+
+models:
+  - name: stg_customers
+    description: Um registro por cliente, sem transformação além da tipagem.
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_employees
+    description: Um registro por vendedor, incluindo a hierarquia (manager_id).
+    columns:
+      - name: employee_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_products
+    description: Um registro por produto do catálogo.
+    columns:
+      - name: product_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: Um registro por pedido (cabeçalho).
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_order_items
+    description: >
+      Um registro por item de pedido. Chave é composta (order_id, product_id) — o
+      teste genérico `unique` do dbt só cobre coluna única, então aqui testamos
+      completude (not_null) nas duas colunas da chave em vez de unicidade da combinação,
+      pra não depender do pacote dbt_utils.
+    columns:
+      - name: order_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
