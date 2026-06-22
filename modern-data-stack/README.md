@@ -1,5 +1,4 @@
 # Modern Data Stack
-![impacta](./resources/images/data_lakehouse_lab_arch.png)
 
 Bem-vindo ao laboratório de **Data Lakehouse** da Impacta! Este repositório reúne tudo o que você precisa para colocar a mão na massa e aprender, na prática, como funcionam as principais tecnologias do universo de Engenharia de Dados. Aqui, você vai experimentar desde a ingestão até a análise de dados, usando ferramentas modernas e amplamente utilizadas no mercado.
 
@@ -33,8 +32,6 @@ Bem-vindo ao laboratório de **Data Lakehouse** da Impacta! Este repositório re
     - [dbt](https://docs.getdbt.com/) · [dbt-trino](https://github.com/starburstdata/dbt-trino)
 - **Apache Airflow**: Orquestração e agendamento diário da execução do dbt.
     - [Apache Airflow](https://airflow.apache.org/docs/)
-- **Jupyter**: Notebooks interativos para análise e experimentação.
-    - [Jupyter](https://jupyter.org/documentation)
 
 Explore, experimente e aproveite ao máximo este ambiente preparado especialmente para acelerar seu aprendizado em Engenharia de Dados!
 
@@ -71,7 +68,6 @@ Para iniciar o ambiente do laboratório, você precisará ter o [Docker](https:/
 | LakeKeeper      | [http://localhost:8181](http://localhost:8181)   | 8181         |None/None                             |
 | Trino           | [http://localhost:8084](http://localhost:8084)   | 8084         |trino/None                            |
 | Apache Airflow  | [http://localhost:8089](http://localhost:8089)   | 8089         |admin/impacta2025                     |
-| Jupyter         | [http://localhost:8888](http://localhost:8888)   | 8888         |None/None                             |
 
 > [!NOTE]
 > O `dbt` não sobe como serviço de longa duração — ele é invocado sob demanda com `docker compose run --rm dbt <comando>` (veja a seção "Transformação de Dados com dbt").
@@ -79,11 +75,10 @@ Para iniciar o ambiente do laboratório, você precisará ter o [Docker](https:/
 ## Como Praticar
 Para começar a praticar, siga o passo a passo abaixo:
 1. **Ingestão de Dados**: Utilize o Apache Nifi para criar um fluxo de dados que ingeste informações do `sales_db` e envie para o MinIO.
-2. **Processamento de Dados**: Use o Apache Spark para processar os dados ingeridos e gerar tabelas em formato de Lake House.
-3. **Transformação de Dados**: Use o dbt para construir a camada `trusted` (com testes de qualidade) e a camada `refined` (fato/dimensão e um data product) a partir do Trino.
-4. **Orquestração**: Use o Apache Airflow para agendar a execução diária do dbt em vez de rodar tudo manualmente.
-5. **Streaming de Dados**: Configure o Apache Kafka para receber dados em tempo real e o Spark Streaming para processa-los.
-6. **Visualização de Dados**: Utilize o Apache Superset para criar dashboards e visualizar os dados através do Trino.
+2. **Transformação de Dados**: Use o dbt para construir a camada `trusted` (com testes de qualidade) e a camada `refined` (fato/dimensão e um data product) a partir do Trino.
+3. **Orquestração**: Use o Apache Airflow para agendar a execução diária do dbt em vez de rodar tudo manualmente.
+4. **Streaming de Dados**: Configure o Apache Kafka para receber dados em tempo real e o Spark Streaming para processa-los.
+5. **Visualização de Dados**: Utilize o Apache Superset para criar dashboards e visualizar os dados através do Trino.
 
 ## Exercícios
 
@@ -209,16 +204,22 @@ flowchart LR
         - `Database Connection Pooling Service`: Selecione o serviço de conexão criado anteriormente.
         - `Schema Pattern`: public
         - `Table Name Pattern`: `%` (para listar todas as tabelas).
+    
     b. Adicione um novo processador `ExecuteSQL` ao canvas, para executar a consulta SQL de extração dos dados.
     - Conecte o `ListDatabaseTables` ao `ExecuteSQL`.
     - Configure o processador `ExecuteSQL` com as seguintes propriedades:
         - `Database Connection Pooling Service`: Selecione o serviço de conexão criado anteriormente.
         - `SQL select query`: Defina como `SELECT * FROM ${db.table.name}` para extrair todos os dados da tabela.
+    
     c. Conecte o `ExecuteSQL` ao `ConvertAvroToParquet` para converter os dados extraídos.
+    
     d. Conecte o `ConvertAvroToParquet` ao `PutS3Object` para enviar os dados convertidos para o MinIO.
+    
     e. Modifique o `Object Key` do `PutS3Object` para incluir o nome da tabela:
         - `Object Key`: Defina como `sales_db/${db.table.name}/${filename}`.
+    
     f. Execute o fluxo clicando no botão de "play".
+    
     g. Verifique se os dados foram enviados corretamente para o MinIO acessando o console em [http://localhost:9001](http://localhost:9001).
 
 ### Processamento de Dados com Apache Spark

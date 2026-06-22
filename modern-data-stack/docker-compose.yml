@@ -40,8 +40,7 @@ services:
     entrypoint: >
       /bin/sh -c "
       mc alias set local http://minio:9000 admin impacta2025 &&
-      mc admin user add local 4PRJYFLGzQYTnOJGH1gA ovBkCsqh2cXNkyoteCzQMV5JWCUk5tHfsG1GwYbD &&
-      mc admin policy attach local readwrite --user 4PRJYFLGzQYTnOJGH1gA &&
+      mc admin accesskey create lab-key --access-key 4PRJYFLGzQYTnOJGH1gA --secret-key ovBkCsqh2cXNkyoteCzQMV5JWCUk5tHfsG1GwYbD --policy readwrite &&
       mc mb -p local/raw local/trusted local/refined
       "
     networks:
