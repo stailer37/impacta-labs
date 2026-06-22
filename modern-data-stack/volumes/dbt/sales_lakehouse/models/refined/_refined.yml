@@ -55,3 +55,24 @@ models:
       - name: employee_id
         data_tests:
           - not_null
+
+  - name: fct_pos_sales
+    description: >
+      Fato de vendas em loja física, grain = item de carrinho do PDV (streaming).
+      `pos_sales_line_id` é uma chave surrogate (transaction_id-product_id), no mesmo
+      espírito de fct_sales. `customer_id` pode ser nulo (carrinho sem cliente
+      identificado).
+    columns:
+      - name: pos_sales_line_id
+        data_tests:
+          - unique
+          - not_null
+      - name: transaction_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
+      - name: employee_id
+        data_tests:
+          - not_null

@@ -2,12 +2,17 @@
 Roda o projeto dbt do sales_lakehouse uma vez por dia: trusted (staging) primeiro,
 depois refined (marts/data products).
 
-A etapa `dbt_run_trusted` lê da camada `raw`, que ainda não existe como tabelas
-Iceberg (pendente do rework do fluxo de ingestão via NiFi). Por isso essa task
-falha hoje, e como `dbt_run_refined` depende dela, a DAG inteira fica vermelha
-até esse rework estar pronto. Isso é intencional: a DAG já representa o pipeline
-completo (trusted -> refined) na ordem certa, em vez de pular a dependência real
-só para ficar verde.
+Pré-requisitos que precisam existir ANTES da primeira execução desta DAG (ver README):
+- raw.sales_db.* (tabelas Iceberg) carregadas via Trino CTAS a partir do sales_db —
+  seção "Carga da Camada Raw".
+- raw.streaming.pos_transactions criada pelo serviço spark_streaming (basta ele já ter
+  rodado uma vez) — seção "Streaming de Dados com Kafka e Spark Structured Streaming".
+  `stg_pos_transactions`/`fct_pos_sales`/`sales_omnichannel` leem dessa tabela; se ela
+  não existir, `dbt_run_trusted`/`dbt_run_refined` falham com ICEBERG_CATALOG_ERROR.
+
+Sem isso, a DAG fica vermelha de propósito: ela representa o pipeline completo
+(trusted -> refined) na ordem certa, em vez de pular a dependência real só para ficar
+verde.
 """
 
 from datetime import datetime

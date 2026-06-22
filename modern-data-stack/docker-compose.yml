@@ -396,7 +396,8 @@ services:
 
   spark_streaming:
     profiles: [ "streaming" ]
-    image: bitnami/spark:3.5.3
+    image: bitnamilegacy/spark:3.5.3
+    user: root
     depends_on:
       kafka:
         condition: service_healthy

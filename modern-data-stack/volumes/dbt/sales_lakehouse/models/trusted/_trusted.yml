@@ -5,15 +5,28 @@ sources:
     database: raw
     schema: sales_db
     description: >
-      Camada de landing (1:1 com a origem), gerada pela ingestão via NiFi a partir do
-      sales_db transacional. Ainda não populada neste lab — depende de um rework futuro
-      do fluxo NiFi para materializar essas tabelas como Iceberg.
+      Camada de landing batch (1:1 com a origem), carregada via Trino (CREATE TABLE ...
+      AS SELECT direto do catálogo postgresql sales_db) — ver seção "Carga da Camada
+      Raw" no README. O fluxo de ingestão via NiFi grava em paralelo Parquet solto no
+      bucket raw do MinIO, fora dessas tabelas Iceberg; ainda depende de um rework
+      futuro para escrever direto aqui.
     tables:
       - name: customers
       - name: employees
       - name: products
       - name: orders
       - name: order_items
+
+  - name: raw_streaming
+    database: raw
+    schema: streaming
+    description: >
+      Camada de landing dos eventos de PDV (pos_producer -> Kafka -> Spark Structured
+      Streaming), grain = item de carrinho. Populada pelo serviço spark_streaming — ver
+      seção "Streaming de Dados com Kafka e Spark Structured Streaming" no README. Só
+      existe depois que o spark_streaming roda pela primeira vez.
+    tables:
+      - name: pos_transactions
 
 models:
   - name: stg_customers
@@ -59,5 +72,20 @@ models:
         data_tests:
           - not_null
       - name: product_id
+        data_tests:
+          - not_null
+
+  - name: stg_pos_transactions
+    description: >
+      Um registro por item de carrinho vendido no PDV (streaming). `customer_id` pode
+      ser nulo (carrinho sem cliente identificado/fidelidade).
+    columns:
+      - name: transaction_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
+      - name: employee_id
         data_tests:
           - not_null
