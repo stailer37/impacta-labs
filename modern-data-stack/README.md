@@ -68,23 +68,24 @@ Para iniciar o ambiente do laboratório, você precisará ter o [Docker](https:/
 | LakeKeeper      | [http://localhost:8181](http://localhost:8181)   | 8181         |None/None                             |
 | Trino           | [http://localhost:8084](http://localhost:8084)   | 8084         |trino/None                            |
 | Apache Airflow  | [http://localhost:8089](http://localhost:8089)   | 8089         |admin/impacta2025                     |
+| Spark UI        | [http://localhost:4040](http://localhost:4040)   | 4040         |None/None                             |
 
 > [!NOTE]
-> O `dbt` não sobe como serviço de longa duração — ele é invocado sob demanda com `docker compose run --rm dbt <comando>` (veja a seção "Transformação de Dados com dbt").
+> O `dbt` não sobe como serviço de longa duração — ele é invocado sob demanda com `docker compose run --rm dbt <comando>` (veja a seção "Transformação de Dados com dbt"). Os serviços `pos_producer` e `spark_streaming` ficam no profile `streaming` e também não sobem com o `docker compose up -d` padrão — veja a seção "Streaming de Dados com Kafka e Spark Structured Streaming" para como ligá-los. A Spark UI em `4040` só fica disponível enquanto o `spark_streaming` está rodando.
 
 ## Como Praticar
 Para começar a praticar, siga o passo a passo abaixo:
 1. **Ingestão de Dados**: Utilize o Apache Nifi para criar um fluxo de dados que ingeste informações do `sales_db` e envie para o MinIO.
 2. **Transformação de Dados**: Use o dbt para construir a camada `trusted` (com testes de qualidade) e a camada `refined` (fato/dimensão e um data product) a partir do Trino.
 3. **Orquestração**: Use o Apache Airflow para agendar a execução diária do dbt em vez de rodar tudo manualmente.
-4. **Streaming de Dados**: Configure o Apache Kafka para receber dados em tempo real e o Spark Streaming para processa-los.
+4. **Streaming de Dados**: Use o Apache Kafka para receber eventos de venda em tempo real (emulados por um produtor local de PDV) e o Spark Structured Streaming para consumi-los e gravar na camada `raw` do lakehouse.
 5. **Visualização de Dados**: Utilize o Apache Superset para criar dashboards e visualizar os dados através do Trino.
 
 ## Exercícios
 
 ### Ingestão de Dados com Apache Nifi
 
-Visão geral do pipeline de ingestão batch do lab — do `sales_db` até o consumo via Trino/Superset/Jupyter, passando pelas camadas `raw` → `trusted` → `refined` e pela orquestração diária do Airflow:
+Visão geral do pipeline de ingestão batch do lab — do `sales_db` até o consumo via Trino/Superset, passando pelas camadas `raw` → `trusted` → `refined`, pela orquestração diária do Airflow e pelo caminho de streaming (PDV → Kafka → Spark) que alimenta a `raw` em paralelo:
 
 ```mermaid
 flowchart LR
@@ -92,8 +93,12 @@ flowchart LR
         PG[("PostgreSQL\nsales_db")]
     end
 
-    subgraph INGEST["Ingestão batch — NiFi (pendente de rework)"]
+    subgraph INGEST["Ingestão batch — NiFi (exercício manual, grava Parquet solto)"]
         NIFI["Apache NiFi\nextração programada"]
+    end
+
+    subgraph LOAD["Carga da camada raw — Trino (catálogo sales_db)"]
+        CTAS["CREATE TABLE ... AS SELECT\nsales_db → raw"]
     end
 
     subgraph LAKE["Lakehouse (MinIO + Iceberg via Lakekeeper)"]
@@ -111,14 +116,23 @@ flowchart LR
         DAG["DAG sales_lakehouse_dbt\n(@daily)"]
     end
 
+    subgraph STREAM["Streaming — Kafka + Spark Structured Streaming"]
+        POS["pos_producer\nemulador de PDV"]
+        KAFKA_T["Kafka\ntópico pos_transactions"]
+        SPARKSTREAM["Spark Structured Streaming\nreadStream Kafka → writeStream Iceberg"]
+    end
+
     subgraph CONSUME["Consumo"]
         TRINO["Trino\n(query engine)"]
         SUPERSET["Superset"]
-        JUPYTER["Jupyter"]
     end
 
-    PG -->|extração batch| NIFI
-    NIFI -->|grava tabelas Iceberg| RAW
+    PG -->|extração batch, grava Parquet| NIFI
+    PG -->|CTAS via catálogo sales_db| CTAS
+    CTAS -->|grava tabelas Iceberg| RAW
+    POS -->|produce JSON| KAFKA_T
+    KAFKA_T -->|consume| SPARKSTREAM
+    SPARKSTREAM -->|grava tabela Iceberg raw.streaming.pos_transactions| RAW
     RAW -->|lê via catálogo raw| DBT_T
     DBT_T --> TRUSTED
     TRUSTED -->|lê via catálogo trusted| DBT_R
@@ -129,14 +143,13 @@ flowchart LR
 
     REFINED -->|catálogo refined| TRINO
     TRINO --> SUPERSET
-    TRINO --> JUPYTER
 
     classDef pending fill:#fde2e2,stroke:#c0392b,stroke-width:2px,stroke-dasharray: 4 3;
-    class NIFI,RAW pending
+    class NIFI pending
 ```
 
 > [!NOTE]
-> O trecho em vermelho (`NiFi` → `raw`) representa o rework de ingestão ainda pendente — é o mesmo motivo pelo qual `dbt_run_trusted` falha hoje na DAG do Airflow (ver seção "Orquestração com Apache Airflow").
+> O trecho em vermelho (`NiFi`) grava Parquet solto no bucket `raw` do MinIO, fora do catálogo Iceberg — é um exercício manual independente (ver seção "Ingestão de Dados com Apache Nifi") e ainda está pendente de rework para escrever direto em tabelas Iceberg. A camada `raw` que o dbt realmente lê (tabelas Iceberg) é carregada hoje via Trino, com `CREATE TABLE ... AS SELECT` direto do `sales_db` através do catálogo `postgresql` (ver seção "Transformação de Dados com dbt"). O caminho de streaming grava em `raw.streaming.pos_transactions` — uma tabela Iceberg separada das tabelas `raw.sales_db.*` usadas pelo dbt, então ela ainda não é consumida pela camada `trusted`/`refined` (ver seção "Streaming de Dados com Kafka e Spark Structured Streaming").
 
 1. Crie um fluxo no Apache Nifi para ingestão de dados do `sales_db`.
 
@@ -209,7 +222,7 @@ flowchart LR
     - Conecte o `ListDatabaseTables` ao `ExecuteSQL`.
     - Configure o processador `ExecuteSQL` com as seguintes propriedades:
         - `Database Connection Pooling Service`: Selecione o serviço de conexão criado anteriormente.
-        - `SQL select query`: Defina como `SELECT * FROM ${db.table.name}` para extrair todos os dados da tabela.
+        - `SQL Query`: Defina como `SELECT * FROM ${db.table.name}` para extrair todos os dados da tabela.
     
     c. Conecte o `ExecuteSQL` ao `ConvertAvroToParquet` para converter os dados extraídos.
     
@@ -217,6 +230,7 @@ flowchart LR
     
     e. Modifique o `Object Key` do `PutS3Object` para incluir o nome da tabela:
         - `Object Key`: Defina como `sales_db/${db.table.name}/${filename}`.
+        - Altere a Region para `US East (N. Virginia)`
     
     f. Execute o fluxo clicando no botão de "play".
     
@@ -224,6 +238,24 @@ flowchart LR
 
 ### Transformação de Dados com dbt
 A camada `trusted` e a camada `refined` são construídas com **dbt** (adaptador [dbt-trino](https://github.com/starburstdata/dbt-trino)), em vez de código solto. O projeto fica em `volumes/dbt/sales_lakehouse/` e roda via `docker compose run`, no mesmo estilo hands-on dos outros exercícios — não é um serviço de longa duração.
+
+0. Carregue a camada `raw` (tabelas Iceberg) a partir do `sales_db`, via Trino:
+   - O catálogo `postgresql` `sales_db` (`configs/trino/etc/catalog/sales_db.properties`) conecta o Trino direto no banco transacional.
+   - O warehouse `raw` precisa existir no Lakekeeper antes da primeira carga (já existem `trusted` e `refined` registrados do mesmo jeito):
+     ```bash
+     curl -s -X POST http://localhost:8181/management/v1/warehouse \
+       -H "Content-Type: application/json" \
+       -d @configs/lakekeeper/create-warehouse-raw.json
+     ```
+   - Com o warehouse criado, materialize cada tabela de origem como uma tabela Iceberg via `CREATE TABLE ... AS SELECT` (não precisa do NiFi nem do Spark para isso):
+     ```bash
+     docker compose exec -T trino trino --execute "CREATE SCHEMA IF NOT EXISTS raw.sales_db"
+     for t in customers employees products orders order_items; do
+       docker compose exec -T trino trino --execute "CREATE TABLE raw.sales_db.$t AS SELECT * FROM sales_db.public.$t"
+     done
+     ```
+   > [!NOTE]
+   > Esse é o caminho que hoje alimenta a camada `raw` que o dbt lê. O fluxo de ingestão via NiFi (seção "Ingestão de Dados com Apache Nifi") ainda só grava Parquet solto no bucket `raw` do MinIO — escrever tabelas Iceberg direto pelo NiFi é o rework pendente mencionado no diagrama acima.
 
 1. Teste a conexão do dbt com o Trino:
    ```bash
@@ -233,8 +265,6 @@ A camada `trusted` e a camada `refined` são construídas com **dbt** (adaptador
    ```bash
    docker compose run --rm dbt run --select trusted
    ```
-   > [!NOTE]
-   > Esse comando só roda de ponta a ponta depois que a camada `raw` existir como tabelas Iceberg (catálogo Trino `raw`, ainda sem warehouse criado no Lakekeeper — isso faz parte de um rework futuro do fluxo de ingestão do NiFi). Até lá, os models de `trusted` existem prontos no projeto, mas falham na execução por falta de dados de origem. Pra validar só a sintaxe sem rodar de verdade, use `docker compose run --rm dbt compile --select trusted`.
 3. Construa a camada `refined` (fato/dimensão e o data product), a partir do `trusted`:
    ```bash
    docker compose run --rm dbt run --select refined
@@ -256,8 +286,8 @@ A execução do dbt (`trusted` → `refined`) é agendada uma vez por dia via **
 2. A DAG `sales_lakehouse_dbt` (`volumes/airflow/dags/sales_lakehouse_dbt_dag.py`) roda diariamente (`schedule="@daily"`) com 4 tasks em sequência:
    `dbt_run_trusted` → `dbt_test_trusted` → `dbt_run_refined` → `dbt_test_refined`.
 
-> [!WARNING]
-> A DAG modela o pipeline completo na ordem certa, então `dbt_run_trusted` falha todo dia até a camada `raw` existir de verdade (mesmo motivo do aviso da seção anterior) — as tasks seguintes ficam `upstream_failed` em cascata. Isso é esperado, não um bug da DAG: o jeito certo de corrigir é terminar o rework do NiFi pra camada `raw`, não pular a dependência real entre as camadas.
+> [!NOTE]
+> A DAG depende da camada `raw` existir de verdade como tabelas Iceberg — se as tasks `dbt_run_trusted`/`dbt_test_trusted` falharem com `ICEBERG_CATALOG_ERROR`, é sinal de que a carga inicial da `raw` (passo 0 da seção "Transformação de Dados com dbt") ainda não foi feita. As tasks seguintes ficam `upstream_failed` em cascata até isso ser corrigido — não é um bug da DAG, é a dependência real entre as camadas.
 
 Pra disparar a DAG manualmente (sem esperar o agendamento diário), use o botão "Trigger DAG" na UI ou:
 ```bash
@@ -266,109 +296,133 @@ docker exec modern-data-stack-airflow_scheduler-1 airflow dags trigger sales_lak
 
 ### Conectando o Trino ao SuperSet
 1. Abra o Apache Superset em [http://localhost:8088](http://localhost:8088).
-2. Crie uma nova fonte de dados conectando ao Trino:
+2. Crie uma nova fonte de dados conectando ao Trino e consumindo a camada `trusted`:
     - Clique em `Settings` (encontra-se no canto superior direito) > `Data Connections` > `+ Database` (botão azul próximo ao `Settings`).
     - Selecione `Trino` como o tipo de banco de dados.
     - Preencha as informações de conexão:
+        - `Display Name`: `Trusted`
         - `SQLAlchemy URI`: `trino://admin@trino:8080/trusted`
+
+3. Crie uma nova fonte de dados conectando ao Trino e consumindo a camada `refined`:
+    - Clique em `Settings` > `Data Connections` > `+ Database`.
+    - Selecione `Trino` como o tipo de banco de dados.
+    - Preencha as informações de conexão:
+        - `Display Name`: `Refined`
+        - `SQLAlchemy URI`: `trino://admin@trino:8080/refined`
 
 ### Explorando Dados com Apache Superset
 > [!TIP]
-> As queries abaixo são para praticar SQL Lab direto contra `trusted`. Depois que a camada `refined` estiver construída pelo dbt, o caminho recomendado é consultar `refined.marts.sales_performance` (o data product) ou `refined.marts.fct_sales` direto, sem precisar repetir esses joins toda vez.
+> As duas primeiras queries são pra praticar SQL Lab direto contra `trusted` (dados crus, sem os joins/star schema do dbt). As de baixo já usam a camada `refined` — uma vez que o dbt rodou, o caminho recomendado é consultar `refined.marts.sales_performance` (o data product) ou o star schema (`fct_sales` + `dim_*`) direto, sem repetir os joins de `trusted` toda vez.
 
-1. No Apache Superset, vá em `SQL` > `SQL Lab` e crie uma nova consulta SQL.
+1. No Apache Superset, vá em `SQL` > `SQL Lab`, selecione a database `Trusted` e crie uma nova consulta SQL.
     a. Produtos Mais Vendidos
     ```sql
     SELECT
         p.product_name AS produto
         , SUM(oi.quantity) AS total_vendido
-    FROM order_items oi
-    JOIN products p ON oi.product_id = p.product_id
+    FROM stg_order_items oi
+    JOIN stg_products p ON oi.product_id = p.product_id
     GROUP BY p.product_name
     ORDER BY total_vendido DESC
     LIMIT 10;
     ```
 
-    b. Receita por Categoria de Produto
-    ```sql
-    SELECT
-        p.category AS categoria
-        , SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS receita_total
-    FROM order_items oi
-    JOIN products p ON oi.product_id = p.product_id
-    GROUP BY p.category
-    ORDER BY receita_total DESC;
-    ```
-
-    c. Clientes com Maior Gasto
+    b. Clientes com Maior Gasto
     ```sql
     SELECT
         c.customer_name AS cliente
         , SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_gasto
-    FROM customers c
-    JOIN orders o ON c.customer_id = o.customer_id
-    JOIN order_items oi ON o.order_id = oi.order_id
+    FROM stg_customers c
+    JOIN stg_orders o ON c.customer_id = o.customer_id
+    JOIN stg_order_items oi ON o.order_id = oi.order_id
     GROUP BY 1
     ORDER BY total_gasto DESC
     LIMIT 10;
     ```
 
-    d. Pedidos por Mês
+2. Depois de rodar `dbt run` e a camada `refined` estar construída, selecione a database `Refined` e crie uma nova consulta SQL.
+    c. Receita por Categoria de Produto (via data product `sales_performance`, sem joins)
     ```sql
     SELECT
-        DATE_FORMAT(order_date, '%Y-%m') AS mes
-        , COUNT(DISTINCT order_id) AS total_pedidos
-    FROM orders
-    GROUP BY 1
-    ORDER BY 1;
+        product_category AS categoria
+        , SUM(line_revenue) AS receita_total
+    FROM marts.sales_performance
+    GROUP BY product_category
+    ORDER BY receita_total DESC;
     ```
 
-    e. Tempo Médio entre Pedido e Envio por Categoria
+    d. Receita Mensal por Região (via star schema `fct_sales` + `dim_date` + `dim_customer`)
     ```sql
     SELECT
-        p.category AS categoria,
-        AVG(DATE_DIFF('day', o.order_date, o.ship_date)) AS tempo_medio_envio_dias
-    FROM orders o
-    JOIN order_items oi ON o.order_id = oi.order_id
-    JOIN products p ON oi.product_id = p.product_id
-    WHERE o.ship_date IS NOT NULL
-    GROUP BY p.category
+        d.year
+        , d.month
+        , c.region AS regiao
+        , SUM(f.line_revenue) AS receita_total
+    FROM marts.fct_sales f
+    JOIN marts.dim_date d ON d.date_day = f.order_date
+    JOIN marts.dim_customer c ON c.customer_id = f.customer_id
+    GROUP BY d.year, d.month, c.region
+    ORDER BY d.year, d.month, regiao;
+    ```
+
+    e. Tempo Médio entre Pedido e Envio por Categoria (via data product `sales_performance`)
+    ```sql
+    SELECT
+        product_category AS categoria
+        , AVG(DATE_DIFF('day', order_date, ship_date)) AS tempo_medio_envio_dias
+    FROM marts.sales_performance
+    WHERE ship_date IS NOT NULL
+    GROUP BY product_category
     ORDER BY tempo_medio_envio_dias DESC;
     ```
 
-### Stream de Dados com Apache Kafka
-1. Configure o Apache Kafka para receber dados em tempo real.
+### Streaming de Dados com Kafka e Spark Structured Streaming
+Em vez de um notebook produzindo e consumindo mensagens manualmente, esse exercício usa dois serviços de longa duração que sobem via Docker: o `pos_producer` (um script Python que emula um ponto de venda, gerando vendas sintéticas a partir dos clientes/funcionários/produtos já cadastrados no `sales_db`) e o `spark_streaming` (uma aplicação PySpark Structured Streaming, rodada com `spark-submit`, que consome o tópico Kafka e grava como tabela Iceberg na camada `raw`).
+
+> [!NOTE]
+> Os dois serviços ficam no profile `streaming` do `docker-compose.yml`, então não sobem com o `docker compose up -d` padrão — é preciso subi-los explicitamente (passo 2). O `spark_streaming` também depende do warehouse `raw` já existir no Lakekeeper (passo 0 da seção "Transformação de Dados com dbt") — sem isso, ele vai falhar ao criar o schema/tabela Iceberg.
+
+1. Crie o tópico `pos_transactions` no Kafka.
     - Abra o Kafka UI em [http://localhost:8083](http://localhost:8083).
-    - Crie um novo tópico chamado `popular_critics` para receber os dados de avaliação de filmes, com as seguintes configurações:
-        - **Topic Name**: popular_critics
+    - Vá em `Topics` > `Add a Topic` e configure:
+        - **Topic Name**: pos_transactions
         - **Partitions**: 1 (para simplificar o ambiente de desenvolvimento)
         - **Cleanup Policy**: `Delete`
-        > [!NOTE]
-        > Tipos de Cleanup Policy:
-        > - `Delete`: mensagens são removidas após o período de retenção.
-        > - `Compact`: mantém apenas a última mensagem por chave, útil para dados de estado.
-        > - `Compact, Delete`: combina as duas políticas, mantendo a última mensagem por chave e removendo mensagens antigas após o período de retenção.
         - **Replication Factor**: 1 (para simplificar o ambiente de desenvolvimento)
-        - **Retention**: 12 horas (para econômica de armazenamento)
-    
+        - **Retention**: 12 horas (para economia de armazenamento)
 
-2. Crie uma mensagem de exemplo para enviar dados para o tópico `popular_critics`.
-    - No Kafka UI, vá para `Topics` > `popular_critics` > `Produce Message`.
-    - Envie o payload de exemplo abaixo no campo de `Value`:
-    ```json
-    {
-        "name": "John Farnsworth",
-        "film": "Agent Truman",
-        "rating": 9,
-        "review": "A mind-bending thriller that keeps you on the edge of your seat."
-    }
+2. Suba o produtor (emulador de PDV) e a aplicação Spark Streaming:
+    ```bash
+    docker compose --profile streaming up -d pos_producer spark_streaming
     ```
+    - O `pos_producer` (`configs/pos_producer/producer.py`) conecta direto no `sales_db` para puxar `customer_id`/`employee_id`/`product_id` reais e, a cada ~2 segundos, simula um "carrinho" fechado no caixa: 1 a 4 itens com o mesmo `transaction_id`, loja (`store_id`), caixa (`register_id`), vendedor, forma de pagamento e, opcionalmente, cliente (carrinhos sem cliente identificado simulam venda sem cadastro/fidelidade). Cada item vira uma mensagem JSON publicada no tópico `pos_transactions`:
+      ```json
+      {
+          "transaction_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+          "event_timestamp": "2026-06-22T14:32:10.123456+00:00",
+          "store_id": "STORE-03",
+          "register_id": 2,
+          "employee_id": 7,
+          "customer_id": 123,
+          "product_id": 45,
+          "quantity": 2,
+          "unit_price": 19.9,
+          "discount": 0.05,
+          "payment_method": "credit_card"
+      }
+      ```
+    - O `spark_streaming` (`configs/spark/streaming_app.py`) sobe via `spark-submit` com os pacotes `spark-sql-kafka`, `iceberg-spark-runtime` e `iceberg-aws-bundle`, lê o tópico `pos_transactions` em modo streaming (`readStream`), faz o parse do JSON e grava em modo `append` (gatilho de 10 em 10 segundos) na tabela Iceberg `raw.streaming.pos_transactions`, via catálogo REST do Lakekeeper.
 
-3. Verifique se a mensagem foi recebida corretamente no tópico `popular_critics`.
-    - Vá para `Topics` > `popular_critics` > `Messages`.
-    - Você deve ver a mensagem que acabou de enviar.
+3. Acompanhe os dois lados do pipeline:
+    - No Kafka UI, em `Topics` > `pos_transactions` > `Messages`, as mensagens publicadas pelo `pos_producer` devem aparecer.
+    - Nos logs do `spark_streaming` (`docker compose logs -f spark_streaming`) ou na Spark UI em [http://localhost:4040](http://localhost:4040), acompanhe os micro-batches sendo processados.
+    - Para conferir os dados já gravados na lakehouse, consulte via Trino (catálogo `raw`):
+      ```bash
+      docker compose exec -T trino trino --execute "SELECT * FROM raw.streaming.pos_transactions ORDER BY ingestion_timestamp DESC LIMIT 10"
+      ```
 
-### Produzindo e Consumindo Dados com Apache Kafka
-1. Criando um `producer` e `consumer` para o tópico `popular_critics`.
-    - Abra o Jupyter Notebook em [http://localhost:8888](http://localhost:8888) e selecione o notebook `kafka_producer.ipynb`.
-    - No notebook, você encontrará células de código já preparadas para produzir e consumir mensagens do tópico `popular_critics`.
+4. Para encerrar o exercício sem afetar o resto do ambiente:
+    ```bash
+    docker compose stop pos_producer spark_streaming
+    ```
+    O checkpoint do streaming fica em `s3a://raw/_checkpoints/pos_transactions` — ao subir o `spark_streaming` de novo, ele retoma de onde parou em vez de reprocessar tudo.

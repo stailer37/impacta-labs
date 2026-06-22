@@ -30,7 +30,7 @@ services:
     entrypoint: >
       /bin/sh -c "
       mc alias set local http://minio:9000 admin impacta2025 &&
-      mc admin accesskey create local --access-key 4PRJYFLGzQYTnOJGH1gA --secret-key ovBkCsqh2cXNkyoteCzQMV5JWCUk5tHfsG1GwYbD &&
+      mc admin accesskey create local --name impacta-lab-key --access-key 4PRJYFLGzQYTnOJGH1gA --secret-key ovBkCsqh2cXNkyoteCzQMV5JWCUk5tHfsG1GwYbD &&
       mc mb -p local/raw local/trusted local/refined
       "
     networks:
@@ -376,5 +376,52 @@ services:
     networks:
       infra-data-network:
 
+  pos_producer:
+    profiles: [ "streaming" ]
+    build:
+      context: ./configs/pos_producer
+      dockerfile: Dockerfile
+    depends_on:
+      kafka:
+        condition: service_healthy
+      sales_db:
+        condition: service_healthy
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_TOPIC=pos_transactions
+      - SALES_DB_DSN=postgresql://sales_user:sales_pass@sales_db:5432/sales_db
+      - SLEEP_SECONDS=2
+    networks:
+      infra-data-network:
+
+  spark_streaming:
+    profiles: [ "streaming" ]
+    image: bitnami/spark:3.5.3
+    depends_on:
+      kafka:
+        condition: service_healthy
+      lakekeeper:
+        condition: service_healthy
+      minio_init:
+        condition: service_completed_successfully
+    environment:
+      - AWS_ACCESS_KEY_ID=4PRJYFLGzQYTnOJGH1gA
+      - AWS_SECRET_ACCESS_KEY=ovBkCsqh2cXNkyoteCzQMV5JWCUk5tHfsG1GwYbD
+    volumes:
+      - ./configs/spark/streaming_app.py:/app/streaming_app.py:ro
+      - spark_ivy_cache:/opt/bitnami/spark/.ivy2
+    command: >
+      spark-submit
+      --master local[*]
+      --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.3,org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.7.0,org.apache.iceberg:iceberg-aws-bundle:1.7.0,org.apache.hadoop:hadoop-aws:3.3.4
+      /app/streaming_app.py
+    ports:
+      - "4040:4040"
+    networks:
+      infra-data-network:
+
 networks:
   infra-data-network:
+
+volumes:
+  spark_ivy_cache:
