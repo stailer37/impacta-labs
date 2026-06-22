@@ -1,0 +1,116 @@
+[2026-06-22T18:31:32.735+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2026-06-22T18:31:32.735+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2026-06-22T18:31:32.735+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2026-06-22T18:31:32.736+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2026-06-22T18:31:32.738+0000] {manager.py:824} INFO - There are 1 files in /opt/airflow/dags
+[2026-06-22T18:31:32.791+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run      Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  ----------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    161  0.02s             0           0                                                   0
+================================================================================
+[2026-06-22T18:32:02.986+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    166  0.01s             1           0  0.12s           2026-06-22T18:31:32                      12
+================================================================================
+[2026-06-22T18:32:33.307+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    171  0.02s             1           0  0.13s           2026-06-22T18:32:03                      12
+================================================================================
+[2026-06-22T18:33:03.648+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    176  0.02s             1           0  0.15s           2026-06-22T18:32:33                      12
+================================================================================
+[2026-06-22T18:33:33.998+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    181  0.01s             1           0  0.13s           2026-06-22T18:33:03                      12
+================================================================================
+[2026-06-22T18:34:04.297+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    186  0.02s             1           0  0.14s           2026-06-22T18:33:34                      12
+================================================================================
+[2026-06-22T18:34:34.723+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    191  0.01s             1           0  0.16s           2026-06-22T18:34:04                      12
+================================================================================
+[2026-06-22T18:35:05.051+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    196  0.01s             1           0  0.14s           2026-06-22T18:34:34                      12
+================================================================================
+[2026-06-22T18:35:35.412+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    201  0.01s             1           0  0.11s           2026-06-22T18:35:05                      12
+================================================================================
+[2026-06-22T18:36:05.691+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    206  0.01s             1           0  0.11s           2026-06-22T18:35:35                      12
+================================================================================
+[2026-06-22T18:36:32.983+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2026-06-22T18:36:32.991+0000] {manager.py:824} INFO - There are 1 files in /opt/airflow/dags
+[2026-06-22T18:36:36.044+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    211  0.00s             1           0  0.16s           2026-06-22T18:36:05                      12
+================================================================================
+[2026-06-22T18:37:06.322+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    216  0.00s             1           0  0.11s           2026-06-22T18:36:36                      12
+================================================================================
+[2026-06-22T18:39:38.026+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2026-06-22T18:39:38.027+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2026-06-22T18:39:38.028+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2026-06-22T18:39:38.029+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2026-06-22T18:39:38.041+0000] {manager.py:824} INFO - There are 1 files in /opt/airflow/dags
+[2026-06-22T18:39:38.233+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run      Last # of DB Queries
+--------------------------------------------  -----  ---------  --------  ----------  --------------  ----------  ----------------------
+/opt/airflow/dags/sales_lakehouse_dbt_dag.py    160  0.05s             0           0                                                   0
+================================================================================

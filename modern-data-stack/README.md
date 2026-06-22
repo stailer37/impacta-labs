@@ -222,14 +222,6 @@ flowchart LR
     
     g. Verifique se os dados foram enviados corretamente para o MinIO acessando o console em [http://localhost:9001](http://localhost:9001).
 
-### Processamento de Dados com Apache Spark
-1. Criando um job no Apache Spark para processar os dados do MinIO e gerar tabelas em formato de Lake House.
-    - Abra o Notebook Jupyter em [http://localhost:8888](http://localhost:8888), abra a pasta `examples` e selecione o notebook `spark_batch.ipynb`.
-    - No notebook, você encontrará células de código já preparadas para ler os dados do MinIO, processá-los e salvá-los no formato Iceberg.
-
-> [!WARNING]
-> Os notebooks em `volumes/jupyter/notebooks/` (`spark_batch.ipynb`, `kafka_producer.ipynb`, `spark_streaming.ipynb`, `trino.ipynb`) ainda não foram migrados pro domínio de vendas — eles seguem com os nomes de tabela do dataset anterior (Pagila) e precisam de atualização antes de rodar contra o `sales_db`. Essa migração é um próximo passo separado deste lab.
-
 ### Transformação de Dados com dbt
 A camada `trusted` e a camada `refined` são construídas com **dbt** (adaptador [dbt-trino](https://github.com/starburstdata/dbt-trino)), em vez de código solto. O projeto fica em `volumes/dbt/sales_lakehouse/` e roda via `docker compose run`, no mesmo estilo hands-on dos outros exercícios — não é um serviço de longa duração.
 

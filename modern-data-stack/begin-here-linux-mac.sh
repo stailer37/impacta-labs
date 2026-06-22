@@ -31,5 +31,5 @@ else
 fi
 echo "Checked PostgreSQL JDBC driver."
 
-#docker compose -f docker-compose.yml up -d
-#echo "Modern Data Stack is starting up..."
+docker compose -f docker-compose.yml up -d
+echo "Modern Data Stack is starting up..."
