@@ -1,0 +1,32 @@
+version: 2
+
+exposures:
+  - name: superset_sales_dashboards
+    label: Dashboards de Vendas no Superset
+    type: dashboard
+    maturity: medium
+    url: http://localhost:8088
+    description: >
+      Dashboards de vendas no Apache Superset, consumindo o data product
+      refined.marts.sales_performance via Trino. Documenta esse consumo pra deixar
+      explícito quem depende do contrato definido em _data_products.yml.
+    depends_on:
+      - ref('sales_performance')
+    owner:
+      name: Data Engineering
+      email: data-eng@example.com
+
+  - name: superset_omnichannel_dashboard
+    label: Dashboard Omnichannel no Superset
+    type: dashboard
+    maturity: medium
+    url: http://localhost:8088
+    description: >
+      Dashboard que cruza vendas online (lote) e in_store (streaming) no Superset,
+      consumindo o data product refined.marts.sales_omnichannel via Trino — ver seção
+      "Dashboard Omnichannel no Superset" no README.
+    depends_on:
+      - ref('sales_omnichannel')
+    owner:
+      name: Data Engineering
+      email: data-eng@example.com

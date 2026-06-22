@@ -1,0 +1,91 @@
+version: 2
+
+sources:
+  - name: raw
+    database: raw
+    schema: sales_db
+    description: >
+      Camada de landing batch (1:1 com a origem), carregada via Trino (CREATE TABLE ...
+      AS SELECT direto do catálogo postgresql sales_db) — ver seção "Carga da Camada
+      Raw" no README. O fluxo de ingestão via NiFi grava em paralelo Parquet solto no
+      bucket raw do MinIO, fora dessas tabelas Iceberg; ainda depende de um rework
+      futuro para escrever direto aqui.
+    tables:
+      - name: customers
+      - name: employees
+      - name: products
+      - name: orders
+      - name: order_items
+
+  - name: raw_streaming
+    database: raw
+    schema: streaming
+    description: >
+      Camada de landing dos eventos de PDV (pos_producer -> Kafka -> Spark Structured
+      Streaming), grain = item de carrinho. Populada pelo serviço spark_streaming — ver
+      seção "Streaming de Dados com Kafka e Spark Structured Streaming" no README. Só
+      existe depois que o spark_streaming roda pela primeira vez.
+    tables:
+      - name: pos_transactions
+
+models:
+  - name: stg_customers
+    description: Um registro por cliente, sem transformação além da tipagem.
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_employees
+    description: Um registro por vendedor, incluindo a hierarquia (manager_id).
+    columns:
+      - name: employee_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_products
+    description: Um registro por produto do catálogo.
+    columns:
+      - name: product_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: Um registro por pedido (cabeçalho).
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_order_items
+    description: >
+      Um registro por item de pedido. Chave é composta (order_id, product_id) — o
+      teste genérico `unique` do dbt só cobre coluna única, então aqui testamos
+      completude (not_null) nas duas colunas da chave em vez de unicidade da combinação,
+      pra não depender do pacote dbt_utils.
+    columns:
+      - name: order_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
+
+  - name: stg_pos_transactions
+    description: >
+      Um registro por item de carrinho vendido no PDV (streaming). `customer_id` pode
+      ser nulo (carrinho sem cliente identificado/fidelidade).
+    columns:
+      - name: transaction_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
+      - name: employee_id
+        data_tests:
+          - not_null

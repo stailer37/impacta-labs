@@ -31,27 +31,5 @@ else
 fi
 echo "Checked PostgreSQL JDBC driver."
 
-if [ ! -f ./configs/pagila/pagila-schema.sql ]; then
-    curl -o ./configs/pagila/pagila-schema.sql https://raw.githubusercontent.com/devrimgunduz/pagila/refs/heads/master/pagila-schema.sql
-    if [ $? -ne 0 ]; then
-        echo "Failed to download pagila-schema.sql"
-        exit 1
-    fi
-else
-    echo "pagila-schema.sql already exists, skipping download."
-fi
-echo "Checked Pagila database schema."
-
-if [ ! -f ./configs/pagila/pagila-data.sql ]; then
-    curl -o ./configs/pagila/pagila-data.sql https://raw.githubusercontent.com/devrimgunduz/pagila/refs/heads/master/pagila-data.sql
-    if [ $? -ne 0 ]; then
-        echo "Failed to download pagila-data.sql"
-        exit 1
-    fi
-else
-    echo "pagila-data.sql already exists, skipping download."
-fi
-echo "Checked Pagila database data."
-
 docker compose -f docker-compose.yml up -d
 echo "Modern Data Stack is starting up..."

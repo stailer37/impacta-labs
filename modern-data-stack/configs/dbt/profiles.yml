@@ -1,0 +1,12 @@
+sales_lakehouse:
+  target: dev
+  outputs:
+    dev:
+      type: trino
+      method: none
+      user: dbt
+      host: trino
+      port: 8080
+      database: trusted
+      schema: sales_db
+      threads: 4
