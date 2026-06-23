@@ -403,8 +403,8 @@ services:
         condition: service_healthy
       lakekeeper:
         condition: service_healthy
-      minio_init:
-        condition: service_completed_successfully
+      minio:
+        condition: service_healthy
     environment:
       - AWS_ACCESS_KEY_ID=4PRJYFLGzQYTnOJGH1gA
       - AWS_SECRET_ACCESS_KEY=ovBkCsqh2cXNkyoteCzQMV5JWCUk5tHfsG1GwYbD

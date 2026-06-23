@@ -17,16 +17,20 @@ exposures:
       email: data-eng@example.com
 
   - name: superset_omnichannel_dashboard
-    label: Dashboard Omnichannel no Superset
+    label: Dashboard de Vendas no Superset — Tempo Real + Histórico
     type: dashboard
     maturity: medium
     url: http://localhost:8088
     description: >
       Dashboard que cruza vendas online (lote) e in_store (streaming) no Superset,
-      consumindo o data product refined.marts.sales_omnichannel via Trino — ver seção
-      "Dashboard Omnichannel no Superset" no README.
+      combinando acompanhamento em tempo real (refined.marts.fct_pos_sales) com
+      histórico para decisão (refined.marts.sales_omnichannel e
+      refined.marts.sales_performance) via Trino — ver seção "Dashboard de Vendas no
+      Superset — Tempo Real + Histórico" no README.
     depends_on:
       - ref('sales_omnichannel')
+      - ref('fct_pos_sales')
+      - ref('sales_performance')
     owner:
       name: Data Engineering
       email: data-eng@example.com

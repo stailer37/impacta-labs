@@ -86,7 +86,8 @@ FROM (
     ) city
 ) t;
 
--- Pedidos: ~3000 pedidos espalhados ao longo de 2024
+-- Pedidos: ~3000 pedidos espalhados entre 1 mês atrás e a data atual,
+-- pra ficar coerente com a janela de dados gerada pelo streaming.
 INSERT INTO orders (customer_id, employee_id, order_date, ship_date, status)
 SELECT
     (floor(random() * 50) + 1)::int AS customer_id,
@@ -96,7 +97,7 @@ SELECT
     s.status
 FROM (
     SELECT
-        timestamp '2024-01-01' + (random() * 364) * interval '1 day' AS order_date,
+        current_date::timestamp - (random() * interval '1 month') AS order_date,
         (ARRAY['completed', 'completed', 'completed', 'completed', 'pending', 'cancelled'])[(floor(random() * 6) + 1)::int] AS status
     FROM generate_series(1, 3000)
 ) s;

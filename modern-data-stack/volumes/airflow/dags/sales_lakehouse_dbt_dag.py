@@ -27,7 +27,7 @@ DBT_TEST = f"dbt test --project-dir {DBT_PROJECT_DIR}"
 with DAG(
     dag_id="sales_lakehouse_dbt",
     description="Constroi as camadas trusted e refined do sales_lakehouse via dbt-trino.",
-    schedule="@daily",
+    schedule="*/2 * * * *",
     start_date=datetime(2026, 1, 1),
     catchup=False,
     tags=["dbt", "sales_lakehouse"],
