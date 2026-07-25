@@ -26,8 +26,8 @@ chmod 777 /tmp/hive
 # explicitamente.
 HDFS_URI="hdfs://namenode:8020"
 for dir in /tmp/hive /user/hive/warehouse; do
-  HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop /opt/hadoop/bin/hdfs dfs -fs "${HDFS_URI}" -mkdir -p "${dir}"
-  HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop /opt/hadoop/bin/hdfs dfs -fs "${HDFS_URI}" -chmod 777 "${dir}"
+  HADOOP_USER_NAME=hadoop HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop /opt/hadoop/bin/hdfs dfs -fs "${HDFS_URI}" -mkdir -p "${dir}"
+  HADOOP_USER_NAME=hadoop HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop /opt/hadoop/bin/hdfs dfs -fs "${HDFS_URI}" -chmod 777 "${dir}"
 done
 
 exec /entrypoint.sh
