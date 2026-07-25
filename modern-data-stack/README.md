@@ -51,6 +51,7 @@ Para iniciar o ambiente do laboratório, você precisará ter o [Docker](https:/
 3. Execute o comando abaixo para iniciar os containers do Docker:
    ```bash
    # Linux/Mac
+   chmod +x begin-here-linux-mac.sh
    bash begin-here-linux-mac.sh
    # Windows
    begin-here-windows.bat
