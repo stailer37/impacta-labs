@@ -254,6 +254,33 @@ services:
     networks:
       infra-data-network:
 
+  lakekeeper_bootstrap_trusted:
+    image: curlimages/curl
+    depends_on:
+      lakekeeper_skip_bootstrap:
+        condition: service_completed_successfully
+      minio_init:
+        condition: service_completed_successfully
+    restart: "no"
+    volumes:
+      - ./configs/lakekeeper/create-warehouse-trusted.json:/tmp/create-warehouse-trusted.json:ro
+    command:
+      - -w
+      - "%{http_code}"
+      - "-X"
+      - "POST"
+      - "-v"
+      - "http://lakekeeper:8181/management/v1/warehouse"
+      - "-H"
+      - "Content-Type: application/json"
+      - "--data"
+      - "@/tmp/create-warehouse-trusted.json"
+      - "-o"
+      - "/dev/null"
+      - "--fail-with-body"
+    networks:
+      infra-data-network:
+
   lakekeeper_bootstrap_refined:
     image: curlimages/curl
     depends_on:
