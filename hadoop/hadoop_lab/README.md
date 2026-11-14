@@ -47,7 +47,7 @@ flowchart TB
 ## Pré-requisitos
 
 - Docker e Docker Compose instalados.
-- Portas livres na sua máquina: `9870`, `8020`, `8088`, `19888`, `8080`, `8081`, `3306`, `9083`, `10000`, `10002`.
+- Portas livres na sua máquina: `9870`, `8020`, `8088`, `19888`, `8080`, `8081`, `3306`, `9083`, `10000`, `10002`. Algumas coincidem com as do lab `modern-data-stack` (ex.: `8081`, `8088`) — não rode os dois ao mesmo tempo.
 
 ## 1. Subir o ambiente: começando pelo HDFS
 
@@ -60,7 +60,7 @@ docker compose up -d namenode datanode1 datanode2 datanode3
 
 Isso constrói (se necessário) e inicia só o NameNode e os 3 DataNodes — o suficiente para os testes de HDFS da seção 3. Os demais serviços do `docker-compose.yml` (YARN, Hive, Spark, MySQL) continuam parados até serem chamados explicitamente nas seções seguintes.
 
-**Por que esperar o NameNode ficar "healthy"?** Quando o HDFS sobe pela primeira vez, o NameNode entra em *safe mode*: um estado de só-leitura em que ele ainda está verificando se já recebeu relatórios de blocos suficientes dos DataNodes. Os DataNodes só conseguem se registrar depois que o NameNode está pronto — por isso o `docker-compose.yml` faz os DataNodes esperarem o `healthcheck` do NameNode (`depends_on: condition: service_healthy`).
+**Por que esperar o NameNode ficar "healthy"?** Toda vez que sobe, o NameNode entra em *safe mode*: um estado de só-leitura em que ele aguarda os DataNodes reportarem quais blocos guardam, até ter certeza de que os arquivos estão íntegros. O `healthcheck` do NameNode só fica `healthy` quando o safe mode termina — por isso os serviços que gravam no HDFS (Hive, Spark, YARN) esperam esse `healthcheck`. Os DataNodes, ao contrário, sobem assim que o NameNode inicia (`condition: service_started`): são eles que tiram o NameNode do safe mode, então não podem esperar por ele.
 
 Acompanhe a inicialização com:
 
@@ -85,7 +85,7 @@ Cada serviço expõe uma UI onde dá para acompanhar visualmente o que está aco
 
 Outros acessos úteis (via linha de comando, não browser):
 
-- HDFS RPC (cliente fora do container): `hdfs://localhost:8020`
+- HDFS RPC: `hdfs://localhost:8020` — atende só operações de metadados (listar, criar diretório) a partir da sua máquina; ler/gravar conteúdo exige acesso aos DataNodes, que não estão expostos. Para manipular arquivos, use `docker exec namenode hdfs dfs ...` como nas seções abaixo.
 - MySQL: `localhost:3306`, database `impacta`, usuário `root` / senha `root123`
 - Hive Metastore (Thrift): `thrift://localhost:9083`
 - HiveServer2 (JDBC): `jdbc:hive2://localhost:10000/default`
@@ -108,7 +108,17 @@ docker exec namenode hdfs dfs -cat /user/aluno/teste.txt
 docker exec namenode hdfs fsck /user/aluno/teste.txt -files -blocks -locations
 ```
 
-**O que observar no `fsck`:** a saída deve mostrar `Live_repl=3`, com os blocos distribuídos entre `datanode1`, `datanode2` e `datanode3` — prova de que a replicação está funcionando.
+**O que observar no `fsck`:** a saída deve mostrar `Live_repl=3` e três entradas `DatanodeInfoWithStorage[...]`, uma para cada DataNode (identificados pelo IP do container na rede Docker, não pelo nome) — prova de que a replicação está funcionando.
+
+**Testando a tolerância a falhas:** derrube um DataNode e leia o arquivo de novo — ele continua acessível pelas outras duas réplicas:
+
+```bash
+docker stop datanode1
+docker exec namenode hdfs dfs -cat /user/aluno/teste.txt
+docker start datanode1
+```
+
+> Rodar o `-put` de novo para o mesmo caminho falha com `File exists` — o HDFS não sobrescreve arquivos por padrão. Use `hdfs dfs -put -f` para sobrescrever.
 
 ## 4. Subir o YARN e testar o MapReduce: contagem de palavras (word count)
 
@@ -140,6 +150,8 @@ docker exec namenode hdfs dfs -cat /user/aluno/wordcount/output/part-r-00001
 ```
 
 O resultado esperado é a contagem de cada palavra do texto de entrada (ex.: `hadoop` aparecendo 3 vezes, `yarn` 2 vezes, etc.), só que dividida entre `part-r-00000` e `part-r-00001` — cada palavra aparece em um único arquivo, conforme o reducer para o qual foi roteada na fase de Shuffle/Sort.
+
+> Para rodar o job de novo, apague antes o diretório de saída (`docker exec namenode hdfs dfs -rm -r /user/aluno/wordcount/output`): o MapReduce se recusa a sobrescrever uma saída existente e falha com `FileAlreadyExistsException`, para não destruir resultados por engano.
 
 Enquanto o job roda, acompanhe em http://localhost:8088 (aplicação em andamento, com as tarefas de map e reduce listadas separadamente); depois de concluído, os detalhes ficam disponíveis em http://localhost:19888.
 
@@ -187,7 +199,9 @@ Acompanhe a execução em http://localhost:8080 (Spark Master).
 
 ### Consultar a mesma tabela via JDBC (beeline / DBeaver)
 
-**Conceito:** o Hive Metastore (porta `9083`, Thrift) só guarda o catálogo — quem executa SQL de verdade é o **HiveServer2**, que expõe uma porta JDBC (`10000`) e usa o mesmo metastore para descobrir onde os dados estão. É o mesmo papel que um `mysqld` ou `postgres` exerce para seus respectivos drivers JDBC, só que aqui quem responde a consulta é o motor de execução do Hive (MapReduce/Tez por baixo dos panos), lendo o Parquet direto do HDFS.
+**Conceito:** o Hive Metastore (porta `9083`, Thrift) só guarda o catálogo — quem executa SQL de verdade é o **HiveServer2**, que expõe uma porta JDBC (`10000`) e usa o mesmo metastore para descobrir onde os dados estão. É o mesmo papel que um `mysqld` ou `postgres` exerce para seus respectivos drivers JDBC, só que aqui quem responde a consulta é o motor de execução do Hive, lendo o Parquet direto do HDFS.
+
+> **Sobre o motor de execução:** neste lab o HiveServer2 usa o **Tez em modo local** (`hive.execution.engine=tez` + `tez.local.mode=true` no [hive-site.xml](hive/conf/hive-site.xml)), ou seja, as queries rodam dentro do próprio container do HiveServer2, e não como jobs no YARN do cluster — por isso elas não aparecem em http://localhost:8088. Em um cluster de produção o Tez (ou o MapReduce) submeteria cada query ao YARN, igual ao word count da seção 4.
 
 De dentro do container, com o client `beeline` que já vem na imagem:
 
@@ -195,6 +209,15 @@ De dentro do container, com o client `beeline` que já vem na imagem:
 docker exec -it hiveserver2 beeline -u jdbc:hive2://hiveserver2:10000/default -n hive \
   -e "SELECT * FROM impacta.employees LIMIT 5;"
 ```
+
+Um `SELECT * ... LIMIT` simples é respondido lendo o arquivo direto, sem processamento distribuído. Para ver o motor de execução trabalhando de fato, rode uma agregação:
+
+```bash
+docker exec -it hiveserver2 beeline -u jdbc:hive2://hiveserver2:10000/default -n hive \
+  -e "SELECT department, COUNT(*) AS total, ROUND(AVG(salary), 2) AS avg_salary FROM impacta.employees GROUP BY department ORDER BY department;"
+```
+
+O resultado deve bater com a tabela impressa pelo job de ETL do Spark — os dois motores leram os mesmos arquivos Parquet, encontrados pelo mesmo catálogo.
 
 De fora do Docker (DBeaver, IntelliJ, ou qualquer client JDBC genérico), use a URL `jdbc:hive2://localhost:10000/default` com o driver `org.apache.hive:hive-jdbc:3.1.3` — a porta já está publicada no `docker-compose.yml`, então funciona como qualquer outra conexão JDBC.
 
@@ -223,7 +246,7 @@ Esta seção é opcional — explica como o cluster é montado por baixo dos pan
 - **`spark-submit` falha ao conectar no Hive Metastore ou no MySQL**: confira se `hive-metastore` e `mysql` já estão de pé (`docker compose ps`) — o `spark-master` depende deles, mas se algo demorou para subir, tente rodar o job de novo.
 - **`beeline` não conecta ou trava em `Connecting to jdbc:hive2://...`**: confirme que `hiveserver2` está com status `Up` (`docker compose ps`) e que `hive-metastore` subiu antes dele — o HiveServer2 demora alguns segundos a mais para inicializar do que o Metastore, mesmo depois de aparecer como `Up`.
 - **`docker exec` reclama que o container não existe** (ex.: `resourcemanager`, `spark-master`, `hive-metastore-db`): esse serviço ainda não foi iniciado — volte à seção correspondente (4 para YARN, 5 para Hive/MySQL/Spark) e rode o `docker compose up -d` daquela camada antes de continuar.
-- **`hive-metastore` falha ao subir com erro tipo `init-metastore.sh: not found` ou `$'\r': command not found`**: isso acontece quando o arquivo [hive/init-metastore.sh](hive/init-metastore.sh) foi salvo com fim de linha estilo Windows (`CRLF`) em vez de Unix (`LF`) — comum em quem edita no Windows ou tem o Git configurado para converter automaticamente (`core.autocrlf=true`). Os containers rodam Linux e não reconhecem `CRLF` em shell scripts. Para corrigir no VS Code: abra o arquivo, clique no indicador `CRLF` na barra de status (canto inferior direito), selecione `LF` e salve. Depois confirme que o arquivo ficou em `LF` antes de subir o `hive-metastore` novamente (`docker compose up -d hive-metastore`).
+- **`hive-metastore` ou `hiveserver2` reiniciando em loop com `$'\r': command not found` ou `set: -: invalid option`**: os scripts [hive/init-metastore.sh](hive/init-metastore.sh)/[hive/init-hiveserver2.sh](hive/init-hiveserver2.sh) estão com fim de linha estilo Windows (`CRLF`), que o bash dos containers Linux não aceita. O [.gitattributes](.gitattributes) deste diretório força `LF` no checkout, mas um clone feito antes dele existir (ou um arquivo salvo como `CRLF` pelo editor) ainda pode ter o problema. Para corrigir, apague os dois scripts e restaure-os pelo Git, que agora os grava com `LF` (de dentro de `hadoop/hadoop_lab`: `rm hive/init-metastore.sh hive/init-hiveserver2.sh && git checkout -- hive/init-metastore.sh hive/init-hiveserver2.sh`), ou no VS Code clique no indicador `CRLF` da barra de status, selecione `LF` e salve. Depois suba de novo: `docker compose up -d hive-metastore hiveserver2`.
 - **`beeline` trava em `Could not open client transport ... : null` e o `hiveserver2` nunca chega a abrir a porta `10000`**: os logs visíveis (`docker compose logs hiveserver2`) não mostram a causa, porque o log4j do Hive não está configurado para STDOUT — o motivo real fica em `/tmp/hive/hive.log` **dentro do container** (`docker exec hiveserver2 cat /tmp/hive/hive.log`). As causas mais comuns, todas já corrigidas neste `docker-compose.yml`/[hive-site.xml](hive/conf/hive-site.xml), mas que podem voltar se você customizar o ambiente:
   - `The dir: /tmp/hive on HDFS should be writable` — na verdade é o `/tmp/hive` **local** (filesystem do próprio container, não o do HDFS) que está com permissão `755` em vez de `777`. Corrigido pelo wrapper [hive/init-hiveserver2.sh](hive/init-hiveserver2.sh), que roda antes do HiveServer2 subir.
   - `Error: ERROR: syntax error at or near "PARAMETER"` durante um `schematool -dbType derby -initSchema` — o entrypoint da imagem tenta inicializar o schema com Derby contra um banco que já é Postgres (inicializado pelo `hive-metastore`). Corrigido com `IS_RESUME=true` no `environment` do serviço `hiveserver2`.
