@@ -16,9 +16,13 @@ x-datanode-common: &datanode-common
   env_file: hadoop.env
   networks:
     - hadoop_net
+  # service_started, e não service_healthy: o healthcheck do NameNode exige
+  # safe mode OFF, e com dados já gravados no HDFS o NameNode só sai do safe
+  # mode depois que os DataNodes reportam seus blocos — esperar "healthy" aqui
+  # trava a subida após um `docker compose down`/`up`.
   depends_on:
     namenode:
-      condition: service_healthy
+      condition: service_started
 
 services:
 

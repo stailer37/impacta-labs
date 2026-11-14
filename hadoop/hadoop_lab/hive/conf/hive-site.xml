@@ -36,4 +36,31 @@
     <name>hive.server2.enable.doAs</name>
     <value>false</value>
   </property>
+  <!-- Motor de execução: Tez em modo local, dentro do próprio HiveServer2.
+       O motor MapReduce da imagem apache/hive:3.1.3 não funciona: /opt/tez/lib
+       traz jars do Hadoop 2.7 que sobrepõem os do Hadoop 3 e qualquer query com
+       job (GROUP BY, COUNT, JOIN...) falha com
+       NoClassDefFoundError: org/apache/hadoop/metrics/Updater. -->
+  <property>
+    <name>hive.execution.engine</name>
+    <value>tez</value>
+  </property>
+  <property>
+    <name>tez.local.mode</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>tez.runtime.optimize.local.fetch</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>tez.ignore.lib.uris</name>
+    <value>true</value>
+  </property>
+  <!-- Diretório onde o Tez publica os jars da sessão; sem fs.defaultFS no
+       HiveServer2, o padrão (/user) seria resolvido no filesystem local. -->
+  <property>
+    <name>hive.user.install.directory</name>
+    <value>hdfs://namenode:8020/user</value>
+  </property>
 </configuration>

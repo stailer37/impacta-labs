@@ -1,0 +1,5 @@
+# Tudo neste diretório roda dentro de containers Linux (scripts montados via
+# bind mount ou copiados para as imagens). Força LF mesmo com
+# core.autocrlf=true (padrão do Git for Windows), senão os scripts .sh quebram
+# com "$'\r': command not found".
+* text=auto eol=lf
