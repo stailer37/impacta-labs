@@ -230,7 +230,7 @@ docker start worker1
 
 Depois de alguns segundos, rode `docker exec client hdfs fsck /user/aluno` de novo: `Number of data-nodes: 4`, e `Over-replicated blocks: 0`. Por um instante, alguns blocos tiveram 4 cópias (as antigas do `worker1` mais as novas do `worker4`), e o NameNode apagou as excedentes para voltar ao fator 3.
 
-A partir daqui o cluster tem **4 workers**. Guarde isso: se você reiniciar o ambiente, suba o `worker4` junto (veja "Parar e voltar ao ambiente", no fim).
+A partir daqui o cluster tem **4 workers**. Ao reiniciar o ambiente, suba o `worker4` junto para manter as 3 cópias de cada bloco (veja "Parar e voltar ao ambiente", no fim).
 
 ### 4.5 E se o mestre cair?
 
@@ -264,14 +264,14 @@ docker compose up -d historyserver
 
 **Conceito:** o MapReduce processa dados em fases. A fase *Map* lê os dados de entrada e emite pares `(palavra, 1)` para cada ocorrência; a fase *Shuffle/Sort* agrupa e ordena esses pares por chave (palavra), distribuindo-os entre os reducers conforme um hash da chave; a fase *Reduce* soma as ocorrências de cada palavra. O YARN decide em qual worker cada tarefa roda e, sempre que pode, escolhe **o worker que já tem o bloco**.
 
-Para deixar isso visível, a entrada vai ter vários blocos (um map por bloco) e **uma réplica só** (`-D dfs.replication=1`). Com 3 réplicas em 4 workers, quase qualquer worker teria o bloco; com uma réplica só, o YARN precisa acertar a máquina. Rodamos com **2 reducers** (`-D mapreduce.job.reduces=2`) para deixar visível que cada reducer processa um subconjunto das palavras e grava seu próprio arquivo de saída:
+Para deixar isso visível, a entrada vai ter vários blocos (um map por bloco). Com 3 réplicas em 4 workers, cada bloco está em 3 dos 4: o YARN precisa escolher, para cada map, um worker que tenha aquele bloco. Rodamos com **2 reducers** (`-D mapreduce.job.reduces=2`) para deixar visível que cada reducer processa um subconjunto das palavras e grava seu próprio arquivo de saída:
 
 ```bash
-# ~10 MB de texto, gravados em blocos de 1 MB com uma réplica só
+# ~10 MB de texto, gravados em blocos de 1 MB
 docker exec client sh -c "
   hdfs dfs -mkdir -p /user/aluno/wordcount/input
   yes 'o hadoop leva o codigo ate o dado e o yarn decide onde cada tarefa roda' | head -n 150000 > /tmp/texto.txt
-  hdfs dfs -D dfs.replication=1 -D dfs.blocksize=1048576 -put -f /tmp/texto.txt /user/aluno/wordcount/input/texto.txt
+  hdfs dfs -D dfs.blocksize=1048576 -put -f /tmp/texto.txt /user/aluno/wordcount/input/texto.txt
 "
 
 # submete o job
@@ -478,7 +478,7 @@ Para voltar depois de um `docker compose down` (sem `-v`), suba o núcleo com **
 docker compose up -d namenode resourcemanager historyserver worker1 worker2 worker3 worker4 client
 ```
 
-Se você deixar o `worker4` de fora depois de ter feito o scale-out, o NameNode não sai do safe mode: alguns blocos (como os da entrada do word count, gravados com uma réplica só) existem apenas nele, e o NameNode não libera o cluster enquanto não souber de pelo menos uma cópia de cada bloco. É o block report protegendo os dados. Se ainda não chegou na seção 4.3, pode deixar o `worker4` de fora.
+Se ainda não chegou na seção 4.3, pode deixar o `worker4` de fora. Se já fez o scale-out e esquecer dele, o cluster sobe do mesmo jeito: cada bloco tem 3 cópias, então os outros workers têm pelo menos uma de cada, e o NameNode sai do safe mode. Só que os blocos que tinham cópia no `worker4` ficam sub-replicados (o `fsck` mostra) até ele voltar.
 
 ## Encontrou um erro?
 
