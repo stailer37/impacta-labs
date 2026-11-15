@@ -5,21 +5,31 @@ networks:
 
 volumes:
   namenode_data:
-  datanode1_data:
-  datanode2_data:
-  datanode3_data:
+  worker1_data:
+  worker2_data:
+  worker3_data:
+  worker4_data:
   mysql_data:
   hive_pg_data:
 
-x-datanode-common: &datanode-common
+# Cada worker é uma "máquina" do cluster rodando os dois processos lado a lado:
+# DataNode (guarda blocos do HDFS) e NodeManager (roda tarefas do YARN). É essa
+# co-localização que permite ao YARN levar a tarefa até o nó que já tem o bloco
+# (data locality). O dumb-init da imagem repassa o SIGTERM do `docker stop`
+# para os dois processos.
+x-worker-common: &worker-common
   image: apache/hadoop:3.4.2
   env_file: hadoop.env
+  restart: unless-stopped
+  command: ["bash", "-c", "hdfs datanode & yarn nodemanager & wait"]
   networks:
     - hadoop_net
   # service_started, e não service_healthy: o healthcheck do NameNode exige
   # safe mode OFF, e com dados já gravados no HDFS o NameNode só sai do safe
   # mode depois que os DataNodes reportam seus blocos — esperar "healthy" aqui
-  # trava a subida após um `docker compose down`/`up`.
+  # trava a subida após um `docker compose down`/`up`. Pelo mesmo motivo os
+  # workers não dependem do ResourceManager (que espera o NameNode healthy):
+  # o NodeManager fica tentando se registrar até o ResourceManager subir.
   depends_on:
     namenode:
       condition: service_started
@@ -49,32 +59,51 @@ services:
       retries: 30
       start_period: 40s
 
-  datanode1:
-    <<: *datanode-common
-    container_name: datanode1
-    hostname: datanode1
-    restart: unless-stopped
-    command: ["hdfs", "datanode"]
+  worker1:
+    <<: *worker-common
+    container_name: worker1
+    hostname: worker1
     volumes:
-      - datanode1_data:/data
+      - worker1_data:/data
 
-  datanode2:
-    <<: *datanode-common
-    container_name: datanode2
-    hostname: datanode2
-    restart: unless-stopped
-    command: ["hdfs", "datanode"]
+  worker2:
+    <<: *worker-common
+    container_name: worker2
+    hostname: worker2
     volumes:
-      - datanode2_data:/data
+      - worker2_data:/data
 
-  datanode3:
-    <<: *datanode-common
-    container_name: datanode3
-    hostname: datanode3
-    restart: unless-stopped
-    command: ["hdfs", "datanode"]
+  worker3:
+    <<: *worker-common
+    container_name: worker3
+    hostname: worker3
     volumes:
-      - datanode3_data:/data
+      - worker3_data:/data
+
+  # Nó extra, só iniciado no exercício de scale-out (seção 4 do README).
+  worker4:
+    <<: *worker-common
+    container_name: worker4
+    hostname: worker4
+    volumes:
+      - worker4_data:/data
+
+  # Edge node: máquina de onde o usuário fala com o cluster. Não roda nenhum
+  # daemon do Hadoop — só tem o client configurado (o entrypoint gera os XMLs a
+  # partir do hadoop.env antes do `sleep`). Assim os comandos do lab não rodam
+  # dentro do NameNode, e os dados lidos/gravados vão direto aos DataNodes.
+  client:
+    image: apache/hadoop:3.4.2
+    container_name: client
+    hostname: client
+    restart: unless-stopped
+    command: ["sleep", "infinity"]
+    env_file: hadoop.env
+    networks:
+      - hadoop_net
+    depends_on:
+      namenode:
+        condition: service_started
 
   resourcemanager:
     image: apache/hadoop:3.4.2
@@ -90,18 +119,6 @@ services:
     depends_on:
       namenode:
         condition: service_healthy
-
-  nodemanager:
-    image: apache/hadoop:3.4.2
-    container_name: nodemanager
-    hostname: nodemanager
-    restart: unless-stopped
-    command: ["yarn", "nodemanager"]
-    env_file: hadoop.env
-    networks:
-      - hadoop_net
-    depends_on:
-      - resourcemanager
 
   # ──────────────────────────── Fonte de dados (MySQL) ────────────────────────────
   mysql:
