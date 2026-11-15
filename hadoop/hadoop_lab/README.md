@@ -1,66 +1,85 @@
 # Hadoop Lab — HDFS + MapReduce + Spark com Docker
 
-Este laboratório sobe um mini cluster Hadoop completo no seu computador, usando Docker, para você experimentar na prática os conceitos vistos em aula: armazenamento distribuído (HDFS), processamento distribuído (MapReduce e Spark) e catálogo de metadados (Hive Metastore).
+Este laboratório sobe um mini cluster Hadoop completo no seu computador, usando Docker, para você experimentar na prática os conceitos vistos em aula: armazenamento distribuído (HDFS), processamento distribuído (MapReduce no YARN e Spark) e catálogo de metadados (Hive Metastore).
 
-A ideia não é decorar comandos, e sim **entender o que acontece por trás de cada um** — por isso cada seção abaixo começa com o conceito antes do comando.
+A ideia não é virar administrador de cluster nem decorar comandos, e sim **ver funcionando as soluções que o Hadoop trouxe para escalabilidade e tolerância a falhas**. Por isso cada seção começa com uma **Ponte com a aula**, que aponta qual slide aquele passo comprova, e com o conceito antes do comando.
 
 ## O que você vai praticar
 
-1. Subir um cluster Hadoop com múltiplos nós usando Docker Compose, camada por camada (HDFS → YARN → Hive/MySQL/Spark).
-2. Gravar e ler arquivos no HDFS e ver como ele replica os dados entre nós.
-3. Rodar um job MapReduce clássico (contagem de palavras) e acompanhar sua execução no YARN.
-4. Rodar um job de ETL em Spark que lê de um banco relacional (MySQL), grava em Parquet no HDFS e registra a tabela no Hive Metastore.
-5. Consultar a tabela registrada via JDBC (HiveServer2/beeline), além do Spark SQL.
+1. Subir um cluster com um nó mestre e três workers, no mesmo desenho da aula: NameNode e ResourceManager no mestre, DataNode e NodeManager em cada worker.
+2. Ver um arquivo virar blocos distribuídos e replicados entre os workers.
+3. Derrubar um worker e ver o cluster **detectar** a falha, continuar servindo os dados e **re-replicar** os blocos quando um nó novo entra (scale-out).
+4. Derrubar o mestre e entender por que ele é um ponto único de falha.
+5. Rodar um word count em MapReduce e comprovar, nos contadores do job, que **o código foi até o dado**.
+6. Derrubar um worker no meio de um job e ver as tarefas serem **reexecutadas** em outro nó.
+7. Rodar um ETL em Spark (MySQL → Parquet no HDFS → tabela no Hive) e consultá-lo via Spark SQL e JDBC.
 
 ## Arquitetura do cluster
 
-As imagens usadas são as oficiais [apache/hadoop](https://hub.docker.com/r/apache/hadoop), [apache/hive](https://hub.docker.com/r/apache/hive) e [apache/spark-py](https://hub.docker.com/r/apache/spark-py). Cada serviço roda em um container separado, simulando máquinas diferentes de um cluster real:
+As imagens usadas são as oficiais [apache/hadoop](https://hub.docker.com/r/apache/hadoop), [apache/hive](https://hub.docker.com/r/apache/hive) e [apache/spark-py](https://hub.docker.com/r/apache/spark-py). Cada container simula uma máquina diferente de um cluster real:
 
-| Camada | Serviços | Para que serve |
+| Máquina (container) | Processos | Para que serve |
 |---|---|---|
-| **HDFS** (armazenamento) | 1 NameNode + 3 DataNodes | Sistema de arquivos distribuído. O NameNode guarda os metadados (onde está cada arquivo); os DataNodes guardam os blocos de dados de fato. Fator de replicação 3 = cada bloco fica copiado em 3 nós diferentes, para tolerar falhas. |
-| **YARN** (orquestração) | ResourceManager + NodeManager + JobHistory Server | Gerenciador de recursos do cluster: decide onde cada job roda e acompanha sua execução. O JobHistory guarda o histórico de jobs concluídos. |
-| **Hive Metastore** | Metastore + Postgres | Catálogo central de tabelas (nome, colunas, schema, localização no HDFS). Tanto o Hive quanto o Spark consultam esse catálogo para saber "o que é a tabela X e onde ela está". Fala Thrift (`9083`), não SQL. |
-| **HiveServer2** | HiveServer2 | Servidor que executa SQL de fato e expõe uma porta **JDBC** (`10000`) para clients como `beeline` ou DBeaver. Usa o mesmo catálogo do Hive Metastore para saber onde estão os dados. |
-| **Spark** (processamento) | Spark Master + Spark Worker | Motor de processamento distribuído, usado aqui para rodar um ETL: MySQL → Parquet no HDFS → tabela no Hive. |
-| **MySQL** | 1 instância | Simula um banco transacional de origem (ex.: o banco de um sistema de RH), de onde o ETL extrai os dados. |
+| **`namenode`** (mestre do HDFS) | NameNode | Guarda os metadados: a árvore de pastas e arquivos e o mapa de onde está cada bloco. Os dados em si nunca passam por ele. |
+| **`resourcemanager`** (mestre do YARN) | ResourceManager | Distribui CPU e memória do cluster (containers) entre os jobs. |
+| **`worker1`, `worker2`, `worker3`** | DataNode + NodeManager | Cada worker guarda blocos do HDFS (DataNode) **e** roda tarefas (NodeManager) na mesma máquina. É isso que permite levar o código até o dado. Fator de replicação 3: cada bloco fica copiado em 3 workers diferentes. |
+| **`worker4`** | DataNode + NodeManager | Worker extra, só ligado no exercício de scale-out (seção 4.3). |
+| **`client`** | nenhum (só o client do Hadoop) | O *edge node*: a máquina de onde você fala com o cluster. Todos os comandos `hdfs`/`yarn`/`hadoop` do lab rodam aqui, fora do mestre e dos workers. |
+| **`historyserver`** | JobHistory Server | Guarda o histórico e os contadores dos jobs MapReduce concluídos. |
+| **`hive-metastore`** + `hive-metastore-db` | Hive Metastore + Postgres | Catálogo central de tabelas (nome, colunas, schema, localização no HDFS). Tanto o Hive quanto o Spark consultam esse catálogo para saber "o que é a tabela X e onde ela está". Fala Thrift (`9083`), não SQL. |
+| **`hiveserver2`** | HiveServer2 | Servidor que executa SQL de fato e expõe uma porta **JDBC** (`10000`) para clients como `beeline` ou DBeaver. Usa o mesmo catálogo do Hive Metastore para saber onde estão os dados. |
+| **`spark-master`** + `spark-worker` | Spark | Motor de processamento distribuído, usado aqui para rodar um ETL: MySQL → Parquet no HDFS → tabela no Hive. |
+| **`mysql`** | MySQL | Simula um banco transacional de origem (ex.: o banco de um sistema de RH), de onde o ETL extrai os dados. |
 
 ```mermaid
-flowchart TB
-    MySQL[("MySQL")] -- JDBC --> Spark["Spark<br/>(ETL job)"]
-    Spark -- grava Parquet --> NameNode
+flowchart LR
+    Client(("client<br/>(edge node)"))
 
-    subgraph HDFS
-        NameNode["NameNode"] <-- replica --> DataNodes["DataNode 1/2/3"]
+    subgraph Mestre
+        NN["NameNode<br/>onde está cada bloco"]
+        RM["ResourceManager<br/>quem roda onde"]
     end
 
-    NameNode <-- "registra schema/local." --> Hive["Hive Metastore"]
-    Hive -. "catálogo consultado pelo Spark" .-> Spark
-    Hive -- "catálogo" --> HS2["HiveServer2"]
-    HS2 <-- JDBC --> Client(("Cliente JDBC<br/>(beeline/DBeaver)"))
-
-    subgraph YARN
-        RM["ResourceManager"] <-- "agenda/acompanha jobs" --> NM["NodeManager"]
+    subgraph Workers["Workers (1, 2, 3 e, no scale-out, 4)"]
+        W1["worker1<br/>DataNode + NodeManager"]
+        W2["worker2<br/>DataNode + NodeManager"]
+        W3["worker3<br/>DataNode + NodeManager"]
     end
+
+    Client -- "metadados" --> NN
+    Client -- "submete jobs" --> RM
+    Client == "lê/grava blocos direto" ==> Workers
+    NN <-. "heartbeat + block report" .-> Workers
+    RM <-. "heartbeat + containers" .-> Workers
+
+    subgraph ETL["Camada de ETL (seção 7)"]
+        MySQL[("MySQL")] -- JDBC --> Spark["Spark"]
+        Spark -- "consulta catálogo" --> HMS["Hive Metastore"]
+        HMS --> HS2["HiveServer2 (JDBC)"]
+    end
+    Spark -- "grava Parquet" --> Workers
 ```
 
 ## Pré-requisitos
 
-- Docker e Docker Compose instalados.
+- Docker e Docker Compose instalados, com **pelo menos 8 GB de memória** disponíveis para o Docker (no Docker Desktop: *Settings → Resources*). Com as seções 1 a 6 no ar, o cluster usa cerca de 5 GB.
 - Portas livres na sua máquina: `9870`, `8020`, `8088`, `19888`, `8080`, `8081`, `3306`, `9083`, `10000`, `10002`. Algumas coincidem com as do lab `modern-data-stack` (ex.: `8081`, `8088`) — não rode os dois ao mesmo tempo.
+- **No Windows**, use o PowerShell. Se preferir o Git Bash, rode antes `export MSYS_NO_PATHCONV=1`; sem isso, ele converte caminhos como `/user/aluno` em `C:/Program Files/Git/user/aluno` e os comandos do HDFS falham.
 
-## 1. Subir o ambiente: começando pelo HDFS
+Se algo der errado, consulte [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
-Em vez de subir os 11 containers de uma vez com `docker compose up -d`, vamos subir o cluster **em camadas**, na mesma ordem em que vamos usá-lo: primeiro o HDFS (usado na seção 3), depois o YARN (seção 4) e por último Hive Metastore + MySQL + Spark (seção 5). Assim fica mais fácil relacionar cada container com o que ele faz, em vez de ver uma parede de serviços subindo de uma vez.
+## 1. Subir o núcleo do cluster: um mestre e três workers
+
+> **Ponte com a aula** — slide "Core Apache Hadoop", na faixa "Visão do cluster": um mestre com NameNode e ResourceManager, e workers com DataNode e NodeManager lado a lado. É exatamente o que você vai subir agora.
+
+Em vez de subir os 14 containers de uma vez, vamos subir o cluster **em camadas**, na ordem em que vamos usá-lo. Primeiro, o núcleo do Hadoop: os dois mestres, três workers e a máquina cliente.
 
 ```bash
 cd hadoop/hadoop_lab
-docker compose up -d namenode datanode1 datanode2 datanode3
+docker compose up -d namenode resourcemanager worker1 worker2 worker3 client
 ```
 
-Isso constrói (se necessário) e inicia só o NameNode e os 3 DataNodes — o suficiente para os testes de HDFS da seção 3. Os demais serviços do `docker-compose.yml` (YARN, Hive, Spark, MySQL) continuam parados até serem chamados explicitamente nas seções seguintes.
-
-**Por que esperar o NameNode ficar "healthy"?** Toda vez que sobe, o NameNode entra em *safe mode*: um estado de só-leitura em que ele aguarda os DataNodes reportarem quais blocos guardam, até ter certeza de que os arquivos estão íntegros. O `healthcheck` do NameNode só fica `healthy` quando o safe mode termina — por isso os serviços que gravam no HDFS (Hive, Spark, YARN) esperam esse `healthcheck`. Os DataNodes, ao contrário, sobem assim que o NameNode inicia (`condition: service_started`): são eles que tiram o NameNode do safe mode, então não podem esperar por ele.
+**Por que esperar o NameNode ficar "healthy"?** Toda vez que sobe, o NameNode entra em *safe mode*: um estado de só-leitura em que ele aguarda os DataNodes reportarem quais blocos guardam (o *block report*), até ter certeza de que os arquivos estão íntegros. O `healthcheck` do NameNode só fica `healthy` quando o safe mode termina — por isso o ResourceManager e os serviços que gravam no HDFS esperam esse `healthcheck`. Os workers, ao contrário, sobem assim que o NameNode inicia: são eles que tiram o NameNode do safe mode, então não podem esperar por ele.
 
 Acompanhe a inicialização com:
 
@@ -68,94 +87,289 @@ Acompanhe a inicialização com:
 docker compose ps
 ```
 
-Espere `namenode`, `datanode1`, `datanode2` e `datanode3` aparecerem como `healthy`/`running` antes de seguir para os testes. Os demais serviços ainda não vão aparecer nessa lista — é esperado, eles só são iniciados nas seções 4 e 5.
+Quando `namenode` aparecer como `healthy`, confira que os dois mestres enxergam os três workers:
+
+```bash
+# o NameNode vê 3 DataNodes vivos?
+docker exec client hdfs dfsadmin -report
+
+# o ResourceManager vê 3 NodeManagers?
+docker exec client yarn node -list
+```
+
+Repare que os nomes se repetem nas duas listas: `worker1`, `worker2`, `worker3`. A mesma máquina guarda blocos e roda tarefas.
+
+> **Por que tudo roda no `client`?** Em um cluster real, ninguém trabalha logado no NameNode: você usa uma máquina cliente, que pede metadados ao mestre e lê e grava os blocos **direto nos workers**. Se os comandos rodassem dentro do container do NameNode, pareceria que os dados passam por ele, e é justamente o contrário do que a aula mostra.
 
 ## 2. Acessar as interfaces web
 
-Cada serviço expõe uma UI onde dá para acompanhar visualmente o que está acontecendo — vale a pena deixar aberta enquanto roda os exercícios. Como o ambiente está subindo aos poucos, nem todas vão responder agora: use esta tabela como referência e volte a ela conforme for subindo cada camada nas seções seguintes.
+Cada serviço expõe uma UI onde dá para acompanhar visualmente o que está acontecendo — vale a pena deixar aberta enquanto roda os exercícios. Como o ambiente sobe aos poucos, nem todas vão responder agora: use esta tabela como referência e volte a ela conforme for subindo cada camada.
 
 | Interface | URL | O que observar |
 |---|---|---|
-| NameNode Web UI | http://localhost:9870 | Aba "Datanodes" → confirme que os 3 DataNodes estão ativos (`In Service`) |
-| ResourceManager Web UI | http://localhost:8088 | Aplicações em execução/concluídas e NodeManagers registrados |
-| JobHistory Web UI | http://localhost:19888 | Detalhes de jobs MapReduce já concluídos (contadores, tempo de execução) |
+| NameNode Web UI | http://localhost:9870 | Aba **Datanodes**: os workers `In Service` e a coluna **Last contact**, que é o heartbeat de cada um (fica em poucos segundos enquanto o nó está vivo). Menu **Utilities → Browse the file system**: clique num arquivo para ver os blocos e em quais workers cada um está. |
+| ResourceManager Web UI | http://localhost:8088 | Menu **Nodes**: NodeManagers registrados. Página de cada aplicação: tarefas em execução e o nó do ApplicationMaster. |
+| JobHistory Web UI | http://localhost:19888 | Jobs MapReduce concluídos: tempo de execução, contadores e em qual worker rodou cada tarefa. |
 | Spark Master Web UI | http://localhost:8080 | Workers conectados e aplicações Spark em execução |
 | Spark Worker Web UI | http://localhost:8081 | Recursos (CPU/memória) do worker e executors rodando |
 | HiveServer2 Web UI | http://localhost:10002 | Sessões e queries SQL em execução/concluídas |
 
 Outros acessos úteis (via linha de comando, não browser):
 
-- HDFS RPC: `hdfs://localhost:8020` — atende só operações de metadados (listar, criar diretório) a partir da sua máquina; ler/gravar conteúdo exige acesso aos DataNodes, que não estão expostos. Para manipular arquivos, use `docker exec namenode hdfs dfs ...` como nas seções abaixo.
+- HDFS RPC: `hdfs://localhost:8020` — atende só operações de metadados (listar, criar diretório) a partir da sua máquina; ler e gravar conteúdo exige acesso aos DataNodes, que não estão expostos. Isso, aliás, é uma prova do slide "Como os dados são gravados e lidos": o NameNode só dá instruções, os dados nunca passam por ele. Para manipular arquivos, use `docker exec client hdfs dfs ...` como nas seções abaixo.
 - MySQL: `localhost:3306`, database `impacta`, usuário `root` / senha `root123`
 - Hive Metastore (Thrift): `thrift://localhost:9083`
 - HiveServer2 (JDBC): `jdbc:hive2://localhost:10000/default`
 
-## 3. Testar o HDFS: gravando e lendo arquivos distribuídos
+## 3. HDFS: um arquivo vira blocos replicados
 
-**Conceito:** no HDFS, um arquivo é dividido em blocos e cada bloco é replicado em vários nós (aqui, fator de replicação 3). Isso significa que mesmo que um DataNode caia, o arquivo continua acessível pelos outros dois.
+> **Ponte com a aula** — slides "HDFS: arquivos viram blocos distribuídos" (divisão, distribuição e replicação) e "Como os dados são gravados e lidos" (o cliente fala com o NameNode só para metadados e grava os blocos direto nos DataNodes).
+
+**Conceito:** no HDFS, um arquivo é dividido em blocos, e cada bloco é replicado em vários workers (aqui, fator de replicação 3). O tamanho padrão do bloco é 128 MB, grande demais para um arquivo de laboratório. Por isso vamos gravar com blocos de **1 MB** (`-D dfs.blocksize=1048576`): o mesmo mecanismo, em miniatura.
+
+Primeiro, um arquivo pequeno, só para ver o básico:
 
 ```bash
 # cria um diretório no HDFS (assim como mkdir, mas no sistema de arquivos distribuído)
-docker exec namenode hdfs dfs -mkdir -p /user/aluno
+docker exec client hdfs dfs -mkdir -p /user/aluno
 
-# grava um arquivo de teste
-echo "hello hdfs" | docker exec -i namenode hdfs dfs -put - /user/aluno/teste.txt
-
-# lê o arquivo de volta
-docker exec namenode hdfs dfs -cat /user/aluno/teste.txt
-
-# inspeciona onde os blocos desse arquivo foram parar
-docker exec namenode hdfs fsck /user/aluno/teste.txt -files -blocks -locations
+# grava e lê de volta um arquivo de teste
+echo "hello hdfs" | docker exec -i client hdfs dfs -put - /user/aluno/teste.txt
+docker exec client hdfs dfs -cat /user/aluno/teste.txt
 ```
 
-**O que observar no `fsck`:** a saída deve mostrar `Live_repl=3` e três entradas `DatanodeInfoWithStorage[...]`, uma para cada DataNode (identificados pelo IP do container na rede Docker, não pelo nome) — prova de que a replicação está funcionando.
-
-**Testando a tolerância a falhas:** derrube um DataNode e leia o arquivo de novo — ele continua acessível pelas outras duas réplicas:
+Agora um arquivo de ~10 MB, gerado dentro do `client` e gravado com blocos de 1 MB:
 
 ```bash
-docker stop datanode1
-docker exec namenode hdfs dfs -cat /user/aluno/teste.txt
-docker start datanode1
+docker exec client sh -c "seq 1 1500000 > /tmp/numeros.txt && hdfs dfs -D dfs.blocksize=1048576 -put /tmp/numeros.txt /user/aluno/numeros.txt"
+
+# onde foi parar cada bloco?
+docker exec client hdfs fsck /user/aluno/numeros.txt -files -blocks -locations
 ```
+
+**O que observar no `fsck`:**
+
+- A primeira linha diz `11 block(s)`: o arquivo de 10,4 MB foi cortado em 10 blocos de 1 MB e um último de ~0,4 MB.
+- Cada bloco aparece com `Live_repl=3` e três `DatanodeInfoWithStorage[...]`, ou seja, as três cópias estão em workers diferentes. O `fsck` mostra os workers pelo IP; para ver os nomes, use a UI (**Utilities → Browse the file system**, clique em `numeros.txt` e escolha um bloco) ou relacione os IPs com a saída de `hdfs dfsadmin -report`.
+- No resumo, `Under-replicated blocks: 0`: nenhum bloco está com menos cópias do que deveria. Guarde esse número, ele vai mudar na próxima seção.
+
+**Quanto disco a replicação custa?**
+
+```bash
+docker exec client hdfs dfs -du -s -h /user/aluno/numeros.txt
+```
+
+A saída tem duas colunas: `10.4 M  31.2 M`. A primeira é o tamanho do arquivo; a segunda, o espaço ocupado no cluster com as 3 réplicas. É a pergunta da aula: 100 TB de cliques com replicação 3 ocupam 300 TB.
 
 > Rodar o `-put` de novo para o mesmo caminho falha com `File exists` — o HDFS não sobrescreve arquivos por padrão. Use `hdfs dfs -put -f` para sobrescrever.
 
-## 4. Subir o YARN e testar o MapReduce: contagem de palavras (word count)
+## 4. Tolerância a falhas e scale-out
 
-Para rodar um job MapReduce precisamos das peças do YARN, que ainda não foram iniciadas: o ResourceManager (agenda os jobs), o NodeManager (executa as tarefas de map/reduce) e o JobHistory Server (guarda o histórico de jobs concluídos).
+> **Ponte com a aula** — slide "Sistemas distribuídos sobrevivem a falhas" (detectar, isolar, reexecutar, replicar), o heartbeat do slide "NameNode coordena; DataNodes armazenam" e o slide "Scale-up melhora a máquina; scale-out amplia o cluster". Nesta seção você vê **detectar** e **replicar** acontecendo; o **reexecutar** fica para a seção 6.
+
+Neste lab, um DataNode que para de mandar heartbeat é declarado morto em **~60 segundos**. Em um cluster de produção, o padrão é ~10 minutos: aceleramos no [hadoop.env](hadoop.env) para caber na aula.
+
+### 4.1 Derrubar um worker: os dados continuam lá
 
 ```bash
-docker compose up -d resourcemanager nodemanager historyserver
-docker compose ps
+docker stop worker1
+docker exec client hdfs dfs -cat /user/aluno/teste.txt
 ```
 
-`resourcemanager` e `nodemanager` não têm `healthcheck` definido — basta esperarem aparecer como `Up` no `docker compose ps` (poucos segundos) antes de submeter o job abaixo.
+O arquivo continua legível: as outras duas réplicas estão em `worker2` e `worker3`. Isso é a **replicação** funcionando.
 
-**Conceito:** o MapReduce processa dados em duas fases. A fase *Map* lê os dados de entrada e emite pares `(palavra, 1)` para cada ocorrência; a fase *Shuffle/Sort* agrupa e ordena esses pares por chave (palavra), distribuindo-os entre os reducers conforme um hash da chave; a fase *Reduce* soma as ocorrências de cada palavra. O YARN é quem decide em qual nó cada tarefa de map/reduce roda.
+Talvez apareça um `WARN` com um stack trace longo antes do conteúdo. Não é erro do lab: leia só as linhas de log. Elas contam o que o cliente fez. O NameNode entregou a lista de réplicas, o cliente tentou primeiro a do `worker1` (`Failed to connect to ... add to deadNodes and continue`), desistiu dela e leu de outra (`Successfully connected to ...`).
 
-Rodamos aqui com **2 reducers** (`-D mapreduce.job.reduces=2`) para deixar visível que cada reducer processa um subconjunto das palavras e grava seu próprio arquivo de saída:
+### 4.2 O NameNode detecta a falha
+
+Logo depois do `stop`, o NameNode ainda acha que o `worker1` está vivo: ele só sabe que algo deu errado quando os heartbeats param de chegar. Abra a aba **Datanodes** em http://localhost:9870 e acompanhe a coluna **Last contact** do `worker1` subindo. Depois de ~1 minuto:
 
 ```bash
-docker exec namenode sh -c "
+# quantos DataNodes vivos e mortos?
+docker exec client hdfs dfsadmin -report -dead
+
+# e os blocos?
+docker exec client hdfs fsck /user/aluno
+```
+
+**O que observar:**
+
+- `Dead datanodes (1)`, com o `worker1` e o horário do último heartbeat (`Last contact`). Isso é o **detectar** do slide.
+- No `fsck`, `Under-replicated blocks: 12 (100.0 %)` e `Missing replicas: 12 (33.3 %)`: todo bloco perdeu uma das três cópias. Mas `Missing blocks: 0` e `Status: HEALTHY`: nenhum dado foi perdido.
+- Por que o NameNode não recria a terceira cópia? Porque só restam 2 workers vivos, e duas réplicas do mesmo bloco nunca ficam no mesmo nó. Falta máquina.
+
+### 4.3 Scale-out: um nó novo entra com o cluster no ar
+
+Em vez de trocar uma máquina por outra maior (scale-up), vamos colocar mais uma ao lado (scale-out), sem parar nada:
+
+```bash
+docker compose up -d worker4
+```
+
+Espere uns 20 segundos e confira:
+
+```bash
+docker exec client hdfs dfsadmin -report
+docker exec client hdfs fsck /user/aluno
+docker exec client yarn node -list
+```
+
+**O que observar:**
+
+- `Live datanodes (3)` de novo, agora com o `worker4`, e o `Configured Capacity` do cluster cresceu.
+- `Under-replicated blocks: 0`: assim que o `worker4` entrou, o NameNode mandou copiar para ele as réplicas que faltavam. O cluster se recuperou sozinho: **detectar → replicar**.
+- O `worker4` também apareceu como NodeManager no YARN: o nó novo já pode receber tarefas.
+
+> Neste lab todos os workers dividem o mesmo disco do seu computador, então a capacidade "somada" é uma simulação. Em um cluster real, cada máquina nova traz disco, CPU e memória próprios.
+
+### 4.4 O worker antigo volta
+
+```bash
+docker start worker1
+```
+
+Depois de alguns segundos, rode `docker exec client hdfs fsck /user/aluno` de novo: `Number of data-nodes: 4`, e `Over-replicated blocks: 0`. Por um instante, alguns blocos tiveram 4 cópias (as antigas do `worker1` mais as novas do `worker4`), e o NameNode apagou as excedentes para voltar ao fator 3.
+
+A partir daqui o cluster tem **4 workers**. Guarde isso: se você reiniciar o ambiente, suba o `worker4` junto (veja "Parar e voltar ao ambiente", no fim).
+
+### 4.5 E se o mestre cair?
+
+Os workers são substituíveis. E o NameNode?
+
+```bash
+docker stop namenode
+docker exec client hdfs dfs -ls /user/aluno
+```
+
+O comando falha: com o NameNode fora, ninguém sabe onde estão os blocos, mesmo com todos os workers de pé e os dados intactos neles. (Aqui o erro é `UnknownHostException: namenode` porque o Docker remove o nome do container parado; em um cluster real seria `Connection refused`.)
+
+```bash
+docker start namenode
+docker exec client hdfs dfsadmin -safemode get
+```
+
+Ao voltar, o NameNode entra em safe mode e só libera escrita depois que os workers reenviam o block report. Repita o `-safemode get` até ver `Safe mode is OFF` (cerca de 30 a 60 segundos). Nos primeiros segundos ele pode responder `Connection refused`, enquanto o processo do NameNode ainda está subindo.
+
+Esse é o **ponto único de falha** que a aula aponta no NameNode e, no Hadoop 1.0, no JobTracker. Em produção a solução é ter um segundo mestre em espera (*standby*), com o ZooKeeper decidindo qual dos dois está ativo. Este lab não monta essa alta disponibilidade, porque o objetivo é ver o problema que ela resolve, não administrá-la.
+
+## 5. MapReduce no YARN: levar o código até o dado
+
+> **Ponte com a aula** — slides "A virada: levar código aos dados", "WordCount: o fluxo de dados", "A cozinha industrial de dados" (o shuffle é a etapa cara) e "Execução: do job ao cluster".
+
+O ResourceManager e os NodeManagers já estão no ar desde a seção 1. Falta só o JobHistory Server, que guarda o histórico dos jobs concluídos:
+
+```bash
+docker compose up -d historyserver
+```
+
+**Conceito:** o MapReduce processa dados em fases. A fase *Map* lê os dados de entrada e emite pares `(palavra, 1)` para cada ocorrência; a fase *Shuffle/Sort* agrupa e ordena esses pares por chave (palavra), distribuindo-os entre os reducers conforme um hash da chave; a fase *Reduce* soma as ocorrências de cada palavra. O YARN decide em qual worker cada tarefa roda e, sempre que pode, escolhe **o worker que já tem o bloco**.
+
+Para deixar isso visível, a entrada vai ter vários blocos (um map por bloco) e **uma réplica só** (`-D dfs.replication=1`). Com 3 réplicas em 4 workers, quase qualquer worker teria o bloco; com uma réplica só, o YARN precisa acertar a máquina. Rodamos com **2 reducers** (`-D mapreduce.job.reduces=2`) para deixar visível que cada reducer processa um subconjunto das palavras e grava seu próprio arquivo de saída:
+
+```bash
+# ~10 MB de texto, gravados em blocos de 1 MB com uma réplica só
+docker exec client sh -c "
   hdfs dfs -mkdir -p /user/aluno/wordcount/input
-  echo 'hadoop mapreduce hdfs yarn hadoop yarn hadoop' | hdfs dfs -put - /user/aluno/wordcount/input/text.txt
-  hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.jar wordcount \
-    -D mapreduce.job.reduces=2 \
-    /user/aluno/wordcount/input /user/aluno/wordcount/output
+  yes 'o hadoop leva o codigo ate o dado e o yarn decide onde cada tarefa roda' | head -n 150000 > /tmp/texto.txt
+  hdfs dfs -D dfs.replication=1 -D dfs.blocksize=1048576 -put -f /tmp/texto.txt /user/aluno/wordcount/input/texto.txt
 "
-# lista os arquivos de saída: um part-r-000XX por reducer
-docker exec namenode hdfs dfs -ls /user/aluno/wordcount/output
-docker exec namenode hdfs dfs -cat /user/aluno/wordcount/output/part-r-00000
-docker exec namenode hdfs dfs -cat /user/aluno/wordcount/output/part-r-00001
+
+# submete o job
+docker exec client hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.jar wordcount \
+  -D mapreduce.job.reduces=2 \
+  /user/aluno/wordcount/input /user/aluno/wordcount/output
 ```
 
-O resultado esperado é a contagem de cada palavra do texto de entrada (ex.: `hadoop` aparecendo 3 vezes, `yarn` 2 vezes, etc.), só que dividida entre `part-r-00000` e `part-r-00001` — cada palavra aparece em um único arquivo, conforme o reducer para o qual foi roteada na fase de Shuffle/Sort.
+> Durante o `-put`, pode aparecer um `NotReplicatedYetException ... retries left 4` com stack trace. Com blocos de 1 MB, o cliente pede o bloco seguinte antes de o NameNode registrar o anterior; ele espera um instante e tenta de novo sozinho. O arquivo é gravado normalmente.
 
-> Para rodar o job de novo, apague antes o diretório de saída (`docker exec namenode hdfs dfs -rm -r /user/aluno/wordcount/output`): o MapReduce se recusa a sobrescrever uma saída existente e falha com `FileAlreadyExistsException`, para não destruir resultados por engano.
+Enquanto o job roda, acompanhe em http://localhost:8088. Na página da aplicação, a tabela de *attempts* mostra em qual worker está o **ApplicationMaster**: o gerente daquele job, que pede containers ao ResourceManager e acompanha as tarefas. Cada job tem o seu, e foi essa separação que o YARN trouxe para resolver o gargalo do JobTracker do Hadoop 1.0.
 
-Enquanto o job roda, acompanhe em http://localhost:8088 (aplicação em andamento, com as tarefas de map e reduce listadas separadamente); depois de concluído, os detalhes ficam disponíveis em http://localhost:19888.
+**O que observar nos contadores** (impressos no fim da saída do job, em `Job Counters` e `Map-Reduce Framework`):
 
-## 5. Subir Hive Metastore, MySQL e Spark e testar o ETL: MySQL → HDFS (Parquet) → Hive
+| Contador | Valor esperado | O que ele prova |
+|---|---|---|
+| `Launched map tasks` | `11` | Um map por bloco: os 11 blocos foram processados em paralelo, espalhados pelos workers. |
+| `Data-local map tasks` | `11` ou perto disso | Os maps rodaram no worker que tinha o bloco. **O código foi até o dado**, e o dado não atravessou a rede. Se aparecer também `Rack-local map tasks=1`, o worker certo estava ocupado e o YARN preferiu não esperar: aquele map leu o bloco pela rede. |
+| `Map output records` | `2400000` | Cada palavra de cada linha virou um par `(palavra, 1)`. |
+| `Combine output records` | ~`143` | Antes do shuffle, cada map já somou suas próprias palavras (o *combiner*, um "mini reduce" local). Só ~13 pares por map atravessaram a rede, em vez de 2,4 milhões. |
+| `Reduce shuffle bytes` | ~`1.7 KB` | O volume que de fato cruzou a rede no shuffle, a etapa cara da cozinha. |
+
+Agora o resultado:
+
+```bash
+# lista os arquivos de saída: um part-r-000XX por reducer
+docker exec client hdfs dfs -ls /user/aluno/wordcount/output
+docker exec client hdfs dfs -cat /user/aluno/wordcount/output/part-r-00000
+docker exec client hdfs dfs -cat /user/aluno/wordcount/output/part-r-00001
+```
+
+O resultado esperado é a contagem de cada palavra (`o` 600000 vezes, `hadoop` 150000, etc.), dividida entre `part-r-00000` e `part-r-00001` — cada palavra aparece em um único arquivo, conforme o reducer para o qual foi roteada na fase de Shuffle/Sort.
+
+**Quanto custa distribuir?** Abra o job em http://localhost:19888 e veja o tempo de execução (`Elapsed`): algo como 20 a 40 segundos. Agora conte as palavras do mesmo arquivo numa máquina só:
+
+```bash
+docker exec client wc -w /tmp/texto.txt
+```
+
+A resposta é instantânea. Para 10 MB, o custo fixo de distribuir (alocar containers, subir JVMs, fazer o shuffle) é muito maior que o trabalho em si. Big Data só se paga em volume: com 100 TB, a conta de "um disco só" leva dias.
+
+> Para rodar o job de novo, apague antes o diretório de saída (`docker exec client hdfs dfs -rm -r /user/aluno/wordcount/output`): o MapReduce se recusa a sobrescrever uma saída existente e falha com `FileAlreadyExistsException`, para não destruir resultados por engano.
+
+## 6. Reexecução: um worker cai no meio do job
+
+> **Ponte com a aula** — o "Reexecutar" do slide "Sistemas distribuídos sobrevivem a falhas" e a pergunta do slide "O YARN resolve o gargalo do Hadoop 1.0": quem descobre que uma tarefa falhou e manda refazê-la? O ApplicationMaster do job.
+
+Para ter tempo de derrubar um worker durante a execução, vamos usar o job `sleep`, que vem nos exemplos do Hadoop: ele não processa dados, só cria tarefas que esperam um tempo fixo. Aqui são 8 maps de 60 segundos cada e 1 reduce. Neste lab, um NodeManager sem heartbeat por 30 segundos é declarado perdido (`LOST`).
+
+Você vai precisar de **dois terminais**.
+
+**Terminal 1** — submete o job e acompanha o progresso:
+
+```bash
+docker exec client hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.4.2-tests.jar sleep \
+  -m 8 -r 1 -mt 60000 -rt 5000
+```
+
+**Terminal 2** — assim que o terminal 1 mostrar `map 0%`, descubra onde as tarefas estão rodando:
+
+```bash
+# o host do Tracking-URL é o worker do ApplicationMaster
+docker exec client yarn application -list
+
+# quantos containers cada worker está rodando
+docker exec client yarn node -list
+```
+
+Escolha um worker que tenha containers rodando e **que não seja o do ApplicationMaster**, e derrube-o (troque `worker2` pelo que você escolheu):
+
+```bash
+docker stop worker2
+```
+
+Depois de ~30 segundos:
+
+```bash
+docker exec client yarn node -list -all
+```
+
+O worker derrubado aparece como `LOST`. O ApplicationMaster percebe que as tarefas que estavam nele se perderam e pede novos containers para refazê-las em outros workers.
+
+**O que observar no terminal 1:** o job termina com `completed successfully`, e os contadores contam a história:
+
+- `Launched map tasks` maior que 8 (por exemplo, `10`): tarefas foram lançadas de novo.
+- `Killed map tasks` igual ao número de tarefas que estavam no worker derrubado (por exemplo, `2`).
+
+Ninguém precisou reenviar o job: o framework detectou a falha e reexecutou só o que se perdeu. Volte o worker para o cluster:
+
+```bash
+docker start worker2
+```
+
+> **Desafio:** e se você derrubar justamente o worker do ApplicationMaster? Quem cuida do job? Experimente: o ResourceManager percebe que o gerente sumiu e sobe um novo ApplicationMaster em outro worker (na UI 8088, a aplicação passa a ter um segundo *attempt*).
+
+## 7. ETL com Spark e Hive: MySQL → HDFS (Parquet) → Hive
+
+> **Ponte com a aula** — slide "O MapReduce grava em disco a cada etapa": o Spark troca a peça que virou gargalo (o MapReduce) e continua usando o HDFS. Esta seção também antecipa o próximo módulo (Data Lake, Spark e catálogo de tabelas).
 
 Por último, sobe a camada de ETL: o MySQL (fonte de dados), o Hive Metastore (catálogo), o HiveServer2 (consulta SQL/JDBC) e o Spark (Master + Worker):
 
@@ -167,6 +381,8 @@ docker compose ps
 Espere `mysql`, `hive-metastore-db` e `hive-metastore` ficarem `healthy`/`Up` antes de submeter o job — o `spark-master` já depende deles via `depends_on`, mas, se a máquina estiver lenta, vale conferir com `docker compose ps` antes de seguir.
 
 **Conceito:** este é um pipeline de ETL típico de engenharia de dados — extrai de um banco transacional, transforma/grava em um formato colunar otimizado para analytics (Parquet) e registra a tabela em um catálogo (Hive Metastore) para que outras ferramentas (Spark SQL, BI, etc.) consigam consultá-la sem precisar saber onde o arquivo físico está.
+
+> **Sobre o Spark neste lab:** para economizar memória, o Spark roda no seu próprio gerenciador de cluster (modo *standalone*, com `spark-master` e `spark-worker`), e não sobre o YARN. Em clusters Hadoop de produção é comum o Spark pedir containers ao mesmo ResourceManager que rodou o word count, como a aula mostra. A leitura e a gravação no HDFS são as mesmas nos dois casos.
 
 O MySQL já sobe com uma base `impacta` e uma tabela `employees` de exemplo (veja [mysql/init.sql](mysql/init.sql)). O job [spark/jobs/etl_employees.py](spark/jobs/etl_employees.py) lê essa tabela via JDBC, grava o resultado em Parquet no HDFS e registra a tabela `impacta.employees` no Hive Metastore (`saveAsTable`).
 
@@ -182,7 +398,7 @@ Agora confira o resultado em cada camada do pipeline:
 
 ```bash
 # 1) O arquivo Parquet foi realmente gravado no HDFS?
-docker exec namenode hdfs dfs -ls /user/hive/warehouse/impacta.db/employees
+docker exec client hdfs dfs -ls /user/hive/warehouse/impacta.db/employees
 
 # 2) A tabela foi registrada no catálogo do Hive Metastore?
 docker exec hive-metastore-db psql -U hive -d metastore -c \
@@ -201,7 +417,7 @@ Acompanhe a execução em http://localhost:8080 (Spark Master).
 
 **Conceito:** o Hive Metastore (porta `9083`, Thrift) só guarda o catálogo — quem executa SQL de verdade é o **HiveServer2**, que expõe uma porta JDBC (`10000`) e usa o mesmo metastore para descobrir onde os dados estão. É o mesmo papel que um `mysqld` ou `postgres` exerce para seus respectivos drivers JDBC, só que aqui quem responde a consulta é o motor de execução do Hive, lendo o Parquet direto do HDFS.
 
-> **Sobre o motor de execução:** neste lab o HiveServer2 usa o **Tez em modo local** (`hive.execution.engine=tez` + `tez.local.mode=true` no [hive-site.xml](hive/conf/hive-site.xml)), ou seja, as queries rodam dentro do próprio container do HiveServer2, e não como jobs no YARN do cluster — por isso elas não aparecem em http://localhost:8088. Em um cluster de produção o Tez (ou o MapReduce) submeteria cada query ao YARN, igual ao word count da seção 4.
+> **Sobre o motor de execução:** neste lab o HiveServer2 usa o **Tez em modo local** (`hive.execution.engine=tez` + `tez.local.mode=true` no [hive-site.xml](hive/conf/hive-site.xml)), ou seja, as queries rodam dentro do próprio container do HiveServer2, e não como jobs no YARN do cluster — por isso elas não aparecem em http://localhost:8088. Em um cluster de produção o Tez (ou o MapReduce) submeteria cada query ao YARN, igual ao word count da seção 5.
 
 De dentro do container, com o client `beeline` que já vem na imagem:
 
@@ -231,6 +447,12 @@ Esta seção é opcional — explica como o cluster é montado por baixo dos pan
 
   > O `$$HADOOP_HOME` em `MAPRED-SITE.XML_*.env` está escapado com `$$` de propósito: o Docker Compose interpola `env_file` antes de repassar as variáveis ao container, então `$$` vira `$HADOOP_HOME` literal — que é resolvido depois pelo próprio YARN ao lançar os containers de map/reduce.
 
+- Cada worker roda dois processos no mesmo container (`hdfs datanode & yarn nodemanager & wait`), como duas daemons na mesma máquina física. O `dumb-init` da imagem repassa o sinal do `docker stop` para os dois.
+
+- Os tempos de detecção de falha foram reduzidos no [hadoop.env](hadoop.env) para caber na aula: DataNode morto após ~60s sem heartbeat (`dfs.heartbeat.interval=3` e `dfs.namenode.heartbeat.recheck-interval=15000`; o tempo é 2 × recheck + 10 × heartbeat) e NodeManager perdido após 30s (`yarn.nm.liveness-monitor.expiry-interval-ms`). Os padrões de produção são ~10 minutos nos dois casos, para não confundir uma rede lenta com uma máquina morta.
+
+- Cada NodeManager oferece 2 GB e 2 vCPUs ao YARN, e cada container de map, reduce ou ApplicationMaster pede 512 MB, para o cluster caber num notebook.
+
 - Os dados de cada nó são persistidos em volumes Docker nomeados, montados em `/data` dentro do container (o NameNode formata o diretório automaticamente na primeira subida, via `ENSURE_NAMENODE_DIR`).
 
 - O **Hive Metastore** (imagem [apache/hive:3.1.3](https://hub.docker.com/r/apache/hive)) usa Postgres como backend e é configurado via [hive/conf/hive-site.xml](hive/conf/hive-site.xml) (montado como `HIVE_CUSTOM_CONF_DIR`). O entrypoint padrão da imagem tenta rodar `schematool -initSchema` toda vez que sobe — em uma reinicialização normal isso quebraria o container, pois o schema já existe. Por isso o serviço usa um wrapper, [hive/init-metastore.sh](hive/init-metastore.sh), que só inicializa o schema na primeira subida (verificando antes com `schematool -info`) e nas demais delega para o entrypoint original com `IS_RESUME=true`.
@@ -239,32 +461,28 @@ Esta seção é opcional — explica como o cluster é montado por baixo dos pan
 
 - O **Spark** (imagem [apache/spark-py:v3.4.0](https://hub.docker.com/r/apache/spark-py)) é estendido em [spark/Dockerfile](spark/Dockerfile) com o driver JDBC do MySQL e a configuração do Hive (`hive-site.xml` apontando para `thrift://hive-metastore:9083` e `spark-defaults.conf` com `spark.sql.warehouse.dir=hdfs://namenode:8020/user/hive/warehouse`), para que qualquer `spark-submit`/`spark-sql` já saia integrado ao cluster sem flags extras.
 
-## Solução de problemas comuns
+## Solução de problemas
 
-- **`docker compose ps` mostra `namenode` sem ficar `healthy`**: aguarde — o `healthcheck` tem `start_period: 40s` e até 30 tentativas a cada 10s. Se passar de ~5 minutos, veja os logs com `docker compose logs namenode`.
-- **Comando do HDFS trava ou dá timeout**: confirme que o `namenode` está `healthy` antes de rodar qualquer comando `hdfs dfs`.
-- **`spark-submit` falha ao conectar no Hive Metastore ou no MySQL**: confira se `hive-metastore` e `mysql` já estão de pé (`docker compose ps`) — o `spark-master` depende deles, mas se algo demorou para subir, tente rodar o job de novo.
-- **`beeline` não conecta ou trava em `Connecting to jdbc:hive2://...`**: confirme que `hiveserver2` está com status `Up` (`docker compose ps`) e que `hive-metastore` subiu antes dele — o HiveServer2 demora alguns segundos a mais para inicializar do que o Metastore, mesmo depois de aparecer como `Up`.
-- **`docker exec` reclama que o container não existe** (ex.: `resourcemanager`, `spark-master`, `hive-metastore-db`): esse serviço ainda não foi iniciado — volte à seção correspondente (4 para YARN, 5 para Hive/MySQL/Spark) e rode o `docker compose up -d` daquela camada antes de continuar.
-- **`hive-metastore` ou `hiveserver2` reiniciando em loop com `$'\r': command not found` ou `set: -: invalid option`**: os scripts [hive/init-metastore.sh](hive/init-metastore.sh)/[hive/init-hiveserver2.sh](hive/init-hiveserver2.sh) estão com fim de linha estilo Windows (`CRLF`), que o bash dos containers Linux não aceita. O [.gitattributes](.gitattributes) deste diretório força `LF` no checkout, mas um clone feito antes dele existir (ou um arquivo salvo como `CRLF` pelo editor) ainda pode ter o problema. Para corrigir, apague os dois scripts e restaure-os pelo Git, que agora os grava com `LF` (de dentro de `hadoop/hadoop_lab`: `rm hive/init-metastore.sh hive/init-hiveserver2.sh && git checkout -- hive/init-metastore.sh hive/init-hiveserver2.sh`), ou no VS Code clique no indicador `CRLF` da barra de status, selecione `LF` e salve. Depois suba de novo: `docker compose up -d hive-metastore hiveserver2`.
-- **`beeline` trava em `Could not open client transport ... : null` e o `hiveserver2` nunca chega a abrir a porta `10000`**: os logs visíveis (`docker compose logs hiveserver2`) não mostram a causa, porque o log4j do Hive não está configurado para STDOUT — o motivo real fica em `/tmp/hive/hive.log` **dentro do container** (`docker exec hiveserver2 cat /tmp/hive/hive.log`). As causas mais comuns, todas já corrigidas neste `docker-compose.yml`/[hive-site.xml](hive/conf/hive-site.xml), mas que podem voltar se você customizar o ambiente:
-  - `The dir: /tmp/hive on HDFS should be writable` — na verdade é o `/tmp/hive` **local** (filesystem do próprio container, não o do HDFS) que está com permissão `755` em vez de `777`. Corrigido pelo wrapper [hive/init-hiveserver2.sh](hive/init-hiveserver2.sh), que roda antes do HiveServer2 subir.
-  - `Error: ERROR: syntax error at or near "PARAMETER"` durante um `schematool -dbType derby -initSchema` — o entrypoint da imagem tenta inicializar o schema com Derby contra um banco que já é Postgres (inicializado pelo `hive-metastore`). Corrigido com `IS_RESUME=true` no `environment` do serviço `hiveserver2`.
-  - `URISyntaxException: Illegal character in hostname` apontando para algo como `hive-metastore.hadoop_lab_hadoop_net` — o nome da rede Docker Compose (projeto + rede, ambos com `_`) vira sufixo de DNS reverso, e underscore não é um caractere válido em hostname/URI. Corrigido nomeando a rede explicitamente sem underscore (`name: hadoop-lab-net` em `docker-compose.yml`).
-  - `User hive is not allowed to perform this API call` ao chamar `get_current_notificationEventId` — o poller de notificações do HiveServer2 chama essa API do metastore, que por padrão exige um proxy user autorizado (não configuramos impersonation/Kerberos neste lab). Corrigido com `metastore.metastore.event.db.notification.api.auth=false` no `hive-site.xml`.
-- **`beeline`/JDBC conecta, mas a query falha com `AuthorizationException: User: hive is not allowed to impersonate hive`**: por padrão (`hive.server2.enable.doAs=true`), o HiveServer2 tenta acessar o HDFS *como o usuário que conectou via JDBC* (o `-n hive` do `beeline`), e o NameNode não tem esse usuário autorizado como proxy user. Como este lab não usa Kerberos/múltiplos usuários reais, a correção foi desligar a impersonação com `hive.server2.enable.doAs=false` no `hive-site.xml` — o HiveServer2 passa a acessar o HDFS sempre como o usuário de serviço `hive`.
-- **`SELECT` na tabela do ETL falha com `ParquetDecodingException` / `UnsupportedOperationException: ...ETypeConverter$8$1`**: incompatibilidade clássica entre Spark e Hive na codificação de colunas `DECIMAL` em Parquet — por padrão o Spark grava `DECIMAL(10,2)` como `INT64` (formato "novo" do Parquet), mas o conversor de decimal do Hive 3.1.3 só lê o formato legado (`FIXED_LEN_BYTE_ARRAY`). Corrigido com `spark.sql.parquet.writeLegacyFormat=true` em [spark/conf/spark-defaults.conf](spark/conf/spark-defaults.conf) — depois de mudar essa config é preciso **rebuildar a imagem do Spark** (`docker compose up -d --build spark-master spark-worker`, já que o arquivo é copiado para dentro da imagem no build) e **rodar o ETL de novo** para regravar a tabela com o formato correto; arquivos Parquet já gravados antes da mudança continuam ilegíveis pelo Hive.
+Os problemas conhecidos e suas soluções estão em [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
-## Parar o ambiente
+## Parar e voltar ao ambiente
 
 ```bash
 docker compose down       # mantém os volumes (dados persistem)
 docker compose down -v    # remove também os volumes (reset completo)
 ```
 
+Para voltar depois de um `docker compose down` (sem `-v`), suba o núcleo com **todos os workers que já fizeram parte do cluster**:
+
+```bash
+docker compose up -d namenode resourcemanager historyserver worker1 worker2 worker3 worker4 client
+```
+
+Se você deixar o `worker4` de fora depois de ter feito o scale-out, o NameNode não sai do safe mode: alguns blocos (como os da entrada do word count, gravados com uma réplica só) existem apenas nele, e o NameNode não libera o cluster enquanto não souber de pelo menos uma cópia de cada bloco. É o block report protegendo os dados. Se ainda não chegou na seção 4.3, pode deixar o `worker4` de fora.
+
 ## Encontrou um erro?
 
-Se algum passo deste laboratório não funcionar como descrito (mesmo depois de checar a seção "Solução de problemas comuns" acima), abra uma issue em [github.com/stailer37/impacta-labs/issues](https://github.com/stailer37/impacta-labs/issues/new). Para facilitar o diagnóstico, inclua:
+Se algum passo deste laboratório não funcionar como descrito (mesmo depois de checar o [TROUBLESHOOTING.md](TROUBLESHOOTING.md)), abra uma issue em [github.com/stailer37/impacta-labs/issues](https://github.com/stailer37/impacta-labs/issues/new). Para facilitar o diagnóstico, inclua:
 
 - O comando exato que você rodou e a saída completa do erro.
 - O resultado de `docker compose ps` (mostra o status de cada serviço).

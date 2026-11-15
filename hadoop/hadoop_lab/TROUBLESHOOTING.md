@@ -1,0 +1,42 @@
+# Hadoop Lab — Solução de problemas
+
+Problemas conhecidos do [laboratório de Hadoop](README.md) e como resolvê-los. Se o seu caso não estiver aqui, veja a seção "Encontrou um erro?" no fim do README.
+
+## Subida do cluster
+
+- **`docker compose ps` mostra `namenode` sem ficar `healthy`**: aguarde — o `healthcheck` tem `start_period: 40s` e até 30 tentativas a cada 10s. O NameNode só fica `healthy` quando sai do *safe mode*, e isso depende de os workers reportarem seus blocos. Se passar de ~5 minutos, veja os logs com `docker compose logs namenode` e procure a linha `The reported blocks X needs additional Y blocks to reach the threshold`.
+- **Depois de reiniciar o ambiente, o `namenode` nunca fica `healthy` e o `resourcemanager` não sobe (`dependency failed to start: container namenode is unhealthy`)**: quase sempre é porque você já fez o exercício de scale-out (seção 4.3) e subiu de novo só `worker1`–`worker3`. Alguns blocos (por exemplo, os da entrada do word count, gravados com 1 réplica) existem **apenas no `worker4`**, e o NameNode não sai do safe mode enquanto não souber de pelo menos uma cópia de cada bloco. É o próprio safe mode protegendo os dados. Para resolver, suba o worker que falta e, depois que o NameNode ficar `healthy`, rode o `up` de novo:
+
+  ```bash
+  docker compose up -d worker4
+  docker compose ps namenode      # espere "healthy"
+  docker compose up -d namenode resourcemanager historyserver worker1 worker2 worker3 worker4 client
+  ```
+
+- **Comando do HDFS trava ou dá timeout**: confirme que o `namenode` está `healthy` antes de rodar qualquer comando `hdfs dfs`.
+- **Comando `yarn ...` (ex.: `yarn node -list`) trava por vários minutos**: o client está tentando se conectar a um ResourceManager que não está de pé, e ele insiste por até 15 minutos antes de desistir. Interrompa com `Ctrl+C`, confira `docker compose ps resourcemanager` e suba-o se necessário.
+- **`docker exec` reclama que o container não existe** (ex.: `client`, `historyserver`, `worker4`, `spark-master`, `hive-metastore-db`): esse serviço ainda não foi iniciado — volte à seção correspondente do README e rode o `docker compose up -d` daquela etapa antes de continuar.
+- **Containers reiniciando ou sendo mortos sem motivo aparente (`Exited (137)`)**: falta memória para o Docker. Com todas as camadas no ar, o lab usa cerca de 8 GB. No Docker Desktop, aumente o limite em *Settings → Resources*; ou derrube camadas que você não está usando no momento (ex.: `docker compose stop spark-master spark-worker hiveserver2`).
+
+## Windows
+
+- **Erro `No FileSystem for scheme "C"` (ou caminhos como `C:/Program Files/Git/user/aluno`) ao rodar os comandos no Git Bash**: o Git Bash converte automaticamente argumentos que começam com `/` em caminhos do Windows antes de passá-los ao `docker`. Rode `export MSYS_NO_PATHCONV=1` no terminal antes dos comandos do lab, ou use o PowerShell.
+- **`hive-metastore` ou `hiveserver2` reiniciando em loop com `$'\r': command not found` ou `set: -: invalid option`**: os scripts [hive/init-metastore.sh](hive/init-metastore.sh)/[hive/init-hiveserver2.sh](hive/init-hiveserver2.sh) estão com fim de linha estilo Windows (`CRLF`), que o bash dos containers Linux não aceita. O [.gitattributes](.gitattributes) deste diretório força `LF` no checkout, mas um clone feito antes dele existir (ou um arquivo salvo como `CRLF` pelo editor) ainda pode ter o problema. Para corrigir, apague os dois scripts e restaure-os pelo Git, que agora os grava com `LF` (de dentro de `hadoop/hadoop_lab`: `rm hive/init-metastore.sh hive/init-hiveserver2.sh && git checkout -- hive/init-metastore.sh hive/init-hiveserver2.sh`), ou no VS Code clique no indicador `CRLF` da barra de status, selecione `LF` e salve. Depois suba de novo: `docker compose up -d hive-metastore hiveserver2`.
+
+## Exercícios de falha (seções 4 e 6)
+
+- **O `hdfs dfsadmin -report` ainda mostra o worker derrubado como vivo**: o NameNode só declara um DataNode morto depois de ~60s sem heartbeat (configurado no [hadoop.env](hadoop.env)). Espere um minuto e rode de novo.
+- **`yarn node -list -all` mostra o mesmo worker duas vezes (uma `RUNNING`, outra `LOST`)**: cada vez que o NodeManager reinicia ele se registra numa porta nova (`worker1:44967` em vez de `worker1:37835`), e o ResourceManager guarda o registro antigo como `LOST`. É esperado.
+- **O job `sleep` falhou em vez de se recuperar**: provavelmente o worker derrubado era o que rodava o ApplicationMaster e o job já tinha esgotado as tentativas. Rode de novo e derrube um worker diferente do que aparece no `Tracking-URL` do `yarn application -list`.
+
+## Spark, Hive Metastore e HiveServer2 (seção 7)
+
+- **`spark-submit` falha ao conectar no Hive Metastore ou no MySQL**: confira se `hive-metastore` e `mysql` já estão de pé (`docker compose ps`) — o `spark-master` depende deles, mas se algo demorou para subir, tente rodar o job de novo.
+- **`beeline` não conecta ou trava em `Connecting to jdbc:hive2://...`**: confirme que `hiveserver2` está com status `Up` (`docker compose ps`) e que `hive-metastore` subiu antes dele — o HiveServer2 demora alguns segundos a mais para inicializar do que o Metastore, mesmo depois de aparecer como `Up`.
+- **`beeline` trava em `Could not open client transport ... : null` e o `hiveserver2` nunca chega a abrir a porta `10000`**: os logs visíveis (`docker compose logs hiveserver2`) não mostram a causa, porque o log4j do Hive não está configurado para STDOUT — o motivo real fica em `/tmp/hive/hive.log` **dentro do container** (`docker exec hiveserver2 cat /tmp/hive/hive.log`). As causas mais comuns, todas já corrigidas neste `docker-compose.yml`/[hive-site.xml](hive/conf/hive-site.xml), mas que podem voltar se você customizar o ambiente:
+  - `The dir: /tmp/hive on HDFS should be writable` — na verdade é o `/tmp/hive` **local** (filesystem do próprio container, não o do HDFS) que está com permissão `755` em vez de `777`. Corrigido pelo wrapper [hive/init-hiveserver2.sh](hive/init-hiveserver2.sh), que roda antes do HiveServer2 subir.
+  - `Error: ERROR: syntax error at or near "PARAMETER"` durante um `schematool -dbType derby -initSchema` — o entrypoint da imagem tenta inicializar o schema com Derby contra um banco que já é Postgres (inicializado pelo `hive-metastore`). Corrigido com `IS_RESUME=true` no `environment` do serviço `hiveserver2`.
+  - `URISyntaxException: Illegal character in hostname` apontando para algo como `hive-metastore.hadoop_lab_hadoop_net` — o nome da rede Docker Compose (projeto + rede, ambos com `_`) vira sufixo de DNS reverso, e underscore não é um caractere válido em hostname/URI. Corrigido nomeando a rede explicitamente sem underscore (`name: hadoop-lab-net` em `docker-compose.yml`).
+  - `User hive is not allowed to perform this API call` ao chamar `get_current_notificationEventId` — o poller de notificações do HiveServer2 chama essa API do metastore, que por padrão exige um proxy user autorizado (não configuramos impersonation/Kerberos neste lab). Corrigido com `metastore.metastore.event.db.notification.api.auth=false` no `hive-site.xml`.
+- **`beeline`/JDBC conecta, mas a query falha com `AuthorizationException: User: hive is not allowed to impersonate hive`**: por padrão (`hive.server2.enable.doAs=true`), o HiveServer2 tenta acessar o HDFS *como o usuário que conectou via JDBC* (o `-n hive` do `beeline`), e o NameNode não tem esse usuário autorizado como proxy user. Como este lab não usa Kerberos/múltiplos usuários reais, a correção foi desligar a impersonação com `hive.server2.enable.doAs=false` no `hive-site.xml` — o HiveServer2 passa a acessar o HDFS sempre como o usuário de serviço `hive`.
+- **`SELECT` na tabela do ETL falha com `ParquetDecodingException` / `UnsupportedOperationException: ...ETypeConverter$8$1`**: incompatibilidade clássica entre Spark e Hive na codificação de colunas `DECIMAL` em Parquet — por padrão o Spark grava `DECIMAL(10,2)` como `INT64` (formato "novo" do Parquet), mas o conversor de decimal do Hive 3.1.3 só lê o formato legado (`FIXED_LEN_BYTE_ARRAY`). Corrigido com `spark.sql.parquet.writeLegacyFormat=true` em [spark/conf/spark-defaults.conf](spark/conf/spark-defaults.conf) — depois de mudar essa config é preciso **rebuildar a imagem do Spark** (`docker compose up -d --build spark-master spark-worker`, já que o arquivo é copiado para dentro da imagem no build) e **rodar o ETL de novo** para regravar a tabela com o formato correto; arquivos Parquet já gravados antes da mudança continuam ilegíveis pelo Hive.
