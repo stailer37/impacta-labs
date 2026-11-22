@@ -60,11 +60,38 @@ flowchart LR
     Spark -- "grava Parquet" --> Workers
 ```
 
-## Pré-requisitos
+## 0. Pré-requisitos e clonagem do repositório
 
-- Docker e Docker Compose instalados, com **pelo menos 8 GB de memória** disponíveis para o Docker (no Docker Desktop: *Settings → Resources*). Com as seções 1 a 6 no ar, o cluster usa cerca de 5 GB.
-- Portas livres na sua máquina: `9870`, `8020`, `8088`, `19888`, `8080`, `8081`, `3306`, `9083`, `10000`, `10002`. Algumas coincidem com as do lab `modern-data-stack` (ex.: `8081`, `8088`) — não rode os dois ao mesmo tempo.
-- **No Windows**, use o PowerShell. Se preferir o Git Bash, rode antes `export MSYS_NO_PATHCONV=1`; sem isso, ele converte caminhos como `/user/aluno` em `C:/Program Files/Git/user/aluno` e os comandos do HDFS falham.
+Antes de subir o cluster, confira se a sua máquina atende aos pré-requisitos e baixe o repositório do laboratório.
+
+### 0.1 Pré-requisitos
+
+- **Git**, para clonar o repositório.
+- **Docker e Docker Compose**. No Windows e no macOS, o Docker Desktop já instala os dois.
+- **Pelo menos 8 GB de memória disponíveis para o Docker** (no Docker Desktop: *Settings → Resources*). Com as seções 1 a 6 no ar, o cluster usa cerca de 5 GB.
+- **Portas livres** na sua máquina: `9870`, `8020`, `8088`, `19888`, `8080`, `8081`, `3306`, `9083`, `10000`, `10002`. Algumas portas são as mesmas do lab `modern-data-stack` (por exemplo, `8081` e `8088`): não rode os dois labs ao mesmo tempo.
+- **No Windows**, use o PowerShell. Se preferir o Git Bash, rode antes `export MSYS_NO_PATHCONV=1`. Sem esse comando, o Git Bash converte caminhos como `/user/aluno` em `C:/Program Files/Git/user/aluno`, e os comandos do HDFS falham.
+
+Confira se as ferramentas estão instaladas:
+
+```bash
+git --version
+docker --version
+docker compose version
+```
+
+Os três comandos devem mostrar um número de versão. Se algum comando der erro, instale a ferramenta antes de continuar.
+
+### 0.2 Clonar o repositório
+
+```bash
+git clone https://github.com/stailer37/impacta-labs.git
+cd impacta-labs/hadoop/hadoop_lab
+```
+
+Todos os comandos deste laboratório rodam a partir da pasta `hadoop/hadoop_lab`.
+
+Se você já clonou o repositório em outra aula, entre na pasta `impacta-labs` e atualize o repositório com `git pull` em vez de clonar de novo.
 
 Se algo der errado, consulte [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
@@ -72,10 +99,9 @@ Se algo der errado, consulte [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 > **Ponte com a aula** — slide "Core Apache Hadoop", na faixa "Visão do cluster": um mestre com NameNode e ResourceManager, e workers com DataNode e NodeManager lado a lado. É exatamente o que você vai subir agora.
 
-Em vez de subir os 14 containers de uma vez, vamos subir o cluster **em camadas**, na ordem em que vamos usá-lo. Primeiro, o núcleo do Hadoop: os dois mestres, três workers e a máquina cliente.
+Em vez de subir os 14 containers de uma vez, vamos subir o cluster **em camadas**, na ordem em que vamos usá-lo. Primeiro, o núcleo do Hadoop: os dois mestres, três workers e a máquina cliente. Rode o comando na pasta `hadoop/hadoop_lab` (passo 0.2):
 
 ```bash
-cd hadoop/hadoop_lab
 docker compose up -d namenode resourcemanager worker1 worker2 worker3 client
 ```
 
