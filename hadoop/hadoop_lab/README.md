@@ -2,7 +2,7 @@
 
 Este laboratório sobe um mini cluster Hadoop completo no seu computador, usando Docker, para você experimentar na prática os conceitos vistos em aula: armazenamento distribuído (HDFS), processamento distribuído (MapReduce no YARN e Spark) e catálogo de metadados (Hive Metastore).
 
-A ideia não é virar administrador de cluster nem decorar comandos, e sim **ver funcionando as soluções que o Hadoop trouxe para escalabilidade e tolerância a falhas**. Por isso cada seção começa com uma **Ponte com a aula**, que aponta qual slide aquele passo comprova, e com o conceito antes do comando.
+A ideia não é virar administrador de cluster nem decorar comandos, e sim **ver funcionando as soluções que o Hadoop trouxe para escalabilidade e tolerância a falhas**. Por isso cada seção começa com o **Conceito da aula** que ela comprova, antes do comando.
 
 ## O que você vai praticar
 
@@ -97,7 +97,7 @@ Se algo der errado, consulte [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 ## 1. Subir o núcleo do cluster: um mestre e três workers
 
-> **Ponte com a aula** — slide "Core Apache Hadoop", na faixa "Visão do cluster": um mestre com NameNode e ResourceManager, e workers com DataNode e NodeManager lado a lado. É exatamente o que você vai subir agora.
+> **Conceito da aula:** arquitetura mestre e workers. O mestre roda NameNode e ResourceManager; cada worker roda DataNode e NodeManager.
 
 Em vez de subir os 14 containers de uma vez, vamos subir o cluster **em camadas**, na ordem em que vamos usá-lo. Primeiro, o núcleo do Hadoop: os dois mestres, três workers e a máquina cliente. Rode o comando na pasta `hadoop/hadoop_lab` (passo 0.2):
 
@@ -149,7 +149,7 @@ Outros acessos úteis (via linha de comando, não browser):
 
 ## 3. HDFS: um arquivo vira blocos replicados
 
-> **Ponte com a aula** — slides "HDFS: arquivos viram blocos distribuídos" (divisão, distribuição e replicação) e "Como os dados são gravados e lidos" (o cliente fala com o NameNode só para metadados e grava os blocos direto nos DataNodes).
+> **Conceito da aula:** divisão em blocos, distribuição e replicação. O cliente pede metadados ao NameNode e grava os blocos direto nos DataNodes.
 
 **Conceito:** no HDFS, um arquivo é dividido em blocos, e cada bloco é replicado em vários workers (aqui, fator de replicação 3). O tamanho padrão do bloco é 128 MB, grande demais para um arquivo de laboratório. Por isso vamos gravar com blocos de **1 MB** (`-D dfs.blocksize=1048576`): o mesmo mecanismo, em miniatura.
 
@@ -191,7 +191,7 @@ A saída tem duas colunas: `10.4 M  31.2 M`. A primeira é o tamanho do arquivo;
 
 ## 4. Tolerância a falhas e scale-out
 
-> **Ponte com a aula** — slide "Sistemas distribuídos sobrevivem a falhas" (detectar, isolar, reexecutar, replicar), o heartbeat do slide "NameNode coordena; DataNodes armazenam" e o slide "Scale-up melhora a máquina; scale-out amplia o cluster". Nesta seção você vê **detectar** e **replicar** acontecendo; o **reexecutar** fica para a seção 6.
+> **Conceito da aula:** tolerância a falhas (detectar e replicar), heartbeat e scale-out. O reexecutar fica para a seção 6.
 
 Neste lab, um DataNode que para de mandar heartbeat é declarado morto em **~60 segundos**. Em um cluster de produção, o padrão é ~10 minutos: aceleramos no [hadoop.env](hadoop.env) para caber na aula.
 
@@ -280,7 +280,7 @@ Esse é o **ponto único de falha** que a aula aponta no NameNode e, no Hadoop 1
 
 ## 5. MapReduce no YARN: levar o código até o dado
 
-> **Ponte com a aula** — slides "A virada: levar código aos dados", "WordCount: o fluxo de dados", "A cozinha industrial de dados" (o shuffle é a etapa cara) e "Execução: do job ao cluster".
+> **Conceito da aula:** levar o código até o dado, as fases do MapReduce (o shuffle é a fase cara) e a execução de um job no YARN.
 
 O ResourceManager e os NodeManagers já estão no ar desde a seção 1. Falta só o JobHistory Server, que guarda o histórico dos jobs concluídos:
 
@@ -341,7 +341,7 @@ A resposta é instantânea. Para 10 MB, o custo fixo de distribuir (alocar conta
 
 ## 6. Reexecução: um worker cai no meio do job
 
-> **Ponte com a aula** — o "Reexecutar" do slide "Sistemas distribuídos sobrevivem a falhas" e a pergunta do slide "O YARN resolve o gargalo do Hadoop 1.0": quem descobre que uma tarefa falhou e manda refazê-la? O ApplicationMaster do job.
+> **Conceito da aula:** reexecutar, de tolerância a falhas. Quem descobre que uma tarefa falhou e manda refazê-la? O ApplicationMaster do job.
 
 Para ter tempo de derrubar um worker durante a execução, vamos usar o job `sleep`, que vem nos exemplos do Hadoop: ele não processa dados, só cria tarefas que esperam um tempo fixo. Aqui são 8 maps de 60 segundos cada e 1 reduce. Neste lab, um NodeManager sem heartbeat por 30 segundos é declarado perdido (`LOST`).
 
@@ -392,7 +392,7 @@ docker start worker2
 
 ## 7. ETL com Spark e Hive: MySQL → HDFS (Parquet) → Hive
 
-> **Ponte com a aula** — slide "O MapReduce grava em disco a cada etapa": o Spark troca a peça que virou gargalo (o MapReduce) e continua usando o HDFS. Esta seção também antecipa o próximo módulo (Data Lake, Spark e catálogo de tabelas).
+> **Conceito da aula:** o Spark substitui o MapReduce, que grava em disco a cada etapa, e continua usando o HDFS. Esta seção também antecipa o próximo módulo: Data Lake, Spark e catálogo de tabelas.
 
 Por último, sobe a camada de ETL: o MySQL (fonte de dados), o Hive Metastore (catálogo), o HiveServer2 (consulta SQL/JDBC) e o Spark (Master + Worker):
 
