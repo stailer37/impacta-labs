@@ -70,7 +70,7 @@ Antes de subir o cluster, confira se a sua máquina atende aos pré-requisitos e
 - **Docker e Docker Compose**. No Windows e no macOS, o Docker Desktop já instala os dois.
 - **Pelo menos 8 GB de memória disponíveis para o Docker** (no Docker Desktop: *Settings → Resources*). Com as seções 1 a 6 no ar, o cluster usa cerca de 5 GB.
 - **Portas livres** na sua máquina: `9870`, `8020`, `8088`, `19888`, `8080`, `8081`, `3306`, `9083`, `10000`, `10002`. Algumas portas são as mesmas do lab `modern-data-stack` (por exemplo, `8081` e `8088`): não rode os dois labs ao mesmo tempo.
-- **No Windows**, use o PowerShell. Se preferir o Git Bash, rode antes `export MSYS_NO_PATHCONV=1`. Sem esse comando, o Git Bash converte caminhos como `/user/aluno` em `C:/Program Files/Git/user/aluno`, e os comandos do HDFS falham.
+- **No Windows**, use o PowerShell. Os comandos deste roteiro ficam em uma linha só, para funcionar no PowerShell e no bash. Se preferir o Git Bash, rode antes `export MSYS_NO_PATHCONV=1`. Sem esse comando, o Git Bash converte caminhos como `/user/aluno` em `C:/Program Files/Git/user/aluno`, e os comandos do HDFS falham.
 
 Confira se as ferramentas estão instaladas:
 
@@ -301,9 +301,7 @@ docker exec client sh -c "
 "
 
 # submete o job
-docker exec client hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.jar wordcount \
-  -D mapreduce.job.reduces=2 \
-  /user/aluno/wordcount/input /user/aluno/wordcount/output
+docker exec client hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.4.2.jar wordcount -D mapreduce.job.reduces=2 /user/aluno/wordcount/input /user/aluno/wordcount/output
 ```
 
 > Durante o `-put`, pode aparecer um `NotReplicatedYetException ... retries left 4` com stack trace. Com blocos de 1 MB, o cliente pede o bloco seguinte antes de o NameNode registrar o anterior; ele espera um instante e tenta de novo sozinho. O arquivo é gravado normalmente.
@@ -352,8 +350,7 @@ Você vai precisar de **dois terminais**.
 **Terminal 1** — submete o job e acompanha o progresso:
 
 ```bash
-docker exec client hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.4.2-tests.jar sleep \
-  -m 8 -r 1 -mt 60000 -rt 5000
+docker exec client hadoop jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.4.2-tests.jar sleep -m 8 -r 1 -mt 60000 -rt 5000
 ```
 
 **Terminal 2** — assim que o terminal 1 mostrar `map 0%`, descubra onde as tarefas estão rodando:
@@ -415,9 +412,7 @@ O MySQL já sobe com uma base `impacta` e uma tabela `employees` de exemplo (vej
 Submeta o job ao cluster Spark:
 
 ```bash
-docker exec spark-master /opt/spark/bin/spark-submit \
-  --master spark://spark-master:7077 \
-  /opt/spark/work-dir/jobs/etl_employees.py
+docker exec spark-master /opt/spark/bin/spark-submit --master spark://spark-master:7077 /opt/spark/work-dir/jobs/etl_employees.py
 ```
 
 Agora confira o resultado em cada camada do pipeline:
@@ -425,14 +420,24 @@ Agora confira o resultado em cada camada do pipeline:
 ```bash
 # 1) O arquivo Parquet foi realmente gravado no HDFS?
 docker exec client hdfs dfs -ls /user/hive/warehouse/impacta.db/employees
+```
 
+A camada 2 é o catálogo do Hive Metastore. Abra o `psql` dentro do banco do Hive Metastore:
+
+```bash
 # 2) A tabela foi registrada no catálogo do Hive Metastore?
-docker exec hive-metastore-db psql -U hive -d metastore -c \
-  "SELECT d.\"NAME\" AS db, t.\"TBL_NAME\" AS table, s.\"LOCATION\" FROM \"TBLS\" t JOIN \"DBS\" d ON t.\"DB_ID\"=d.\"DB_ID\" JOIN \"SDS\" s ON t.\"SD_ID\"=s.\"SD_ID\";"
+docker exec -it hive-metastore-db psql -U hive -d metastore
+```
 
+No prompt `metastore=#`, cole a consulta abaixo e depois saia com `\q`:
+
+```sql
+SELECT d."NAME" AS db, t."TBL_NAME" AS table, s."LOCATION" FROM "TBLS" t JOIN "DBS" d ON t."DB_ID" = d."DB_ID" JOIN "SDS" s ON t."SD_ID" = s."SD_ID";
+```
+
+```bash
 # 3) Dá para consultar a tabela direto pelo Spark, sem tocar no MySQL de novo?
-docker exec spark-master /opt/spark/bin/spark-sql --master spark://spark-master:7077 \
-  -e "SELECT * FROM impacta.employees LIMIT 5;"
+docker exec spark-master /opt/spark/bin/spark-sql --master spark://spark-master:7077 -e "SELECT * FROM impacta.employees LIMIT 5;"
 ```
 
 O passo 3 é o que demonstra a utilidade do catálogo: o Spark SQL encontrou a tabela `impacta.employees` só pelo nome, sem você precisar informar o caminho do Parquet no HDFS — essa informação já estava no Hive Metastore.
@@ -448,15 +453,13 @@ Acompanhe a execução em http://localhost:8080 (Spark Master).
 De dentro do container, com o client `beeline` que já vem na imagem:
 
 ```bash
-docker exec -it hiveserver2 beeline -u jdbc:hive2://hiveserver2:10000/default -n hive \
-  -e "SELECT * FROM impacta.employees LIMIT 5;"
+docker exec -it hiveserver2 beeline -u jdbc:hive2://hiveserver2:10000/default -n hive -e "SELECT * FROM impacta.employees LIMIT 5;"
 ```
 
 Um `SELECT * ... LIMIT` simples é respondido lendo o arquivo direto, sem processamento distribuído. Para ver o motor de execução trabalhando de fato, rode uma agregação:
 
 ```bash
-docker exec -it hiveserver2 beeline -u jdbc:hive2://hiveserver2:10000/default -n hive \
-  -e "SELECT department, COUNT(*) AS total, ROUND(AVG(salary), 2) AS avg_salary FROM impacta.employees GROUP BY department ORDER BY department;"
+docker exec -it hiveserver2 beeline -u jdbc:hive2://hiveserver2:10000/default -n hive -e "SELECT department, COUNT(*) AS total, ROUND(AVG(salary), 2) AS avg_salary FROM impacta.employees GROUP BY department ORDER BY department;"
 ```
 
 O resultado deve bater com a tabela impressa pelo job de ETL do Spark — os dois motores leram os mesmos arquivos Parquet, encontrados pelo mesmo catálogo.
